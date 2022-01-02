@@ -1,0 +1,186 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background-color: #dddddd;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.float-left{
+    float: left;
+}
+
+.float-right{
+    float:right;
+}
+
+.wrap-line2{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;  
+}
+
+.wrap-line4{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;  
+}
+
+
+
+code{
+    background-color: rgba(243, 214, 214, 0.733);
+}
+
+
+.foucs-button{
+    background-color: #0066ff!important;
+    color: white!important;
+    border: 1px solid #0066ff!important; 
+    margin-left: 5px;
+    margin-right: 5px;
+    
+}
+/* 由于引用了CSS库，所以不提高优先级的话会被覆盖掉 */
+.write-button{
+    background-color: #fff!important;
+    color: #0066ff!important;
+    border: 1px solid #0066ff!important;
+    margin-left: 5px;
+    margin-right: 5px;    
+}
+
+.invite-button{
+    background-color: #fff!important;
+    color: grey!important;
+    border: 1px solid grey!important;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.write-button:hover , .invite-button:hover{
+    background-color: #F0F6FF!important;
+}
+.foucs-button:hover{
+    background-color: #005CE6!important;
+}
+
+.middle-video{
+    width: 800px;
+    height: 490px;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 0;
+}
+
+.orange{
+    color: orange;
+}
+
+.blue{
+    color: skyblue;
+}
+
+/* -------------------------- */
+
+h3 {
+    font-size: large;
+    font-weight: bold;
+}
+
+.orange {
+    color: orange !important;
+}
+
+.main-body {
+    width: 1300px;
+    height: 1500px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 3px;
+
+}
+
+article {
+    width: 900px;
+    height: 900px;
+    margin: 0 auto;
+    background-color: pink;
+}
+
+/* aside {
+    float: right;
+    width: 350px;
+    height: 900px;
+    background-color: skyblue;
+} */
+
+nav ul li {
+    display: block;
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+}
+
+.agree-box {
+    display: inline-block;
+    margin-right: 15px;
+    height: 30px;
+}
+
+.agree-button {
+    display: inline-block;
+    text-align: center;
+    border-radius: 2px;
+    min-width: 90px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #E5EFFF;
+    color: #0066FF;
+}
+
+.disagree-button {
+    display: inline-block;
+    text-align: center;
+    border-radius: 2px;
+    width: 40px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #E5EFFF;
+    color: #0066FF;
+    margin-right: 2px;
+}
+
+.agree-button:hover {
+    background-color: #D9E8FF;
+}
+
+.disagree-button:hover {
+    background-color: #D9E8FF;
+}
+
+.small {
+    font-size: small;
+}
+
+
+
+
+.img-box img {
+    width: 100%;
+    height: 100%;
+  }

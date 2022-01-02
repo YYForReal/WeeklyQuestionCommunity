@@ -1,0 +1,74 @@
+<template lang="">
+<div class="one-answer">
+    <div class="user-info">
+        <div class="user-img">
+            <img src="https://pic1.zhimg.com/v2-7dbdcdee5a4a7fb6e4a866d373d4f297_xs.jpg?source=1940ef5c"
+                alt="">
+        </div>
+        <div class="user-name">
+            <strong>{{author}}  <i class="iconfont icon-huiyuan orange"></i> </strong>
+            <p>{{authorDescription}}</p>
+        </div>
+    </div>
+    <div class="tag-box">
+        
+        <i class="tag" :class="{ 'tag-orange':index%2==0 , 'tag-blue':index%2!=0 }" v-for="(honor,index) in honorTags"><a> {{honor}}</a></i>
+    </div>
+    <div class="agree-info"> {{agree}}人赞同了该回答</div>
+    <div class="one-answer-content">
+        
+        <!-- <video class="middle-video" width="750" height="460" v-if="article.vsrc!=''" controls>
+            <source src="./image/video1.mp4" type="video/mp4">
+        </video>
+        <br>
+
+        <p> 2021 年，我们曾穿透岁月，穿透质疑，穿透时光，穿透力量……</p>
+        <br>
+        <p> 我们为什么能穿透比钢铁还坚硬的阻隔和障碍？</p>
+        <br>
+        <p> 央视新闻联合知乎发布视频「穿透」，致敬 2021，那些「向上穿透」的力量。</p> -->
+    </div>
+    <div class="ContentItem-time">
+        <a target="_blank" href="//www.zhihu.com/question/508117339/answer/2286404162">
+            <span>发布于 {{releaseTime}}</span>
+        </a>
+        <span>·{{viewTimes}} 万次查看</span>
+    </div>
+    <div class="answers-bottom">
+        <div class="agree-box">
+            <a class="agree-button "> <span class="iconfont icon-sanjiaoxing small"></span> 赞同
+                <span v-if="agree!=0">300</span></a>
+            <a class="disagree-button"><span class="iconfont icon-sanjiaoxing1 small"></span></a>
+        </div>
+        <a class="article-card-link iconfont icon-pinglun" href="">添加评论</a>
+        <a class="article-card-link iconfont icon-fenxiang" href="">分享</a>
+        <a class="article-card-link iconfont icon-shoucang1" href="">收藏</a>
+        <a class="article-card-link iconfont icon-jubao" href="" v-if="agree==0">举报</a>
+        <div class="agree-box" v-else>
+            <a class="article-card-link iconfont icon-31guanzhu1xuanzhong" href="">喜欢</a>
+            <a class="article-card-link iconfont icon-24gf-ellipsis" href=""></a>
+        </div>
+    </div>
+    <hr>
+
+</div>
+</template>
+<script>
+export default {
+    data(){
+        return {
+            author: '用户名',
+            authorDescription : "用户介绍",
+            honorTags:['编辑推荐','「知乎 2021」年度盘点'],
+            agree:300,
+            releaseTime:'2021-12-26 12:00',
+            viewTimes:8.8
+        }
+    },
+};
+</script>
+
+<style lang="" scoped>
+  @import '../assets/css/bulma.min.css';
+
+</style>
