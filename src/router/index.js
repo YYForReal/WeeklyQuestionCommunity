@@ -43,7 +43,7 @@ export default new Router({
       ]
     },
     {
-      path: '/SpecialArticle/:authorId',
+      path: '/SpecialArticle/:articleId',
       name: 'SpecialArticle',
       component: SpecialArticle,
 

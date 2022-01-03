@@ -9,7 +9,8 @@
         </div>
         <ul>
           <li v-for="(ele,index) in navList" :class="{'is-active':index==activeIndex}" @click="handleActive(index);">
-            <a>{{ele}}-{{index}} </a></li>
+            <a> {{ele}} - {{index}}  </a>
+          </li>
         </ul>
         <hr>
       </div>
@@ -19,43 +20,16 @@
       <!-- 视频 -->
       <router-view></router-view>      
 
-
-
       <!-- 主页面 -->
-      <section v-if="activeIndex==4" id="showing-box">
+      <!-- <section v-if="activeIndex==4" id="showing-box"> -->
 
       </section>
+
       <div class="list-end">没有更多内容</div>
 
     </article>
-    <!-- 侧边栏 -->
-    <aside>
-
-    </aside>
     <div class="clearfix">
     </div>
-
-    <div class="main-article-container" v-if="checkArticle">
-
-
-      <div class="answers-maincontainer card">
-        <header class="card-header">
-          <p class="card-header-title">
-            1,132个回答
-          </p>
-          <button class="card-header-icon" aria-label="more options">
-            <div class="float-right">
-              <a href="#">默认排序 <i class="iconfont icon-shangxia"></i></a>
-            </div>
-          </button>
-        </header>
-
-        <!-- 
-        <div id="answers-box" v-html="answersBoxHtml">
-        </div> -->
-      </div>
-    </div>
-
   </div>
 </template>
 <script>
@@ -69,29 +43,6 @@
         activeIndex: 4,
         checkArticle: true,
         answersBoxHtml: "",
-
-        articlesWithImg: [{
-            type: 1, //1 是文章 0 是回答
-            title: "高水平运动员如何避免运动拉伤？",
-            img: "https://pica.zhimg.com/80/v2-d8b4ef5d7ddb321c5d6637dfb0104e9e_400x224.png",
-            hot: 790,
-            author: "author",
-            judge: 2,
-            agree: 1,
-            time: "12",
-            content: "吕小军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
-          },
-          {
-            type: 1, //1 是文章 0 是回答
-            title: "高水平运动员如何避免运动拉伤？",
-            img: "https://pica.zhimg.com/80/v2-d8b4ef5d7ddb321c5d6637dfb0104e9e_400x224.png",
-            hot: 790,
-            agree: 1,
-
-            content: "吕小军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
-          },
-        ],
-
       };
     },
     components:{

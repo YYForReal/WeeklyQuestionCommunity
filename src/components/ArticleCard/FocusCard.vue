@@ -12,8 +12,13 @@
                 <img loading="lazy" :src="article.img" :alt="article.title">
               </div>
               <div>
-                <span class="black recommend-article-content-main">{{article.content}}</span>
-                <div><router-link class="read-all float-right" :to="'/SpecialArticle/' + article.id "> 阅读全文 </router-link></div>
+                <span class="black" :class="{'recommend-article-content-main':!readingStatus}">{{article.content}}</span>
+                <div>
+                  
+                  <a class="read-all float-right" @click="readingStatus=!readingStatus" v-if="readingStatus==false"> 阅读全文 </a>
+                  <a class="read-all float-right" @click="readingStatus=!readingStatus" v-else> 收起文章 </a>
+                  
+                </div>
               </div>
             </div>
           </div>
@@ -30,23 +35,24 @@
   export default {
     data() {
       return {
+        readingStatus:false,
         articlesWithImg: [{
             id: 1,
             type: 1, //1 是文章 0 是回答
             title: "高水平运动员如何避免运动拉伤？",
-            img: "https://pica.zhimg.com/80/v2-d8b4ef5d7ddb321c5d6637dfb0104e9e_400x224.png",
+            img: "https://infinitypro-img.infinitynewtab.com/findaphoto/bigLink/1641053102219.jpg?imageView2/2/w/1920/format/webp/interlace/1",
             hot: 790,
             author: "author",
             judge: 2,
             agree: 1,
             time: "12",
-            content: "吕小军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
+            content: "# 小军\r\n > 吕小军吕小军吕小军吕小军吕小军吕小军吕小军吕小军吕  小军吕小军吕小军吕小军吕小军吕小军吕小军吕小军吕小军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
           },
           {
             id: 2,
             type: 1, //1 是文章 0 是回答
             title: "高水平运动员如何避免运动拉伤？",
-            img: "https://pica.zhimg.com/80/v2-d8b4ef5d7ddb321c5d6637dfb0104e9e_400x224.png",
+            img: "https://infinitypro-img.infinitynewtab.com/findaphoto/bigLink/1641053102219.jpg?imageView2/2/w/1920/format/webp/interlace/1",
             hot: 790,
             agree: 1,
 
@@ -125,7 +131,7 @@
 
 
   .article-card .recommend-article-content {
-    width: 750px;
+    width: 97%;
     height: 130px;
     margin-top: 10px;
     /* background-color: red; */
@@ -136,12 +142,16 @@
 
   }
 
-  .article-card .recommend-article-content .recommend-article-content-main {
+ .recommend-article-content-main {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
+
+
+
+
 
 </style>

@@ -12,7 +12,7 @@
               </div>
               <div>
                 <span class="black article-content-main">{{article.content}}</span>
-                <a class="read-all" @click="readAll(2)">阅读全文</a>
+                <a class="read-all float-right" @click="readAll(2)">阅读全文</a>
               </div>
             </div>
           </div>
@@ -28,10 +28,11 @@
   export default {
     data() {
       return {
-        articlesWithImg: [{
+        articlesWithImg: [
+          {
             type: 1, //1 是文章 0 是回答
             title: "高水平运动员如何避免运动拉伤？",
-            img: "https://pica.zhimg.com/80/v2-d8b4ef5d7ddb321c5d6637dfb0104e9e_400x224.png",
+            img: "https://infinitypro-img.infinitynewtab.com/findaphoto/bigLink/1641053102219.jpg",
             hot: 790,
             author: "author",
             judge: 2,
@@ -39,10 +40,11 @@
             time: "12",
             content: "吕小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚上知乎。在训练， 刚上知乎。在训练， 刚上知乎。在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
           },
+
           {
             type: 1, //1 是文章 0 是回答
             title: "高水平运动员如何避免运动拉伤？",
-            img: "https://pica.zhimg.com/80/v2-d8b4ef5d7ddb321c5d6637dfb0104e9e_400x224.png",
+            img: "https://infinitypro-img.infinitynewtab.com/findaphoto/bigLink/1641053102219.jpg?imageView2/2/w/1920/format/webp/interlace/1",
             hot: 790,
             agree: 1,
             content: "吕小军:人在训练， 刚人在训练， 刚人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
@@ -55,6 +57,7 @@
             agree: 1,
             content: "吕小军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
           },
+          
           {
             type: 1, //1 是文章 0 是回答
             title: "高水平运动员如何避免运动拉伤？",
