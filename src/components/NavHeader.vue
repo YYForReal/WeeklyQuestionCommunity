@@ -1,10 +1,10 @@
 <template>
-  <div class="header-box">
+  <div class="container">
     <div class="column"></div>
     <nav class="navbar box is-fullhd navbar-height is-fixed-top" id="navbar">
       <div class="navbar-item"></div>
       <div class="navbar-item">
-        <a href="" class="">
+        <a class="">
           <img src="../assets/image/zhi.png" alt="logo" />
           <img src="../assets/image/hu.png" alt="logo" />
         </a>
@@ -14,7 +14,6 @@
           <div class="navbar-item"></div>
 
           <a class="navbar-item">首页</a>
-          <a class="navbar-item">会员</a>
           <a class="navbar-item">发现</a>
           <a class="navbar-item">等你来答</a>
 
@@ -24,8 +23,13 @@
 
           <div class="navbar-item">
             <p class="control has-icons-right">
-              <input type="text" class="input is-rounded is-normal input-resize nav-line" placeholder="裸考四六级过的可能性"
-                size="40" id="searchBox" />
+              <input
+                type="text"
+                class="input is-rounded is-normal input-resize nav-line"
+                placeholder="裸考四六级过的可能性"
+                size="40"
+                id="searchBox"
+              />
               <span class="icon is-right input-icon">
                 <i class="fas fa-search fa-sm"></i>
               </span>
@@ -57,17 +61,34 @@
           </a>
           <div class="navbar-item"></div>
 
-          <div class="navbar-item has-dropdown is-hoverable">
-            <span class="icon dropbtn navbar-link is-arrowless" style="font-size: 0.45rem">
+          <!-- 登录后的显示的user-icon -->
+          <div class="navbar-item has-dropdown is-hoverable" v-if="isLogin">
+            <span
+              class="icon dropbtn navbar-link is-arrowless"
+              style="font-size: 0.45rem"
+            >
               <i class="fas fa-user fa-3x"></i>
             </span>
             <div class="navbar-dropdown mydropdown">
               <p href="" class="navbar-item" style="margin-bottom: -5px"></p>
-              <a href="" class="navbar-item"><i class="fas fa-user"></i>&nbsp;我的主页</a>
-              <a href="./setting.html" class="navbar-item"><i class="fas fa-cog"></i>&nbsp;设置</a>
-              <a href="./navigation.html" class="navbar-item"><i class="fas fa-sign-out-alt"></i>&nbsp;退出</a>
+              <a href="" class="navbar-item"
+                ><i class="fas fa-user"></i>&nbsp;我的主页</a
+              >
+              <router-link to="/setting" class="navbar-item"
+                ><i class="fas fa-cog"></i>&nbsp;设置</router-link
+              >
+              <a class="navbar-item" @click="logout">
+                <i class="fas fa-sign-out-alt"></i>&nbsp;退出
+              </a>
             </div>
           </div>
+
+          <!-- 未登录时显示的user-icon -->
+          <router-link to="/login" class="navbar-item" v-if="!isLogin">
+            <span class="icon" style="font-size: 0.45rem">
+              <i class="fas fa-user-plus fa-3x"> </i>
+            </span>
+          </router-link>
 
           <div class="navbar-item"></div>
         </div>
@@ -77,61 +98,60 @@
 </template>
 
 <script>
-  export default {};
-
+export default {
+  data() {
+    return {
+      isLogin: true,
+    };
+  },
+  methods: {
+    logout() {
+      this.isLogin = false;
+    },
+  },
+};
 </script>
 
 <style scoped>
-  @import '../assets/css/bulma.min.css';
-  /* @import '../assets/css/all.min.css'; */
-  @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
-  .navbar-height {
-    height: 55px;
-  }
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
 
-  .input-resize {
-    max-width: 400px;
-  }
+.navbar-height {
+  height: 55px;
+}
 
-  .nav-line {
-    height: 34px;
-    font-size: 15px;
-  }
+.input-resize {
+  max-width: 400px;
+}
 
-  .input-icon {
-    padding-bottom: 3px;
-  }
+.nav-line {
+  height: 34px;
+  font-size: 15px;
+}
 
-  .mybtn {
-    background-color: #0066ff;
-    color: white !important;
-    margin-left: -10px;
-    font-size: 14px;
-  }
+.input-icon {
+  padding-bottom: 3px;
+}
 
-  .dropbtn {
-    margin-top: -4px;
-  }
+.mybtn {
+  background-color: #0066ff;
+  color: white !important;
+  margin-left: -10px;
+  font-size: 14px;
+}
 
-  .mydropdown {
-    margin-top: 4px;
-    margin-left: -30px;
-    width: 100px;
-  }
+.dropbtn {
+  margin-top: -4px;
+}
 
-  .mycenter {
-    margin-left: auto;
-    margin-right: auto;
-  }
+.mydropdown {
+  margin-top: 4px;
+  margin-left: -30px;
+  width: 100px;
+}
 
-  #navbar {
-    padding: 0;
-  }
-
-  .header-box {
-    margin: 0;
-    padding: 0;
-    height: 0;
-  }
-
+.mycenter {
+  margin-left: auto;
+  margin-right: auto;
+}
 </style>

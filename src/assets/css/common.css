@@ -115,11 +115,10 @@ h3 {
 }
 
 article {
-    width: 75%;
-    min-width: 900px;
+    width: 900px;
     height: 900px;
     margin: 0 auto;
-    /* background-color: pink; */
+    background-color: pink;
 }
 
 /* aside {
