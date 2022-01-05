@@ -11,18 +11,19 @@ import VideoBox from '@/components/ArticleCard/VideoBox'
 
 
 Vue.use(Router)
+Vue.prototype.baseUrl = 'http://localhost:9000'
 
 export default new Router({
   routes: [{
       path: '/',
       name: 'TabBar',
       component: TabBar,
-      children: [
-        {
+      redirect:'/RecommendCard',//重定向
+      children: [{
           path: '/FocusCard/:userId',
           name: 'FocusCard',
           component: FocusCard,
-          props:true,
+          props: true,
         },
         {
           path: '/RecommendCard',
@@ -39,7 +40,7 @@ export default new Router({
           name: 'VideoBox',
           component: VideoBox
         },
-        
+
       ]
     },
     {
@@ -50,10 +51,11 @@ export default new Router({
     },
     {
       //  开头“/”会被当成根路径
-      path: '/EditArticle/:authorId',
+      path: '/EditArticle/:type',
       name: 'EditArticle',
       component: EditArticle,
-      props:true,
+      props: true,
     },
+
   ]
 })

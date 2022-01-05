@@ -1,23 +1,27 @@
 <template lang="">
   <div>
-    <section>
-      <div class="article-card" v-for="(article,index) in articlesWithImg">
-        <div class="time-release" v-if="article.type==1">{{article.author}}发表了文章 {{article.time}}分钟前</div>
-        <div class="time-release" v-if="article.type==0">{{article.author}}赞同了回答 {{article.time}}分钟前</div>
-        <h1 class="recommend-content-title">{{article.title}}</h1>
+    <section v-if="articles.length>0">
+      <div class="article-card" v-for="(article,index) in articles">
+        <div class="time-release" v-if="article.type==1">{{article.authorName}}发表了文章 {{article.releaseTime}}</div>
+        <div class="time-release" v-else-if="article.type==0">{{article.authorName}}发布了问答 {{article.releaseTime}}</div>
+        <h1 class="recommend-content-title canTap" @click="TurnToArticle(article.articleId)">
+        <span class="article-type-tag">{{article.type==1?'文章':'问题'}} <sup class="smaller iconfont icon-icon-test"></sup>  </span>  
+        {{article.title}}
+        </h1>
         <div>
-          <div class="recommend-article-content" :class="{'recommend-article-content-without-img':article.img==null}">
+          <div class="recommend-article-content canTap" :class="{'recommend-article-content-without-img':article.img==null}" 
+          @click="TurnToArticle(article.articleId)">
             <div>
               <div class="img-box float-left" v-if="article.img!=null  ">
                 <img loading="lazy" :src="article.img" :alt="article.title">
               </div>
               <div>
-                <span class="black" :class="{'recommend-article-content-main':!readingStatus}">{{article.content}}</span>
+                <span class="black"
+                  :class="{'recommend-article-content-main':!readingStatus}" v-html="markContents[index]"></span>
                 <div>
-                  
-                  <a class="read-all float-right" @click="readingStatus=!readingStatus" v-if="readingStatus==false"> 阅读全文 </a>
+                  <a class="read-all float-right" @click="readingStatus=!readingStatus" v-if="readingStatus==false">
+                    阅读全文 </a>
                   <a class="read-all float-right" @click="readingStatus=!readingStatus" v-else> 收起文章 </a>
-                  
                 </div>
               </div>
             </div>
@@ -26,47 +30,92 @@
         <ArticleButtonBox :article="article"></ArticleButtonBox>
         <hr>
       </div>
+      <div class="list-end">没有更多内容</div>
+    </section>
+    <section v-else-if="errorType">
+      <h1 style="font-size:36px">请求文章数据失败</h1>
+      <p>可能原因：<span class="red"> 服务器异常</span> 或<span class="red"> 网络异常</span>。</p>
+    </section>
+    <section v-else>
+      <el-skeleton :rows="5" animated />
+
     </section>
   </div>
 </template>
 <script>
   import ArticleButtonBox from './ArticleButtonBox.vue'
+  import WaitingBox from '../WaitingBox.vue'
 
+  import {marked} from 'marked'
   export default {
     data() {
       return {
-        readingStatus:false,
-        articlesWithImg: [{
-            id: 1,
-            type: 1, //1 是文章 0 是回答
-            title: "高水平运动员如何避免运动拉伤？",
-            img: "https://infinitypro-img.infinitynewtab.com/findaphoto/bigLink/1641053102219.jpg?imageView2/2/w/1920/format/webp/interlace/1",
-            hot: 790,
-            author: "author",
-            judge: 2,
-            agree: 1,
-            time: "12",
-            content: "# 小军\r\n > 吕小军吕小军吕小军吕小军吕小军吕小军吕小军吕小军吕  小军吕小军吕小军吕小军吕小军吕小军吕小军吕小军吕小军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
-          },
-          {
-            id: 2,
-            type: 1, //1 是文章 0 是回答
-            title: "高水平运动员如何避免运动拉伤？",
-            img: "https://infinitypro-img.infinitynewtab.com/findaphoto/bigLink/1641053102219.jpg?imageView2/2/w/1920/format/webp/interlace/1",
-            hot: 790,
-            agree: 1,
-
-            content: "吕小军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
-          },
-        ],
+        errorType: false,
+        readingStatus: false,
+        articles: [],
+        markContents:[],
       }
     },
     mounted() {
-
+      let that = this;
+      $.ajax({
+        type: 'get',
+        url: that.baseUrl + '/article/getAll',
+        async: true,
+        data: {},
+        success: function (data) {
+          that.articles = data;
+          console.log("获取关注模块数据成功，", typeof data, data);
+          //转换markdown成正常文本
+          for (let i = 0; i < that.articles.length; i++) {
+            that.markContents.push(marked.parse(that.filterDot(that.articles[i].content)));
+            
+          }
+          //转换时间格式
+          that.translateDate();
+        },
+        error: function (data) {
+          that.articles = [];
+          console.log("获取关注模块数据失败，", typeof data, data);
+          that.errorType = true;
+        }
+      })
     },
+
     components: {
       ArticleButtonBox,
-    }
+      WaitingBox,
+    },
+    methods: {
+      TurnToArticle(id){
+        this.$router.push({ name: 'SpecialArticle', params: { articleId: id  }})
+      },
+      // 卡片里面不能有markdown的标题字符
+      filterDot(str) {
+        var pattern = new RegExp("#")
+        var rs = "";
+        for (var i = 0; i < str.length; i++) {
+          rs = rs + str.substr(i, 1).replace(pattern, '');
+        }
+        return rs;
+      },
+      translateDate() {
+        for (let i = 0; i < this.articles.length; i++) {
+          let d = new Date(this.articles[i].releaseTime);
+          let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
+          let resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
+          this.articles[i].releaseTime = resDate + " " + resTime;
+
+          d = new Date(this.articles[i].updateTime);
+          resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
+          resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
+          this.articles[i].updateTime = resDate + " " + resTime;
+        }
+      },
+      p(s) {
+        return s < 10 ? '0' + s : s
+      }
+    },
   }
 
 </script>
@@ -84,6 +133,7 @@
 
   .time-release {
     color: grey;
+    font-size: small;
   }
 
   .read-all {
@@ -94,7 +144,6 @@
   .article-card {
     width: 95%;
     text-align: left;
-
     padding-left: 20px;
   }
 
@@ -123,10 +172,11 @@
     width: 20%;
     min-width: 120px;
     margin-right: 20px;
-    height: 10%;  
+    height: 10%;
     max-height: 130px;
     /* background-color: yellow; */
   }
+
   /* 关注 */
 
 
@@ -138,11 +188,11 @@
   }
 
   .article-card .recommend-article-content-without-img {
-    width: 800px;
+    width: 100%;
 
   }
 
- .recommend-article-content-main {
+  .recommend-article-content-main {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -150,8 +200,17 @@
     -webkit-line-clamp: 3;
   }
 
+  img{
+    height: 120px;
+  }
 
 
+  /* 文章类型的标签 */
+  .article-type-tag{
+    font-size: small;
+    background-color: skyblue;
+    font-weight: 400;
 
+  }
 
 </style>

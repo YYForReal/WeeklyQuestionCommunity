@@ -2,30 +2,27 @@
   <div>
     <article>
       <div class="tabs is-large">
-        <div class="navbar-item">
+        <!-- <div class="navbar-item">
           <button type="button" class="mybtn button is-rounded nav-line">
-            <router-link to="EditArticle"> 编辑文章 </router-link> 
+            <router-link to="EditArticle"> 编辑文章 </router-link>
           </button>
-        </div>
+        </div> -->
         <ul>
           <li v-for="(ele,index) in navList" :class="{'is-active':index==activeIndex}" @click="handleActive(index);">
-            <a> {{ele}} - {{index}}  </a>
+            <a> {{ele}} </a>
           </li>
         </ul>
-        <hr>
       </div>
       <!-- 关注 -->
       <!-- 推荐 -->
       <!-- 热榜 -->
       <!-- 视频 -->
-      <router-view></router-view>      
+      <router-view></router-view>
 
       <!-- 主页面 -->
       <!-- <section v-if="activeIndex==4" id="showing-box"> -->
 
-      </section>
-
-      <div class="list-end">没有更多内容</div>
+      <!-- </section> -->
 
     </article>
     <div class="clearfix">
@@ -33,8 +30,8 @@
   </div>
 </template>
 <script>
-// import ArticleButtonBox from './ArticleButtonBox.vue'
-// import FocusCard from './ArticleCard/FocusCard.vue'
+  // import ArticleButtonBox from './ArticleButtonBox.vue'
+  // import FocusCard from './ArticleCard/FocusCard.vue'
 
   export default {
     data() {
@@ -45,29 +42,53 @@
         answersBoxHtml: "",
       };
     },
-    components:{
+    components: {
       // ArticleButtonBox,
       // FocusCard
+    },
+    mounted() {
+      // 展示上次浏览的历史文章
+
     },
     methods: {
       handleActive(index) {
         this.activeIndex = index;
         console.log(index);
-        switch(index){
-          case 0:{
-            this.$router.push({ name: 'FocusCard', params: { userId: '1' }});
+        switch (index) {
+          case 0: {
+            this.$router.push({
+              name: 'FocusCard',
+              params: {
+                userId: '1'
+              }
+            });
             break;
           }
-          case 1:{
-            this.$router.push({ name: 'RecommendCard', params: { userId: '1' }});
+          case 1: {
+            this.$router.push({
+              name: 'RecommendCard',
+              params: {
+                userId: '1'
+              }
+            });
             break;
           }
-          case 2:{
-            this.$router.push({ name: 'HotCard', params: { userId: '1' }});
+          case 2: {
+            this.$router.push({
+              name: 'HotCard',
+              params: {
+                userId: '1'
+              }
+            });
             break;
           }
-          case 3:{
-            this.$router.push({ name: 'VideoBox', params: { userId: '1' }});
+          case 3: {
+            this.$router.push({
+              name: 'VideoBox',
+              params: {
+                userId: '1'
+              }
+            });
             break;
           }
         }
@@ -113,4 +134,5 @@
 </script>
 <style lang="" scoped>
   @import '../assets/css/bulma.min.css';
+
 </style>

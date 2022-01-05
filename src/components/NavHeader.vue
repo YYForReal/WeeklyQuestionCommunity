@@ -38,9 +38,15 @@
           </div>
           <div class="navbar-item">
             <button type="button" class="mybtn button is-rounded nav-line">
-              <router-link to="/EditArticle/1"> 编辑文章 </router-link>
+              <router-link class="white" to="/EditArticle/1"> 发布文章 </router-link>
             </button>
           </div>
+          <div class="navbar-item">
+            <button type="button" class="mybtn button is-rounded nav-line">
+              <router-link class="white" to="/EditArticle/0"> 我要提问 </router-link>
+            </button>
+          </div>
+
         </div>
         <div class="navbar-end">
           <a class="navbar-item">
@@ -85,6 +91,7 @@
   @import '../assets/css/bulma.min.css';
   /* @import '../assets/css/all.min.css'; */
   @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css';
+
   .navbar-height {
     height: 55px;
   }

@@ -16,7 +16,6 @@ import './assets/css/common.css'
 //import './assets/css/article.css'
 import './assets/css/video.css'
 
-
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 
