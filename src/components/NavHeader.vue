@@ -37,7 +37,7 @@
           </div>
           <div class="navbar-item">
             <button type="button" class="mybtn button is-rounded nav-line">
-              提问
+              搜索
             </button>
           </div>
           <div class="navbar-item">
