@@ -103,12 +103,12 @@
         for (let i = 0; i < this.articles.length; i++) {
           let d = new Date(this.articles[i].releaseTime);
           let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
-          let resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
+          let resTime = this.p(d.getHours()-8) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
           this.articles[i].releaseTime = resDate + " " + resTime;
 
           d = new Date(this.articles[i].updateTime);
           resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
-          resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
+          resTime = this.p(d.getHours()-8) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
           this.articles[i].updateTime = resDate + " " + resTime;
         }
       },
@@ -121,8 +121,6 @@
 </script>
 <style lang="" scoped>
   @import '../../assets/css/bulma.min.css';
-
-
 
   .content-title,
   .recommend-content-title {
@@ -178,7 +176,6 @@
   }
 
   /* 关注 */
-
 
   .article-card .recommend-article-content {
     width: 97%;

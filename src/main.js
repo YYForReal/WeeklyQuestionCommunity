@@ -8,7 +8,6 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 
 
-//import './assets/css/bulma.min.css'//引入CSS的库
 import './assets/css/iconfont.css'//图标
 
 import './assets/css/answers.css'

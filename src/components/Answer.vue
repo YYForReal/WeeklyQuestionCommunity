@@ -149,14 +149,14 @@
       translateDate() {
         let d = new Date(this.answer.releaseTime);
         let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
-        let resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
+        let resTime = this.p(d.getHours()-8) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
         // 不够10 前面加0
         console.log(resDate);
         console.log(resTime);
         this.answer.releaseTime = resDate + ' ' + resTime;
         d = new Date(this.answer.updateTime);
         resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
-        resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
+        resTime = this.p(d.getHours()-8) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
         // 不够10 前面加0
         console.log(resDate);
         console.log(resTime);

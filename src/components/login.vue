@@ -253,7 +253,7 @@ export default {
                 "secret",
                 { expiresIn: "1h" }
               );
-              console.log(token);
+              // console.log(token);
             } else {
               that.setDangerInfo(userIdInfo);
               that.setDangerInput(userId);

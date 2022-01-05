@@ -2,8 +2,6 @@
   <div id="app">
     <NavHeader></NavHeader>
 
-    <NavHeader></NavHeader>
-
     <router-view :key="$route.path" />
 
     <BackTop></BackTop>
@@ -13,17 +11,17 @@
 <script>
   import NavHeader from './components/NavHeader.vue';
   import BackTop from './components/BackTop.vue';
-  import Login from "./components/login.vue";
-  import userInfo from "./components/userInfo.vue";
-  import Setting from "./components/setting.vue";
+  // import Login from "./components/login.vue";
+  // import userInfo from "./components/userInfo.vue";
+  // import Setting from "./components/setting.vue";
   export default {
     name: "App",
     components: {
       NavHeader,
       BackTop,
-      Login,
-      Setting,
-      userInfo,
+      // Login,
+      // Setting,
+      // userInfo,
     },
     methods: {
 
@@ -32,14 +30,14 @@
 
 </script>
 
-<style>
+<style >
   #app {
     font-family: "Avenir", Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* color: #2c3e50; */
     margin-top: 60px;
     background-color: white;
   }
+
 
 </style>

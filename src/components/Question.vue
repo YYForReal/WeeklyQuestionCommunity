@@ -44,7 +44,8 @@
           <span class="iconfont icon-sanjiaoxing1 small"></span>
         </a>
       </div>
-      <a class="article-card-link iconfont icon-pinglun" v-if="reviewsNumber>0" @click="handleReview()">{{reviewsNumber}}条评论</a>
+      <a class="article-card-link iconfont icon-pinglun" v-if="reviewsNumber>0"
+        @click="handleReview()">{{reviewsNumber}}条评论</a>
       <a class="article-card-link iconfont icon-pinglun" v-else @click="handleReview()">添加评论</a>
 
       <a class="article-card-link iconfont icon-fenxiang">分享</a>
@@ -73,7 +74,7 @@
     data() {
       return {
         isAgree: false,
-        isDisagree:false,
+        isDisagree: false,
         isWrite: false,
         seeReviews: false,
         reviewsNumber: 0,
@@ -93,8 +94,21 @@
       //转换mark格式
       this.article.content = marked.parse(this.article.content);
       console.log("article is ", this.article);
+      this.translateDate();
     },
     methods: {
+      translateDate() {
+        let d = new Date(this.article.releaseTime);
+        let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
+        let resTime = this.p(d.getHours()-8) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
+        // 不够10 前面加0
+        console.log(resDate);
+        console.log(resTime);
+        this.article.releaseTime = resDate + ' ' + resTime;
+      },
+      p(s) {
+        return s < 10 ? '0' + s : s
+      },
       handleWriteAnswer() {
         this.isWrite = !this.isWrite;
         this.seeReviews = false;
@@ -235,7 +249,7 @@
   }
 
   .button {
-    height: 25px;
+    height: 35px;
   }
 
 

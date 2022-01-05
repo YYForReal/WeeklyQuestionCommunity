@@ -24,6 +24,15 @@
             that.isAnimation = false;
           }
         }, 1);
+      },
+      reload(){
+        let bodyHeight = document.body.scrollHeight ;
+        let screenHeight = window.screen.height;    //屏幕高度
+        if(bodyHeight > screenHeight){
+            this.isShow = true;
+        }else{
+          this.isShow = false;
+        }
       }
     },
     mounted(){
@@ -32,6 +41,13 @@
         if(bodyHeight > screenHeight){
             this.isShow = true;
         }
+    },
+    watch:{
+      $route:{
+        handler(newValue,oldValue){
+          this.reload();
+        }
+      }
     }
   }
 
