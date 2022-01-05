@@ -179,6 +179,9 @@ export default {
       isLegalSignId: false,
       isLegalSignPwd: false,
       isLegalSignCon: false,
+
+      secret:
+        "09f26e402586e2faa8da4c98a35f1b20d6b033c6097befa8be3486a829587fe2f90a832bd3ff9d42710a4da095a2ce285b009f0c3730cd9b8e1af3eb84df6611",
     };
   },
   computed: {
@@ -217,6 +220,15 @@ export default {
     },
     // 点击登录按钮后的事件
     Login() {
+      console.log(this.$jwt);
+      // 签名默认用HS256算法加密，防止数据篡改
+      let token = this.$jwt.sign({ userId: "123" }, this.secret);
+      console.log(token);
+      this.$jwt.verify(token, this.secret, function (err, decoded) {
+        console.log(err);
+        console.log(decoded.userId);
+      });
+
       let userId = $("#userId");
       let userIdInfo = $("#userIdInfo");
 
@@ -234,8 +246,8 @@ export default {
             that.login_userId,
           success: function (res) {
             let md5Pwd = that.$md5(that.loginPassword);
-            console.log(res.password);
-            console.log(md5Pwd);
+            // console.log(res.password);
+            // console.log(md5Pwd);
 
             if (res.password == md5Pwd) {
               console.log("密码正确！");
@@ -245,15 +257,8 @@ export default {
                 userId: that.login_userId,
                 password: that.loginPassword,
               };
-              // sign with RSA SHA256
-              that.$jwt.sign(
-                {
-                  data: user,
-                },
-                "secret",
-                { expiresIn: "1h" }
-              );
-              console.log(token);
+
+              console.log(user.password);
             } else {
               that.setDangerInfo(userIdInfo);
               that.setDangerInput(userId);

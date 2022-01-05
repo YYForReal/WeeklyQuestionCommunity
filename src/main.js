@@ -16,6 +16,7 @@ import './assets/css/common.css'
 //import './assets/css/article.css'
 import './assets/css/video.css'
 
+import VueJWT from "vuejs-jwt";
 
 import md5 from 'md5';
 import jwt from 'jsonwebtoken';
