@@ -16,6 +16,13 @@ import './assets/css/common.css'
 //import './assets/css/article.css'
 import './assets/css/video.css'
 
+
+import md5 from 'md5';
+import jwt from 'jsonwebtoken';
+
+Vue.prototype.$md5 = md5;
+Vue.prototype.$jwt = jwt;
+
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 

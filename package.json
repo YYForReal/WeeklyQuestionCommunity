@@ -13,9 +13,12 @@
     "dompurify": "^2.3.4",
     "element-ui": "^2.15.6",
     "html-loader": "^0.5.5",
+    "jquery": "^3.6.0",
     "jsdom": "^19.0.0",
+    "jsonwebtoken": "^8.5.1",
     "markdown-loader": "^6.0.0",
     "marked": "^4.0.8",
+    "md5": "^2.3.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },

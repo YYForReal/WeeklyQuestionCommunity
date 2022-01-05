@@ -7,7 +7,8 @@ import FocusCard from '@/components/ArticleCard/FocusCard'
 import RecommendCard from '@/components/ArticleCard/RecommendCard'
 import HotCard from '@/components/ArticleCard/HotCard'
 import VideoBox from '@/components/ArticleCard/VideoBox'
-
+import Login from '@/components/login'
+import setting from '@/components/setting'
 
 
 Vue.use(Router)
@@ -42,6 +43,16 @@ export default new Router({
         },
 
       ]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/setting',
+      name: 'setting',
+      component: setting
     },
     {
       path: '/SpecialArticle/:articleId',
