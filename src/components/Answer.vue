@@ -241,6 +241,11 @@
   }
 
   /* markdown 格式 */
+  .one-answer-content{
+    word-break:keep-all;
+  }
+
+
   .one-answer-content>>>p {
     margin: 15px;
     line-height: 1.5rem;
@@ -254,6 +259,16 @@
     margin: 0 auto;
     display: block;
   }
+  .one-answer-content>>>code {
+    min-width: 300px !important;
+    max-width: 900px!important;
+    margin: 0 auto;
+    display: block;
+    word-break:break-all;
+  }
+
+
+
 
   .one-answer .user-info .user-img {
     width: 50px;
