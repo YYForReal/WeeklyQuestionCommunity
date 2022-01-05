@@ -35,7 +35,7 @@ vue init webpack
 
 1.push to github: ( must first clone a repository to local machine )
 git remote add <name> <url>
-git push <repo name> <branch name> //<branch name>: your local repository branch
+git push <repo name> <branch name> //<branch name>: remote repository branch
 
 //Example:
 git remote add origin <url>
