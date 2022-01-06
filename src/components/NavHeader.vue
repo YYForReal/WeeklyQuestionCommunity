@@ -108,17 +108,22 @@
     },
     methods: {
       isLogin() {
-        if (localStorage.getItem("userId") == null) {
+        if (localStorage.getItem("user") == null) {
           return false;
         } else {
           return true;
         }
       },
       logout() {
-        localStorage.removeItem("userId");
+        localStorage.removeItem("user");
         console.log("removeItem");
         this.state = false;
 
+        // console.log(this.$route.path);
+        // 如果不在首页，跳转回首页
+        if (this.$route.path != "/") {
+          this.$router.push("/");
+        }
         // 刷新页面
         this.$router.go(0);
 
@@ -127,23 +132,44 @@
           message: "成功退出账号！",
         });
       },
-      search() {
-        console.log("localStorage: ");
-        console.log(localStorage.getItem("userId"));
-      },
-      logout() {
-        this.isLogin = false;
-      },
-      }
-  }
+      methods: {
+        isLogin() {
+          if (localStorage.getItem("userId") == null) {
+            return false;
+          } else {
+            return true;
+          }
+        },
+        logout() {
+          localStorage.removeItem("userId");
+          console.log("removeItem");
+          this.state = false;
 
+          // 刷新页面
+          this.$router.go(0);
+
+          this.$message({
+            type: "success",
+            message: "成功退出账号！",
+          });
+        },
+        search() {
+          let temp = localStorage.getItem("user");
+          temp = JSON.parse(temp);
+          console.log("localStorage: " + temp);
+          console.log(temp.userId);
+        },
+        logout() {
+          this.isLogin = false;
+        },
+      }
+    }
+  }
 </script>
 
 
 <style lang="css" src="../assets/css/bulma.min.css" scoped></style>
 <style lang="css" scoped>
-  /* @import url("https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"); */
-  /* @import '../assets/css/bulma.min.css'; */
   @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
 
   .navbar-height {

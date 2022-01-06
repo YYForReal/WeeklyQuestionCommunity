@@ -262,10 +262,16 @@ export default {
                 type: "success",
                 message: "登录成功！",
               });
+              let user = {
+                userId: that.login_userId,
+                password: md5Pwd,
+              };
+              user = JSON.stringify(user);
+              console.log(typeof user);
               // TODO
-              // 保存用户id
-              localStorage.setItem("userId", that.login_userId);
-              console.log("创建Storage: " + localStorage.getItem("userId"));
+              // 保存用户id和密码
+              localStorage.setItem("user", user);
+              console.log("创建Storage: " + localStorage.getItem("user"));
               that.sendState(true);
 
               that.$router.push("/");
@@ -334,23 +340,26 @@ export default {
         return;
       }
       let that = this;
-      let pwd = this.$md5(that.signPwd);
+      let md5Pwd = this.$md5(that.signPwd);
       $.ajax({
         type: "post",
         url: "http://localhost:9000/user/postLoginInfo",
         async: true,
-        data: { userId: that.sign_userId, password: pwd },
+        data: { userId: that.sign_userId, password: md5Pwd },
         success: function (data) {
           console.log(data);
           that.$message({
             type: "success",
             message: "注册成功！",
           });
-
+          const user = {
+            userId: that.sign_userId,
+            password: md5Pwd,
+          };
           // TODO
-          // 保存用户id
-          localStorage.setItem("userId", that.sign_userId);
-          console.log("创建Storage: " + localStorage.getItem("userId"));
+          // 保存用户id和密码
+          localStorage.setItem("user", user);
+          console.log("创建Storage: " + localStorage.getItem("user"));
           that.sendState(true);
           that.$router.push("/");
         },
