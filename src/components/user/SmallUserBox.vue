@@ -12,7 +12,7 @@
 
     <div class="user-img" v-if="userFlag">
       <!-- 默认头像 -->
-      <img :src="user.avatarUrl?user.avatarUrl:'https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg'">
+      <img :src="user.avatar?user.avatar:'https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg'">
     </div>
     <div class="user-name" v-if="userFlag">
       <strong>{{user.userName==null?'匿名用户':user.userName}} <i class="iconfont icon-huiyuan orange"></i>

@@ -5,8 +5,7 @@
         <div class="time-release" v-if="article.type==1">{{article.authorName}}发表了文章 {{article.releaseTime}}</div>
         <div class="time-release" v-else-if="article.type==0">{{article.authorName}}发布了问答 {{article.releaseTime}}</div>
         <h1 class="recommend-content-title canTap" @click="TurnToArticle(article.articleId)">
-          <span class="article-type-tag">{{article.type==1?'文章':'问题'}} <sup
-              class="smaller iconfont icon-icon-test"></sup> </span>
+          <span class="article-type-tag iconfont icon-icon-test">{{article.type==1?'文章':'问题'}}</span>
           {{article.title}}
         </h1>
         <div>
@@ -205,7 +204,7 @@
 
   .article-card .recommend-article-content {
     width: 97%;
-    height: 130px;
+    height: 115px;
     margin-top: 10px;
     /* background-color: red; */
   }
@@ -227,11 +226,12 @@
     height: 120px;
   }
 
-
   /* 文章类型的标签 */
   .article-type-tag {
-    font-size: small;
-    background-color: skyblue;
+    font-size: 16px;
+    display: inline-block;
+    /* width: 60px; */
+    background-color: rgb(170, 166, 166);
     font-weight: 400;
   }
 
