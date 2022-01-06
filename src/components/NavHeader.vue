@@ -124,17 +124,22 @@ export default {
   },
   methods: {
     isLogin() {
-      if (localStorage.getItem("userId") == null) {
+      if (localStorage.getItem("user") == null) {
         return false;
       } else {
         return true;
       }
     },
     logout() {
-      localStorage.removeItem("userId");
+      localStorage.removeItem("user");
       console.log("removeItem");
       this.state = false;
 
+      // console.log(this.$route.path);
+      // 如果不在首页，跳转回首页
+      if (this.$route.path != "/") {
+        this.$router.push("/");
+      }
       // 刷新页面
       this.$router.go(0);
 
@@ -144,8 +149,10 @@ export default {
       });
     },
     search() {
-      console.log("localStorage: ");
-      console.log(localStorage.getItem("userId"));
+      let temp = localStorage.getItem("user");
+      temp = JSON.parse(temp);
+      console.log("localStorage: " + temp);
+      console.log(temp.userId);
     },
   },
 };
