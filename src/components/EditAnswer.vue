@@ -35,7 +35,8 @@
         content: '',
         markContent: ``,
         hint: false,
-        authorId : 1 ,
+        // authorId: 1,
+        user: {},
       };
     },
     props: {
@@ -45,10 +46,15 @@
       }
     },
     mounted() {
-      this.authorId = window.localStorage.getItem("user_Id");
-      if(this.authorId == null){
-        this.authorId = 1;
+      let user = window.localStorage.getItem("user");
+      if (user == null) {
+        this.$message({
+          type: 'error',
+          message: '用户未登录'
+        })
+        this.$router.push("/login");
       }
+      this.user = JSON.parse(user);
     },
     watch: {
       // 深度监听表单，若左侧输入框内容修改，则右侧渲染出对应的效果
@@ -82,19 +88,50 @@
             type: 'warning'
           }).then(() => {
             console.log("confirm");
-            this.submitArticle();
+            this.checkPassword();
           }).catch(() => {
             //点击取消则什么都不做
           });
         } else {
-          this.submitArticle();
+          this.checkPassword();
         }
+      },
+      checkPassword() {
+        let that = this;
+        // TODO 校验用户数据 
+        let userId = this.user.userId;
+        let pwd = this.user.password;
+        $.ajax({
+          type: "get",
+          url: "http://localhost:9000/user/getUserInfo?userId=" + userId,
+          async: true,
+          success: function (data) {
+            console.log("data", data);
+            if (pwd == data.password) {
+              that.$message({
+                type: "success",
+                message: "验证通过！",
+              });
+              that.pwdModal = true;
+              that.submitArticle();
+            } else {
+              that.$message({
+                type: "error",
+                message: "密码错误！",
+              });
+            }
+            // that.$router.push("/setting");
+          },
+          error: function () {
+            console.log("验证身份失败!");
+          },
+        });
       },
       submitArticle() {
         this.content = DOMPurify.sanitize(this.content);
         let submitForm = {
           articleId: this.articleId,
-          authorId: this.authorId,
+          authorId: this.user.userId,
           content: this.content
         }
         let that = this;

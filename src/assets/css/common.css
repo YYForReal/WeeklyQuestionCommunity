@@ -263,6 +263,7 @@ nav ul li {
   line-height: 1.5rem;
   letter-spacing: 0.1rem;
   text-indent: 2rem;
+  overflow:auto;
 }
 
 .markdown-box-content img {

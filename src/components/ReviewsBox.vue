@@ -16,7 +16,8 @@
     <header>
       <el-row :gutter="20">
         <el-col :span="20">
-          <el-input type="text" placeholder="写下你的评论..." v-model="reviewContent" @keyup.enter.native="handleReleaseReview()"></el-input>
+          <el-input type="text" placeholder="写下你的评论..." v-model="reviewContent"
+            @keyup.enter.native="handleReleaseReview()"></el-input>
         </el-col>
         <el-col :span="2" class="float-right">
           <el-button :disabled="reviewContent==''" @click="handleReleaseReview()">发布</el-button>
@@ -35,37 +36,74 @@
     data() {
       return {
         reviews: [],
-        reviewContent:"",
+        reviewContent: "",
+        user: {},
       }
     },
     components: {
       Review
     },
     methods: {
-      handleReleaseReview(){
-        let form = {
-          content:this.reviewContent,
-          articleId:this.articleId,
-          userId:1,
-          type:this.type
-        };
+      handleReleaseReview() {
         let that = this;
+        if (this.user == null) {
+          this.$message({
+            type: 'error',
+            message: "用户未登录"
+          })
+          return;
+        }
+        let form = {
+          content: this.reviewContent,
+          articleId: this.articleId,
+          userId: this.user.userId,
+          type: this.type
+        };
+        // TODO 校验用户数据 
+        let userId = this.user.userId;
+        let pwd = this.user.password;
         $.ajax({
-          type:'post',
-          url:that.baseUrl + '/review/post',
-          async:true,
-          data:form,
-          success:function(){
-            console.log("relaseReview");
-            that.$message({
-              type:"success",
-              message:"评论提交成功"
-            })
-            setTimeout(function(){
-              window.location.reload();
-            },800);
-          }
-        })
+          type: "get",
+          url: "http://localhost:9000/user/getUserInfo?userId=" + userId,
+          async: true,
+          success: function (data) {
+            console.log("data",data);
+            if (pwd == data.password) {
+              that.$message({
+                type: "success",
+                message: "验证通过！",
+              });
+              that.pwdModal = true;
+              //提交
+              $.ajax({
+                type: 'post',
+                url: that.baseUrl + '/review/post',
+                async: true,
+                data: form,
+                success: function () {
+                  console.log("relaseReview");
+                  that.$message({
+                    type: "success",
+                    message: "评论提交成功"
+                  })
+                  setTimeout(function () {
+                    window.location.reload();
+                  }, 800);
+                }
+              })
+            } else {
+              that.$message({
+                type: "error",
+                message: "密码错误！",
+              });
+            }
+            // that.$router.push("/setting");
+          },
+          error: function () {
+            console.log("验证身份失败!");
+          },
+        });
+
       }
     },
     props: {
@@ -83,6 +121,11 @@
       // }
     },
     mounted() {
+      let userString = window.localStorage.getItem("user");
+      console.log("userString:", userString);
+      this.user = JSON.parse(userString);
+
+
       let that = this;
       $.ajax({
         type: 'get',
