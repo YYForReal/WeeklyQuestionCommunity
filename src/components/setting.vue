@@ -7,14 +7,77 @@
         <hr />
         <tabs>
           <tab title="修改密码">
-            <verify :show-modal.sync="showPwdModal"></verify>
+            <!-- 验证身份 -->
+            <div class="field">
+              <div class="control">
+                <div class="field is-grouped">
+                  <p class="control has-icons-left">
+                    <input
+                      type="password"
+                      class="input"
+                      v-model="verifyPwdInput"
+                      placeholder="请输入您的密码"
+                    />
+                    <span class="icon is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </p>
+                  <div class="control">
+                    <button
+                      class="button"
+                      @click="verifyPwd"
+                      style="background-color: #0066ff; color: white"
+                    >
+                      验证身份
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <p class="help" id="verifyPwdInfo"></p>
+                </div>
+              </div>
+            </div>
           </tab>
           <tab title="绑定邮箱">
-            <verify></verify>
+            <!-- 验证身份 -->
+            <div class="field">
+              <div class="control">
+                <div class="field is-grouped">
+                  <p class="control has-icons-left">
+                    <input
+                      type="password"
+                      class="input"
+                      v-model="verifyEmailInput"
+                      placeholder="请输入您的密码"
+                    />
+                    <span class="icon is-left">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </p>
+                  <div class="control">
+                    <button
+                      class="button"
+                      @click="verifyEmail"
+                      style="background-color: #0066ff; color: white"
+                    >
+                      验证身份
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <p class="help" id="verifyEmailInfo"></p>
+                </div>
+              </div>
+            </div>
           </tab>
         </tabs>
+
         <!-- 修改密码 -->
-        <modal title="修改密码">
+        <modal title="修改密码" v-show="pwdModal">
           <div class="field">
             <div class="control has-icons-left has-icons-right">
               <input
@@ -22,6 +85,7 @@
                 class="input"
                 placeholder="新的密码"
                 id="password"
+                v-model="password"
                 @input="pwdInput"
               />
               <span class="icon is-small is-left">
@@ -43,6 +107,7 @@
                 class="input"
                 placeholder="确认密码"
                 id="confirmPwd"
+                v-model="confirmPassword"
                 @input="confirmPwdInput"
               />
               <span class="icon is-small is-left">
@@ -55,7 +120,8 @@
             <div class="control">
               <button
                 class="button input"
-                style="background-color: #4a4a4a; color: white"
+                style="color: black"
+                @click="changePwd"
               >
                 确认
               </button>
@@ -63,7 +129,7 @@
           </div>
         </modal>
         <!-- 绑定邮箱 -->
-        <modal title="绑定邮箱">
+        <modal title="绑定邮箱" v-show="emailModal">
           <div class="field">
             <div class="control has-icons-left">
               <input
@@ -71,6 +137,7 @@
                 class="input"
                 placeholder="新的邮箱地址"
                 id="email"
+                v-model="email"
                 @input="emailInput"
               />
               <span class="icon is-small is-left">
@@ -102,7 +169,8 @@
             <div class="control">
               <button
                 class="input button"
-                style="background-color: #4a4a4a; color: white"
+                style="color: black"
+                @click="changeEmail"
               >
                 确认
               </button>
@@ -125,6 +193,20 @@ export default {
   data() {
     return {
       showPwdModal: "",
+      pwdModal: false,
+      emailModal: false,
+
+      isLegalPwd: false,
+      isLegalConPwd: false,
+
+      isLegalEmail: false,
+
+      password: "",
+      confirmPassword: "",
+      email: "",
+
+      verifyPwdInput: "",
+      verifyEmailInput: "",
     };
   },
   components: {
@@ -154,7 +236,7 @@ export default {
       e.attr("class", "is-hidden");
     },
     // 判断密码是否由字母、数字和特殊字符3种组合组成
-    isLegalPwd(value) {
+    checkPwd(value) {
       // 匹配非数字、字母和英文特殊字符的字符
       let regEx1 = /[^!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?a-zA-Z0-9]/;
 
@@ -180,12 +262,115 @@ export default {
         password.attr("type", "password");
       }
     },
-
+    // 验证身份--修改密码
+    verifyPwd() {
+      let that = this;
+      let userId = localStorage.getItem("userId");
+      let pwd = this.verifyPwdInput;
+      $.ajax({
+        type: "get",
+        url: "http://localhost:9000/user/getUserInfo",
+        async: true,
+        data: userId,
+        success: function (data) {
+          console.log(data);
+          if (that.$md5(pwd) == data.password) {
+            that.setSuccessInfo($("#verifyPwdInfo"));
+            $("#verifyPwdInfo").html("密码正确！");
+            that.pwdModal = true;
+          } else {
+            that.setDangerInfo($("#verifyPwdInfo"));
+            $("#verifyPwdInfo").html("密码错误！");
+          }
+          // that.$router.push("/setting");
+        },
+        error: function () {
+          console.log("验证身份失败!");
+        },
+      });
+    }, // 验证身份--绑定邮箱
+    verifyEmail() {
+      let that = this;
+      let userId = localStorage.getItem("userId");
+      let pwd = this.verifyEmailInput;
+      $.ajax({
+        type: "get",
+        url: "http://localhost:9000/user/getUserInfo",
+        async: true,
+        data: userId,
+        success: function (data) {
+          console.log(data);
+          if (that.$md5(pwd) == data.password) {
+            that.setSuccessInfo($("#verifyEmailInfo"));
+            $("#verifyEmailInfo").html("密码正确！");
+            that.emailModal = true;
+          } else {
+            that.setDangerInfo($("#verifyEmailInfo"));
+            $("#verifyEmailInfo").html("密码错误！");
+          }
+          // that.$router.push("/setting");
+        },
+        error: function () {
+          console.log("验证身份失败!");
+        },
+      });
+    },
+    // 修改密码
+    changePwd() {
+      if (!this.isLegalPwd || !this.isLegalConPwd) {
+        alert("请检查输入是否合法！");
+        return;
+      }
+      let that = this;
+      let pwd = this.$md5(this.password);
+      let userId = localStorage.getItem("userId");
+      // that.$jwt.verify(token, that.$secret, function (err, decoded) {
+      //   console.log(decoded);
+      //   userId = decoded.userId;
+      // });
+      console.log(userId);
+      console.log(pwd);
+      $.ajax({
+        type: "post",
+        url: "http://localhost:9000/user/postPassword",
+        async: true,
+        data: { userId: userId, password: pwd },
+        success: function (data) {
+          console.log(data);
+          that.pwdModal = false;
+          // that.$router.push("/setting");
+        },
+        error: function () {
+          console.log("修改密码失败!");
+        },
+      });
+    },
+    // 绑定邮箱
+    changeEmail() {
+      if (!this.isLegalEmail) {
+        alert("请检查输入是否合法！");
+        return;
+      }
+      let that = this;
+      $.ajax({
+        type: "post",
+        url: "http://localhost:9000/user/postEmail",
+        data: { userId: userId, email: that.email },
+        success: function (data) {
+          console.log(data);
+          that.emailModal = false;
+          // that.$router.push("/setting");
+        },
+        error: function () {
+          console.log("绑定邮箱失败!");
+        },
+      });
+    },
     // 监听密码输入框
     pwdInput() {
       var password = $("#password");
       var passwordInfo = $("#passwordInfo");
-
+      let flag = false;
       if (password.val() == "") {
         password.attr("class", "input");
         this.setHiddenInfo(passwordInfo);
@@ -193,7 +378,7 @@ export default {
         this.setDangerInput(password);
         this.setDangerInfo(passwordInfo);
         passwordInfo.html("密码长度必须为8-16位！");
-      } else if (!this.isLegalPwd(password.val())) {
+      } else if (!this.checkPwd(password.val())) {
         this.setDangerInput(password);
         this.setDangerInfo(passwordInfo);
         passwordInfo.html("密码必须由字母、数字和特殊字符3种组合组成！");
@@ -201,7 +386,10 @@ export default {
         this.setSuccessInfo(passwordInfo);
         this.setSuccessInput(password);
         passwordInfo.html("该密码可用！");
+        flag = true;
       }
+
+      this.isLegalPwd = flag;
     },
 
     // 监听确认密码输入框
@@ -209,6 +397,7 @@ export default {
       var password = $("#password");
       var confirmPwd = $("#confirmPwd");
       var confirmInfo = $("#confirmInfo");
+      let flag = false;
 
       if (confirmPwd.val() == "") {
         confirmPwd.attr("class", "input");
@@ -216,20 +405,24 @@ export default {
       } else if (confirmPwd.val() == password.val()) {
         this.setSuccessInput(confirmPwd);
         this.setHiddenInfo(confirmInfo);
+        flag = true;
       } else {
         this.setDangerInput(confirmPwd);
         this.setDangerInfo(confirmInfo);
         confirmInfo.html("两次密码输入不一致！");
       }
+      this.isLegalConPwd = flag;
     },
     // 检查邮箱是否合法,合法返回true
     checkEmail(e) {
-      let emailRegx = /^\S+@\S\.\S+$/;
+      let emailRegx = /^\S+@\S+\.\S+$/;
       return emailRegx.test(e);
     },
     emailInput() {
       let email = $("#email");
       let emailInfo = $("#emailInfo");
+      // console.log(this.checkEmail(email.val()));
+      let flag = false;
       if (email.val() == "") {
         this.setHiddenInfo(emailInfo);
         email.attr("class", "input");
@@ -241,7 +434,9 @@ export default {
         this.setSuccessInfo(emailInfo);
         this.setSuccessInput(email);
         emailInfo.html("该邮箱地址合法！");
+        flag = true;
       }
+      this.isLegalEmail = flag;
     },
   },
 };

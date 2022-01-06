@@ -11,10 +11,6 @@
 <script>
   import NavHeader from './components/NavHeader.vue';
   import BackTop from './components/BackTop.vue';
-
-
-
-
   // import Login from "./components/login.vue";
   // import userInfo from "./components/userInfo.vue";
   // import Setting from "./components/setting.vue";
