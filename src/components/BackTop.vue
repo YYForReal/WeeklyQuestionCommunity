@@ -8,7 +8,7 @@
   export default {
     data() {
       return {
-        isShow:false,
+        isShow: false,
         isAnimation: false,
       }
     },
@@ -17,7 +17,7 @@
         this.isAnimation = true;
         let that = this;
         console.log(document.documentElement.scrollTop);
-        let delt = document.documentElement.scrollTop/150.0;
+        let delt = document.documentElement.scrollTop / 150.0;
         console.log(delt);
         let timer = setInterval(function () {
           document.documentElement.scrollTop -= delt;
@@ -27,26 +27,33 @@
           }
         }, 2);
       },
-      reload(){
-        let bodyHeight = document.body.scrollHeight ;
-        let screenHeight = window.screen.height;    //屏幕高度
-        if(bodyHeight > screenHeight){
-            this.isShow = true;
-        }else{
+      reload() {
+        let bodyHeight = document.body.scrollHeight;
+        let screenHeight = window.screen.height; //屏幕高度
+        console.log("bodyHeight : ", bodyHeight);
+        console.log("screenHeight : ", screenHeight);
+        if (bodyHeight > screenHeight) {
+          this.isShow = true;
+        } else {
           this.isShow = false;
         }
       }
     },
-    mounted(){
-        let bodyHeight = document.body.scrollHeight ;
-        let screenHeight = window.screen.height;    //屏幕高度
-        if(bodyHeight > screenHeight){
-            this.isShow = true;
+    mounted() {
+      setTimeout(() => {
+        let bodyHeight = document.body.scrollHeight;
+        let screenHeight = window.screen.height; //屏幕高度
+        console.log("bodyHeight : ", bodyHeight);
+        console.log("screenHeight : ", screenHeight);
+        if (bodyHeight > screenHeight) {
+          this.isShow = true;
         }
+
+      }, 2000);
     },
-    watch:{
-      $route:{
-        handler(newValue,oldValue){
+    watch: {
+      $route: {
+        handler(newValue, oldValue) {
           this.reload();
         }
       }

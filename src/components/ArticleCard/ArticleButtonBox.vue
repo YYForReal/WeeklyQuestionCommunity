@@ -121,6 +121,7 @@
         }
       },
       handleDisagree() {
+        let that = this;
         this.isDisagree = !this.isDisagree;
         if (this.isAgree) {
           this.isAgree = false;

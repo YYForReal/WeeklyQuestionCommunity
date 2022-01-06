@@ -131,12 +131,10 @@
         console.log("localStorage: ");
         console.log(localStorage.getItem("userId"));
       },
-      methods: {
-        logout() {
-          this.isLogin = false;
-        },
+      logout() {
+        this.isLogin = false;
       },
-    }
+      }
   }
 
 </script>
@@ -174,12 +172,12 @@
 
   .dropbtn {
 
-    margin-top: 4px;
+    margin-top: 10px;
   }
 
   .mydropdown {
-    margin-top: 0px;
-    margin-left: -30px;
+    margin-top: -1px;
+    margin-left: -60px;
     width: 100px;
   }
 

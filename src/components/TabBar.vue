@@ -1,5 +1,5 @@
 <template lang="">
-  <div>
+  <div class="router-body">
     <article>
       <div class="tabs is-large">
         <!-- <div class="navbar-item">
@@ -133,5 +133,8 @@
 </script>
 <style lang="" scoped>
   @import '../assets/css/bulma.min.css';
-
+.router-body{
+  width: 100%;
+  height: 100%;
+}
 </style>

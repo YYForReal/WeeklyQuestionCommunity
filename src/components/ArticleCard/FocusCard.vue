@@ -39,14 +39,13 @@
       <p>可能原因：<span class="red"> 服务器异常</span> 或<span class="red"> 网络异常</span>。</p>
     </section>
     <section v-else>
-      <el-skeleton :rows="5" animated />
-
+      <WaitingBox></WaitingBox>
     </section>
   </div>
 </template>
 <script>
   import ArticleButtonBox from './ArticleButtonBox.vue'
-  import WaitingBox from '../WaitingBox.vue'
+  import WaitingBox from '../WaitingBox2.vue'
 
   import {
     marked
@@ -54,6 +53,7 @@
   export default {
     data() {
       return {
+        authorId:1,
         errorType: false,
         readingStatus: false,
         articles: [],
@@ -61,19 +61,21 @@
       }
     },
     mounted() {
+      this.getUserInfo();
       let that = this;
       $.ajax({
         type: 'get',
-        url: that.baseUrl + '/article/getAll',
+        url: that.baseUrl + '/article/getArticlesFromAuthor',
         async: true,
-        data: {},
+        data: {
+          authorId:that.authorId
+        },
         success: function (data) {
           that.articles = data;
           console.log("获取关注模块数据成功，", typeof data, data);
           //转换markdown成正常文本
           for (let i = 0; i < that.articles.length; i++) {
             that.markContents.push(marked.parse(that.filterDot(that.articles[i].content)));
-
           }
           //转换时间格式
           that.translateDate();
@@ -90,7 +92,19 @@
       ArticleButtonBox,
       WaitingBox,
     },
+    watch:{
+      articles:{
+        handler(newValue){
+
+        },
+        deep:true
+      }
+    },
+
     methods: {
+      getUserInfo(){
+        //获取用户信息
+      },
       TurnToArticle(id) {
         this.$router.push({
           name: 'SpecialArticle',
@@ -152,13 +166,11 @@
     color: blue;
   }
 
-
   .article-card {
     width: 95%;
     text-align: left;
     padding-left: 20px;
   }
-
 
   .article-card .article-content {
     width: 600px;
@@ -221,7 +233,6 @@
     font-size: small;
     background-color: skyblue;
     font-weight: 400;
-
   }
 
 </style>

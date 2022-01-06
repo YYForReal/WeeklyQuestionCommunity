@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <NavHeader></NavHeader>
-
     <router-view :key="$route.path" />
-
     <BackTop></BackTop>
   </div>
 </template>
@@ -11,18 +9,12 @@
 <script>
   import NavHeader from './components/NavHeader.vue';
   import BackTop from './components/BackTop.vue';
-  // import Login from "./components/login.vue";
-  // import userInfo from "./components/userInfo.vue";
-  // import Setting from "./components/setting.vue";
 
   export default {
     name: "App",
     components: {
       NavHeader,
       BackTop,
-      // Login,
-      // Setting,
-      // userInfo,
     },
     methods: {
       jumpToArticle(id) {
@@ -41,7 +33,7 @@
           title: '最近浏览',
           message: message,
           position: 'top-left',
-          offset: 100,
+          offset: 120,
           dangerouslyUseHTMLString: true,
           duration: 6000,
           onClick() {
@@ -49,7 +41,6 @@
           },
         });
       }
-
     },
   };
 

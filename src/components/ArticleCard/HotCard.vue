@@ -36,13 +36,15 @@
       <p>可能原因：<span class="red"> 服务器异常</span> 或<span class="red"> 网络异常</span>。</p>
     </section>
     <section v-else>
-      <el-skeleton :rows="5" animated />
+      
+      <!-- <el-skeleton :rows="5" animated /> -->
+      <WaitingBox></WaitingBox>
     </section>
   </div>
 </template>
 <script>
   import ArticleButtonBox from './ArticleButtonBox.vue'
-  import WaitingBox from '../WaitingBox.vue'
+  import WaitingBox from '../WaitingBox3.vue'
   import {marked} from 'marked'
   export default {
     data() {

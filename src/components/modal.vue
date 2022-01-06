@@ -5,10 +5,7 @@
       <div class="columns is-centered">
         <div class="column is-8">
           <div class="message">
-            <div
-              class="message-header"
-              style="background-color: #ffffff; color: black"
-            >
+            <div class="message-header" style="background-color: #ffffff; color: black">
               <p class="">{{ title }}</p>
               <button class="delete" @click="closeModal"></button>
             </div>
@@ -23,26 +20,27 @@
 </template>
 
 <script>
-export default {
-  props: ["title", "showModal"],
-  data() {
-    return {
-      show: true,
-    };
-  },
-  computed: {
-    // 去掉滚动条
-    flow() {
-      if (this.show) {
-        return "hidden";
-      }
-      return "";
+  export default {
+    props: ["title", "showModal"],
+    data() {
+      return {
+        show: true,
+      };
     },
-  },
-  methods: {
-    closeModal() {
-      this.show = false;
+    computed: {
+      // 去掉滚动条
+      flow() {
+        if (this.show) {
+          return "hidden";
+        }
+        return "";
+      },
     },
-  },
-};
+    methods: {
+      closeModal() {
+        this.show = false;
+      },
+    },
+  };
+
 </script>
