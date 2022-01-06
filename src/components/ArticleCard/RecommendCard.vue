@@ -13,7 +13,7 @@
                 <img loading="lazy" :src="article.img" :alt="article.title">
               </div>
               <div>
-                <span class="black article-content-main">{{article.content}}</span>
+                <span class="black article-content-main" v-html="article.content"></span>
                 <a class="read-all float-right" @click="readAll(2)">阅读全文</a>
               </div>
             </div>
@@ -38,6 +38,7 @@
 </template>
 <script>
   import ArticleButtonBox from './ArticleButtonBox.vue'
+  import {marked} from 'marked'
   export default {
     data() {
       return {
@@ -95,7 +96,7 @@
           console.log("获取热榜模块数据成功，", typeof data, data);
           //转换markdown成正常文本
           for (let i = 0; i < that.articles.length; i++) {
-            that.articles[i].content = that.filterDot(that.articles[i].content);
+            that.articles[i].content = marked.parse(that.filterDot(that.articles[i].content));
           }
         },
         error: function (data) {

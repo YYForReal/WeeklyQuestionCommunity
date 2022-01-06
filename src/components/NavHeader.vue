@@ -4,10 +4,10 @@
     <nav class="navbar box is-fullhd navbar-height is-fixed-top" id="navbar">
       <div class="navbar-item"></div>
       <div class="navbar-item">
-        <a class="">
+        <router-link to="/">
           <img src="../assets/image/zhi.png" alt="logo" />
           <img src="../assets/image/hu.png" alt="logo" />
-        </a>
+        </router-link>
       </div>
       <div class="navbar-menu">
         <div class="navbar-start">
@@ -158,9 +158,12 @@ export default {
 };
 </script>
 
-<style scoped>
+
+<style lang="css" src="../assets/css/bulma.min.css" scoped></style>
+<style lang="css" scoped>
+/* @import url("https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"); */
+/* @import '../assets/css/bulma.min.css'; */
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
-@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
 
 .navbar-height {
   height: 55px;
@@ -187,11 +190,11 @@ export default {
 }
 
 .dropbtn {
-  margin-top: -4px;
+  margin-top: 4px;
 }
 
 .mydropdown {
-  margin-top: 4px;
+  margin-top: 0px;
   margin-left: -30px;
   width: 100px;
 }
@@ -199,5 +202,13 @@ export default {
 .mycenter {
   margin-left: auto;
   margin-right: auto;
+}
+
+#navbar {
+  padding: 0;
+}
+
+.mybtn {
+  padding: 0;
 }
 </style>

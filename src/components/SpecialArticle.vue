@@ -19,7 +19,7 @@
     <!-- 判断是文章 -->
     <div v-else-if="article.type == 1">
       <Question :article="article"></Question>
-      <AnswersBox :answers="answers"></AnswersBox>
+      <!-- <AnswersBox :answers="answers"></AnswersBox> -->
     </div>
 
     <div v-else-if="errorType">
@@ -154,6 +154,7 @@
 <style lang="">
   .special-box {
     width: 75%;
+    min-width: 300px;
     min-height: 600px;
     margin: 0 auto;
     text-align: left;
@@ -161,7 +162,6 @@
 
   .card-title {
     font-family: "楷体", "仿宋";
-
   }
 
   .text {

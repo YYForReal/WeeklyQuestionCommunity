@@ -8,10 +8,10 @@
 
     <p class="wrap-line4 text-indent" v-html="article.content"></p>
     <!-- 如果有视频就放，没有就不显示了（已经没有了） -->
-    <video class="media-box" v-if="article.vsrc!=null&&article.vsrc!=''" controls>
+    <!-- <video class="media-box" v-if="article.vsrc!=null&&article.vsrc!=''" controls>
       <source :src="article.vsrc" type="video/mp4">
-    </video>
-    <!-- 如果有封面就放，没有就不显示了（估计没有） -->
+    </video> -->
+    <!-- 如果有封面就放，没有就不显示了 -->
     <img class="media-box" v-if="article.img!=null&&article.img!=''" :src="article.img">
     </img>
 
@@ -44,20 +44,20 @@
           <span class="iconfont icon-sanjiaoxing1 small"></span>
         </a>
       </div>
-      <a class="article-card-link iconfont icon-pinglun" v-if="reviewsNumber>0" @click="handleReview()">{{reviewsNumber}}条评论</a>
+      <a class="article-card-link iconfont icon-pinglun" v-if="reviewsNumber>0"
+        @click="handleReview()">{{reviewsNumber}}条评论</a>
       <a class="article-card-link iconfont icon-pinglun" v-else @click="handleReview()">添加评论</a>
 
       <a class="article-card-link iconfont icon-fenxiang">分享</a>
       <a class="article-card-link iconfont icon-shoucang1">收藏</a>
-      <a class="article-card-link iconfont icon-jubao" v-if="article.agree==0">举报</a>
-      <div class="agree-box" v-else>
+      <a class="article-card-link iconfont icon-jubao">举报</a>
+      <div class="agree-box">
         <a class="article-card-link iconfont icon-31guanzhu1xuanzhong">喜欢</a>
-        <a class="article-card-link iconfont icon-24gf-ellipsis"></a>
+        <!-- <a class="article-card-link iconfont icon-24gf-ellipsis"></a> -->
+        <a class="article-card-link iconfont icon-wenzhangzhuanzai" v-if="article.type">文章转载</a>
       </div>
       <p>编辑于 {{article.releaseTime}}</p>
     </div>
-
-
 
     <ReviewsBox v-if="seeReviews" :type="Number(article.type)" :articleId="article.articleId"></ReviewsBox>
     <EditAnswer v-if="isWrite" :authorId="1" :articleId="article.articleId"></EditAnswer>
@@ -73,7 +73,7 @@
     data() {
       return {
         isAgree: false,
-        isDisagree:false,
+        isDisagree: false,
         isWrite: false,
         seeReviews: false,
         reviewsNumber: 0,
@@ -93,8 +93,23 @@
       //转换mark格式
       this.article.content = marked.parse(this.article.content);
       console.log("article is ", this.article);
+      this.translateDate();
     },
     methods: {
+      translateDate() {
+        let d = new Date(this.article.releaseTime);       
+        d = d.getTime() + d.getTimezoneOffset()*60*1000; // - 480分钟
+        d = new Date(d);
+        let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
+        let resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
+        // 不够10 前面加0
+        console.log(resDate);
+        console.log(resTime);
+        this.article.releaseTime = resDate + ' ' + resTime;
+      },
+      p(s) {
+        return s < 10 ? '0' + s : s
+      },
       handleWriteAnswer() {
         this.isWrite = !this.isWrite;
         this.seeReviews = false;
@@ -107,6 +122,7 @@
         let that = this;
         let agreeNumber = 0 - ((this.isAgree + 0) * 2 - 1);
         that.isAgree = !that.isAgree;
+        that.isDisagree = false;
         that.article.agree += agreeNumber;
         $.ajax({
           type: "post",
@@ -118,13 +134,31 @@
           },
           success: function (data) {
             console.log(typeof data, data);
-
-
             // that.article = data;
           }
         })
 
-      }
+      },
+      handleDisagree() {
+        let that = this;
+        this.isDisagree = !this.isDisagree;
+        if (this.isAgree) {
+          this.isAgree = false;
+          this.article.agree--;
+          $.ajax({
+            type: "post",
+            url: "http://localhost:9000/article/agree",
+            async: true,
+            data: {
+              articleId: that.article.articleId,
+              agreeNumber: -1
+            },
+            success: function (data) {
+              console.log(typeof data, data);
+            }
+          })
+        }
+      },
     },
     watch: {
       article: {
@@ -235,7 +269,7 @@
   }
 
   .button {
-    height: 25px;
+    height: 35px;
   }
 
 

@@ -5,19 +5,21 @@
         <div class="time-release" v-if="article.type==1">{{article.authorName}}发表了文章 {{article.releaseTime}}</div>
         <div class="time-release" v-else-if="article.type==0">{{article.authorName}}发布了问答 {{article.releaseTime}}</div>
         <h1 class="recommend-content-title canTap" @click="TurnToArticle(article.articleId)">
-        <span class="article-type-tag">{{article.type==1?'文章':'问题'}} <sup class="smaller iconfont icon-icon-test"></sup>  </span>  
-        {{article.title}}
+          <span class="article-type-tag">{{article.type==1?'文章':'问题'}} <sup
+              class="smaller iconfont icon-icon-test"></sup> </span>
+          {{article.title}}
         </h1>
         <div>
-          <div class="recommend-article-content canTap" :class="{'recommend-article-content-without-img':article.img==null}" 
-          @click="TurnToArticle(article.articleId)">
+          <div class="recommend-article-content canTap"
+            :class="{'recommend-article-content-without-img':article.img==null}"
+            @click="TurnToArticle(article.articleId)">
             <div>
               <div class="img-box float-left" v-if="article.img!=null  ">
                 <img loading="lazy" :src="article.img" :alt="article.title">
               </div>
               <div>
-                <span class="black"
-                  :class="{'recommend-article-content-main':!readingStatus}" v-html="markContents[index]"></span>
+                <span class="black" :class="{'recommend-article-content-main':!readingStatus}"
+                  v-html="markContents[index]"></span>
                 <div>
                   <a class="read-all float-right" @click="readingStatus=!readingStatus" v-if="readingStatus==false">
                     阅读全文 </a>
@@ -46,14 +48,16 @@
   import ArticleButtonBox from './ArticleButtonBox.vue'
   import WaitingBox from '../WaitingBox.vue'
 
-  import {marked} from 'marked'
+  import {
+    marked
+  } from 'marked'
   export default {
     data() {
       return {
         errorType: false,
         readingStatus: false,
         articles: [],
-        markContents:[],
+        markContents: [],
       }
     },
     mounted() {
@@ -69,7 +73,7 @@
           //转换markdown成正常文本
           for (let i = 0; i < that.articles.length; i++) {
             that.markContents.push(marked.parse(that.filterDot(that.articles[i].content)));
-            
+
           }
           //转换时间格式
           that.translateDate();
@@ -87,12 +91,18 @@
       WaitingBox,
     },
     methods: {
-      TurnToArticle(id){
-        this.$router.push({ name: 'SpecialArticle', params: { articleId: id  }})
+      TurnToArticle(id) {
+        this.$router.push({
+          name: 'SpecialArticle',
+          params: {
+            articleId: id
+          }
+        })
       },
       // 卡片里面不能有markdown的标题字符
       filterDot(str) {
         var pattern = new RegExp("#")
+
         var rs = "";
         for (var i = 0; i < str.length; i++) {
           rs = rs + str.substr(i, 1).replace(pattern, '');
@@ -102,11 +112,15 @@
       translateDate() {
         for (let i = 0; i < this.articles.length; i++) {
           let d = new Date(this.articles[i].releaseTime);
+          d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
+          d = new Date(d);
           let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
           let resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
           this.articles[i].releaseTime = resDate + " " + resTime;
 
           d = new Date(this.articles[i].updateTime);
+          d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
+          d = new Date(d);
           resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
           resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
           this.articles[i].updateTime = resDate + " " + resTime;
@@ -121,8 +135,6 @@
 </script>
 <style lang="" scoped>
   @import '../../assets/css/bulma.min.css';
-
-
 
   .content-title,
   .recommend-content-title {
@@ -179,7 +191,6 @@
 
   /* 关注 */
 
-
   .article-card .recommend-article-content {
     width: 97%;
     height: 130px;
@@ -200,13 +211,13 @@
     -webkit-line-clamp: 3;
   }
 
-  img{
+  img {
     height: 120px;
   }
 
 
   /* 文章类型的标签 */
-  .article-type-tag{
+  .article-type-tag {
     font-size: small;
     background-color: skyblue;
     font-weight: 400;

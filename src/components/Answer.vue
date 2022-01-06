@@ -2,6 +2,7 @@
   <div class="one-answer">
     <div class="user-info">
       <div class="user-img">
+        <!-- 默认头像 -->
         <img
           :src="answer.authorAvatar?answer.authorAvatar:'https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg'"
           alt="">
@@ -9,7 +10,7 @@
       <div class="user-name">
         <strong>{{answer.authorName==null?'匿名用户':answer.authorName}} <i class="iconfont icon-huiyuan orange"></i>
         </strong>
-        <p class="user-description">{{answer.authorDescription==null?'该用户没有用户描述':answer.authorDescription}}</p>
+        <p class="user-description">{{answer.authorDescription==null?'':answer.authorDescription}}</p>
       </div>
     </div>
     <!-- 没有编辑 标签 “编辑推荐”这种 -->
@@ -148,6 +149,8 @@
       },
       translateDate() {
         let d = new Date(this.answer.releaseTime);
+        d = d.getTime() + d.getTimezoneOffset()*60*1000; // - 480分钟
+        d = new Date(d);
         let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
         let resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
         // 不够10 前面加0
@@ -155,6 +158,8 @@
         console.log(resTime);
         this.answer.releaseTime = resDate + ' ' + resTime;
         d = new Date(this.answer.updateTime);
+        d = d.getTime() + d.getTimezoneOffset()*60*1000; // - 480分钟
+        d = new Date(d);
         resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
         resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
         // 不够10 前面加0
@@ -201,8 +206,6 @@
 
 <style lang="" scoped>
   @import '../assets/css/bulma.min.css';
-
-
 
   .article-card-link {
     display: inline-block;
