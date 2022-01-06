@@ -136,7 +136,8 @@
           this.isLogin = false;
         },
       },
-    };
+    }
+  }
 
 </script>
 
