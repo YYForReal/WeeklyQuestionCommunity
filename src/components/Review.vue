@@ -62,6 +62,8 @@
       },
       translateDate() {
         let d = new Date(this.review.releaseTime);
+        d = d.getTime() + d.getTimezoneOffset()*60*1000; // - 480分钟
+        d = new Date(d);
         let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
         console.log(resDate);
         this.review.releaseTime = resDate;

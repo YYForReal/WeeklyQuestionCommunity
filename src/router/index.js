@@ -14,6 +14,14 @@ import setting from '@/components/setting'
 Vue.use(Router)
 Vue.prototype.baseUrl = 'http://localhost:9000'
 
+// 获取原型对象上的push函数
+const originalPush = Router.prototype.push;
+// 修改原型对象上的push方法
+Router.prototype.push = function push(location){
+  return originalPush.call(this,location).catch(err=> err);
+}
+
+
 export default new Router({
   routes: [{
       path: '/',

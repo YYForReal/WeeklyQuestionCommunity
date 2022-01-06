@@ -22,6 +22,9 @@ import jwt from 'jsonwebtoken';
 Vue.prototype.$md5 = md5;
 Vue.prototype.$jwt = jwt;
 
+
+
+
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 

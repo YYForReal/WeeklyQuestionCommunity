@@ -47,8 +47,6 @@
       // FocusCard
     },
     mounted() {
-      // 展示上次浏览的历史文章
-
     },
     methods: {
       handleActive(index) {
@@ -128,6 +126,7 @@
           },
         });
       },
+
     },
   };
 

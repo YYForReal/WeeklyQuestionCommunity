@@ -9,7 +9,7 @@
           <router-link :to="('/SpecialArticle/'+article.articleId)">
 
             <h2 class="content-title">{{article.title}}</h2>
-            <p class="black article-content-main">{{article.content}}</p>
+            <p class="black article-content-main" v-html="article.content"></p>
             <div class="article-bottom">
               <a class="article-card-link iconfont icon-redu" href="">{{article.hot>10000?(article.hot/10000).toFixed(2)+'万':article.hot}}热度</a>
               <a class="article-card-link iconfont icon-fasong" href="">分享</a>
@@ -43,6 +43,7 @@
 <script>
   import ArticleButtonBox from './ArticleButtonBox.vue'
   import WaitingBox from '../WaitingBox.vue'
+  import {marked} from 'marked'
   export default {
     data() {
       return {
@@ -67,7 +68,7 @@
           console.log("获取热榜模块数据成功，", typeof data, data);
           //转换markdown成正常文本
           for (let i = 0; i < that.articles.length; i++) {
-            that.articles[i].content = that.filterDot(that.articles[i].content);
+            that.articles[i].content = marked.parse(that.filterDot(that.articles[i].content));
           }
         },
         error: function (data) {

@@ -17,13 +17,15 @@
         this.isAnimation = true;
         let that = this;
         console.log(document.documentElement.scrollTop);
+        let delt = document.documentElement.scrollTop/150.0;
+        console.log(delt);
         let timer = setInterval(function () {
-          document.documentElement.scrollTop -= 10;
-          if (document.documentElement.scrollTop <= 10) {
+          document.documentElement.scrollTop -= delt;
+          if (document.documentElement.scrollTop <= delt) {
             clearInterval(timer);
             that.isAnimation = false;
           }
-        }, 1);
+        }, 2);
       },
       reload(){
         let bodyHeight = document.body.scrollHeight ;
@@ -65,8 +67,8 @@
   }
 
   .animation-move {
-    -webkit-animation: moveUp 1s ease-in-out;
-    animation: moveUp 1s ease-in-out;
+    -webkit-animation: moveUp 0.9s ease-in-out;
+    animation: moveUp 0.9s ease-in-out;
   }
 
 

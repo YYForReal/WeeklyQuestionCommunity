@@ -16,7 +16,11 @@
     <a class="article-card-link iconfont icon-jubao" v-if="article.agree==0">举报</a>
     <div class="agree-box" v-else>
       <a class="article-card-link iconfont icon-31guanzhu1xuanzhong" >喜欢</a>
-      <a class="article-card-link iconfont icon-24gf-ellipsis" ></a>
+      <!-- <a class="article-card-link more-button iconfont icon-24gf-ellipsis" ></a> -->
+      <div class="more-box">
+        <a class="article-card-link iconfont icon-31guanzhu1xuanzhong" >申请转载</a>
+        <a class="article-card-link iconfont icon-31guanzhu1xuanzhong" >不感兴趣</a>
+      </div>
     </div>
 
     <ReviewsBox v-if="seeReviews" :type="Number(article.type)" :articleId="article.articleId" ></ReviewsBox>
@@ -152,6 +156,9 @@
     margin-right: 20px;
     cursor:pointer;
   }
+  .article-card-link:hover {
+    color: blue;
+  }
 
   .article-bottom {
     margin-top: 10px;
@@ -161,9 +168,7 @@
     margin-bottom: 5px;
   }
 
-  .article-card-link:hover {
-    color: blue;
-  }
+
 
 
   .agree-box .has-agree {
@@ -183,6 +188,15 @@
     padding-right: 4px;
     font-size: 14px;
     cursor:pointer;
+  }
+  .more-box{
+    position: absolute;
+    top: 30px;
+    visibility: hidden;
+  }
+  
+  .more:hover+.more-box{
+    visibility: visible;
   }
 
 </style>
