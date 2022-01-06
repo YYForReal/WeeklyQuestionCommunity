@@ -1,15 +1,40 @@
 <template>
   <div
-    class="media block"
+    class="media"
     id="page"
-    :style="{ 'background-image': background }"
+    :style="{ 'background-image': 'url(' + background + ')' }"
+    style="background-repeat: no-repeat; background-size: cover"
   >
     <div class="media-left">
-      <figure class="image is-128x128">
+      <!-- 头像 -->
+      <figure class="image is-128x128" @mouseleave="hideAvatar">
         <img
-          class="is-rounded"
-          src="https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg"
+          class="Avatar"
+          :src="avatarUrl"
+          alt="修改头像"
+          @mouseenter="showAvatar"
         />
+        <div
+          class="file is-hidden"
+          style="
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: -55px;
+            margin-left: 35px;
+            color: white;
+          "
+          id="showAvatar"
+        >
+          <label class="file-label">
+            <input
+              class="file-input"
+              type="file"
+              accept="image/*"
+              @change="uploadAvatar"
+            />
+            <span class="file-label">修改头像</span>
+          </label>
+        </div>
       </figure>
     </div>
     <div class="media-content">
@@ -34,11 +59,9 @@
             <div class="field is-grouped">
               <input
                 type="text"
-                class="input has-fixed-size level-item"
+                class="input level-item"
                 placeholder="新的昵称"
-                rows="1"
                 v-model.trim="nameModel"
-                @input="nameInput"
               />
               <button class="level-item button" @click="updateName">
                 确认
@@ -64,7 +87,6 @@
                 cols="33"
                 rows="5"
                 v-model.trim="signatureModel"
-                @input="signatureInput"
               ></textarea>
               <button
                 class="button"
@@ -83,7 +105,12 @@
           <div class="level-item">
             <div class="file">
               <label class="file-label">
-                <input class="file-input" type="file" accept="image/*" />
+                <input
+                  class="file-input"
+                  type="file"
+                  accept="image/*"
+                  @change="uploadBackground"
+                />
                 <span class="file-cta">
                   <span class="file-icon">
                     <i class="fas fa-angle-double-up"></i>
@@ -106,47 +133,169 @@ export default {
       userId: "",
       userName: "",
       signature: "",
-      avatarUrl: "",
+      avatarUrl:
+        "https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg",
+
       changeName: true,
       changeSignature: true,
+
       nameModel: "",
       signatureModel: "",
-      background:
-        "url(https://static.zhihu.com/heifetz/assets/sign_bg.db29b0fb.png)",
+
+      showAvatarFile: false,
+      background: "",
     };
   },
   created() {
     // 获取用户信息
     let that = this;
-    this.userId = localStorage.getItem("userId");
+    let user = localStorage.getItem("user");
+    user = JSON.parse(user);
+    this.userId = user.userId;
     $.ajax({
       type: "get",
       url: "http://localhost:9000/user/getUserInfo?userId=" + that.userId,
       success: function (data) {
-        console.log("getUserName: " + data.userName);
         that.userName = data.userName;
         that.signature = data.description;
-        that.avatarUrl = data.avatar;
+        if (data.background != null) {
+          that.background = data.background;
+        }
+        if (data.avatar != null) {
+          that.avatarUrl = data.avatar;
+        }
       },
       error: function () {
-        console.log("获取昵称失败");
+        console.log("获取用户信息失败");
       },
     });
   },
   methods: {
-    nameInput() {
-      if (this.nameModel == "") {
+    updateName() {
+      let that = this;
+      if (this.nameModel.length > 12) {
+        this.$message({
+          type: "error",
+          message: "长度不能超过12个字符！",
+        });
+      } else if (this.nameModel == "") {
+        this.$message({
+          type: "error",
+          message: "昵称不能为空！",
+        });
+      } else {
+        $.ajax({
+          type: "post",
+          url: "http://localhost:9000/user/postName",
+          async: true,
+          data: { userId: that.userId, userName: that.nameModel },
+          success: function (data) {
+            that.$message({
+              type: "success",
+              message: "编辑成功！",
+            });
+            that.userName = that.nameModel;
+            that.changeName = true;
+          },
+          error: function () {
+            console.log("获取用户信息失败");
+          },
+        });
       }
     },
-    signatureInput() {},
-    updateName() {},
-    updateSignature() {},
+    updateSignature() {
+      let that = this;
+      if (this.signatureModel.length > 30) {
+        this.$message({
+          type: "error",
+          message: "长度不能超过30个字符！",
+        });
+      } else {
+        $.ajax({
+          type: "post",
+          url: "http://localhost:9000/user/postDes",
+          async: true,
+          data: { userId: that.userId, description: that.signatureModel },
+          success: function (data) {
+            that.$message({
+              type: "success",
+              message: "编辑成功！",
+            });
+            that.signature = that.signatureModel;
+            that.changeSignature = true;
+          },
+          error: function () {
+            console.log("获取用户信息失败");
+          },
+        });
+      }
+    },
+
+    showAvatar() {
+      $("#showAvatar").attr("class", "file");
+    },
+    hideAvatar() {
+      $("#showAvatar").attr("class", "file is-hidden");
+    },
+    // 读取背景图
+    uploadBackground(e) {
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      let that = this;
+      reader.onload = (e) => {
+        that.background = e.target.result;
+
+        $.ajax({
+          type: "post",
+          url: "http://localhost:9000/user/postBackground",
+          async: true,
+          data: { userId: that.userId, background: that.background },
+          success: function (data) {
+            that.$message({
+              type: "success",
+              message: "上传背景图片成功！",
+            });
+          },
+          error: function () {
+            console.log("获取用户信息失败");
+          },
+        });
+      };
+    },
+    // 读取头像
+    uploadAvatar(e) {
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      let that = this;
+      reader.onload = (e) => {
+        that.avatarUrl = e.target.result;
+
+        $.ajax({
+          type: "post",
+          url: "http://localhost:9000/user/postAvatar",
+          async: true,
+          data: { userId: that.userId, avatar: that.avatarUrl },
+          success: function (data) {
+            that.$message({
+              type: "success",
+              message: "修改成功！",
+            });
+          },
+          error: function () {
+            console.log("获取用户信息失败");
+          },
+        });
+      };
+    },
   },
 };
 </script>
+<style lang="css" src="../assets/css/bulma.min.css" scoped></style>
 
 <style scoped>
-@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+/* @import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"; */
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
 
 .button {

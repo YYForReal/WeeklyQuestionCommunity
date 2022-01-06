@@ -1,5 +1,5 @@
 <template>
-  <div class="page container is-fullhd">
+  <div class="page">
     <div class="columns is-centered">
       <a href="" class="columns is-centered login-image">
         <img src="../assets/image/login.png" alt="" />
@@ -91,6 +91,7 @@
                       id="signIdInput"
                       v-model="sign_userId"
                       v-on:input="listenUserId"
+                      required
                     />
                     <span class="icon is-small is-left">
                       <i class="fas fa-user"></i>
@@ -108,6 +109,7 @@
                       id="password"
                       @input="listenPwd"
                       v-model="signPwd"
+                      required
                     />
                     <span class="icon is-small is-left">
                       <i class="fas fa-lock"></i>
@@ -237,10 +239,17 @@ export default {
       if (!this.isRepeatedUserId(this.login_userId)) {
         this.setDangerInfo(userIdInfo);
         this.setDangerInput(userId);
-        userIdInfo.html("用户名不存在！");
-
+        this.$message({
+          type: "error",
+          message: "用户名不存在！",
+        });
         this.setHiddenInfo(userPwdInfo);
         loginPwd.attr("class", "input");
+      } else if (loginPwd.val() == "" || userId.val() == "") {
+        this.$message({
+          type: "error",
+          message: "请检查输入是否合法！",
+        });
       } else {
         this.setHiddenInfo(userIdInfo);
         userId.attr("class", "input");
@@ -274,11 +283,14 @@ export default {
               console.log("创建Storage: " + localStorage.getItem("user"));
               that.sendState(true);
 
-              that.$router.push("/");
+              that.$router.push("/HotCard");
             } else {
               that.setDangerInfo(userPwdInfo);
               that.setDangerInput(loginPwd);
-              userPwdInfo.html("密码错误！");
+              that.$message({
+                type: "error",
+                message: "密码错误！",
+              });
             }
           },
           error: function () {
@@ -336,7 +348,10 @@ export default {
     // 上传用户账号和密码
     postUserInfo() {
       if (!this.isLegalSignId || !this.isLegalSignPwd || !this.isLegalSignCon) {
-        alert("请检查输入是否合法！");
+        this.$message({
+          type: "error",
+          message: "请检查输入是否合法！",
+        });
         return;
       }
       let that = this;
@@ -361,7 +376,7 @@ export default {
           localStorage.setItem("user", user);
           console.log("创建Storage: " + localStorage.getItem("user"));
           that.sendState(true);
-          that.$router.push("/");
+          that.$router.push("/HotCard");
         },
         error: function () {
           console.log("提交信息失败!");
@@ -461,8 +476,10 @@ export default {
 };
 </script>
 
+<style lang="css" src="../assets/css/bulma.min.css" scoped></style>
+
 <style scoped>
-@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+/* @import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"; */
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
 
 .page {
@@ -470,6 +487,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 600px;
+  width: 100%;
 }
 
 .login-image {

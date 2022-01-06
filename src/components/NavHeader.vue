@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="column"></div>
-    <nav class="navbar box is-fullhd navbar-height is-fixed-top" id="navbar">
+    <nav class="navbar box navbar-height is-fixed-top" id="navbar">
       <div class="navbar-item"></div>
       <div class="navbar-item">
         <router-link to="/">
@@ -13,7 +13,7 @@
         <div class="navbar-start">
           <div class="navbar-item"></div>
 
-          <router-link to="/" class="navbar-item">首页</router-link>
+          <router-link to="/HotCard" class="navbar-item">首页</router-link>
           <router-link to="/RecommendCard" class="navbar-item"
             >推荐</router-link
           >
@@ -58,6 +58,7 @@
             </button>
           </div>
         </div>
+
         <div class="navbar-end">
           <a class="navbar-item">
             <span class="icon" style="font-size: 0.45rem">
@@ -82,9 +83,9 @@
               <i class="fas fa-user fa-3x"></i>
             </span>
             <div class="navbar-dropdown mydropdown">
-              <p href="" class="navbar-item" style="margin-bottom: -5px"></p>
-              <a href="" class="navbar-item"
-                ><i class="fas fa-user"></i>&nbsp;我的主页</a
+              <p class="navbar-item" style="margin-bottom: -5px"></p>
+              <router-link to="/setting" class="navbar-item"
+                ><i class="fas fa-user"></i>&nbsp;我的主页</router-link
               >
               <router-link to="/setting" class="navbar-item"
                 ><i class="fas fa-cog"></i>&nbsp;设置</router-link
@@ -102,6 +103,7 @@
             </span>
           </router-link>
 
+          <div class="navbar-item"></div>
           <div class="navbar-item"></div>
         </div>
       </div>
@@ -138,19 +140,20 @@ export default {
       // console.log(this.$route.path);
       // 如果不在首页，跳转回首页
       if (this.$route.path != "/") {
-        this.$router.push("/");
+        this.$router.push("/HotCard");
       }
       // 刷新页面
       this.$router.go(0);
 
       this.$message({
         type: "success",
-        message: "成功退出账号！",
+        message: "注销成功！",
       });
     },
     search() {
       let temp = localStorage.getItem("user");
       temp = JSON.parse(temp);
+      if (temp == null) return;
       console.log("localStorage: " + temp);
       console.log(temp.userId);
     },
@@ -190,12 +193,11 @@ export default {
 }
 
 .dropbtn {
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 .mydropdown {
-  margin-top: 0px;
-  margin-left: -30px;
+  margin-left: -25px;
   width: 100px;
 }
 

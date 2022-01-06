@@ -1,182 +1,186 @@
 <template>
-  <div class="columns is-centered">
-    <div class="column is-6">
-      <div class="box">
-        <!-- 昵称和个性签名 -->
-        <userInfo></userInfo>
-        <hr />
-        <tabs>
-          <tab title="修改密码">
-            <!-- 验证身份 -->
-            <div class="field">
-              <div class="control">
-                <div class="field is-grouped">
-                  <p class="control has-icons-left">
-                    <input
-                      type="password"
-                      class="input"
-                      v-model="verifyPwdInput"
-                      placeholder="请输入您的密码"
-                    />
-                    <span class="icon is-left">
-                      <i class="fas fa-lock"></i>
-                    </span>
-                  </p>
+  <div class="container" id="page" style="min-height: 580px">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <div class="box control">
+          <!-- 昵称和个性签名 -->
+          <userInfo></userInfo>
+          <hr />
+          <tabs>
+            <tab title="修改密码">
+              <!-- 验证身份 -->
+              <div class="field">
+                <div class="control">
+                  <div class="field is-grouped">
+                    <p class="control has-icons-left">
+                      <input
+                        type="password"
+                        class="input"
+                        v-model="verifyPwdInput"
+                        placeholder="请输入您的密码"
+                      />
+                      <span class="icon is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </p>
+                    <div class="control">
+                      <button
+                        class="button"
+                        @click="verifyPwd"
+                        style="background-color: #0066ff; color: white"
+                      >
+                        身份验证
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
                   <div class="control">
-                    <button
-                      class="button"
-                      @click="verifyPwd"
-                      style="background-color: #0066ff; color: white"
-                    >
-                      验证身份
-                    </button>
+                    <p class="help" id="verifyPwdInfo"></p>
                   </div>
                 </div>
               </div>
+            </tab>
+            <tab title="绑定邮箱">
+              <!-- 验证身份 -->
               <div class="field">
                 <div class="control">
-                  <p class="help" id="verifyPwdInfo"></p>
+                  <div class="field is-grouped">
+                    <p class="control has-icons-left">
+                      <input
+                        type="password"
+                        class="input"
+                        v-model="verifyEmailInput"
+                        placeholder="请输入您的密码"
+                      />
+                      <span class="icon is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </p>
+                    <div class="control">
+                      <button
+                        class="button"
+                        @click="verifyEmail"
+                        style="background-color: #0066ff; color: white"
+                      >
+                        身份验证
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </tab>
-          <tab title="绑定邮箱">
-            <!-- 验证身份 -->
-            <div class="field">
-              <div class="control">
-                <div class="field is-grouped">
-                  <p class="control has-icons-left">
-                    <input
-                      type="password"
-                      class="input"
-                      v-model="verifyEmailInput"
-                      placeholder="请输入您的密码"
-                    />
-                    <span class="icon is-left">
-                      <i class="fas fa-lock"></i>
-                    </span>
-                  </p>
+                <div class="field">
                   <div class="control">
-                    <button
-                      class="button"
-                      @click="verifyEmail"
-                      style="background-color: #0066ff; color: white"
-                    >
-                      验证身份
-                    </button>
+                    <p class="help" id="verifyEmailInfo"></p>
                   </div>
                 </div>
               </div>
-              <div class="field">
-                <div class="control">
-                  <p class="help" id="verifyEmailInfo"></p>
-                </div>
+            </tab>
+          </tabs>
+
+          <!-- 修改密码 -->
+          <modal title="修改密码" v-show="pwdModal">
+            <div class="field">
+              <div class="control has-icons-left has-icons-right">
+                <input
+                  type="password"
+                  class="input"
+                  placeholder="新的密码"
+                  id="password"
+                  v-model="password"
+                  @input="pwdInput"
+                />
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+                <span
+                  class="icon is-right is-clickable"
+                  @click="showPassword('#fa-eye')"
+                >
+                  <i class="fas fa-eye" id="fa-eye"></i>
+                </span>
+              </div>
+              <p class="help is-hidden" id="passwordInfo"></p>
+            </div>
+            <div class="field">
+              <div class="control has-icons-left">
+                <input
+                  type="password"
+                  class="input"
+                  placeholder="确认密码"
+                  id="confirmPwd"
+                  v-model="confirmPassword"
+                  @input="confirmPwdInput"
+                />
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </div>
+              <p class="help is-hidden" id="confirmInfo"></p>
+            </div>
+            <div class="field">
+              <div class="control">
+                <button
+                  class="button input"
+                  id="modalBtn"
+                  @click="changePwd"
+                  style="background-color: #8fc3ff; color: white"
+                >
+                  确认
+                </button>
               </div>
             </div>
-          </tab>
-        </tabs>
+          </modal>
+          <!-- 绑定邮箱 -->
+          <modal title="绑定邮箱" v-show="emailModal">
+            <div class="field">
+              <div class="control has-icons-left">
+                <input
+                  type="email"
+                  class="input"
+                  placeholder="新的邮箱地址"
+                  id="email"
+                  v-model="email"
+                  @input="emailInput"
+                />
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+              </div>
+              <p class="help is-hidden" id="emailInfo"></p>
+            </div>
 
-        <!-- 修改密码 -->
-        <modal title="修改密码" v-show="pwdModal">
-          <div class="field">
-            <div class="control has-icons-left has-icons-right">
-              <input
-                type="password"
-                class="input"
-                placeholder="新的密码"
-                id="password"
-                v-model="password"
-                @input="pwdInput"
-              />
-              <span class="icon is-small is-left">
-                <i class="fas fa-lock"></i>
-              </span>
-              <span
-                class="icon is-right is-clickable"
-                @click="showPassword('#fa-eye')"
-              >
-                <i class="fas fa-eye" id="fa-eye"></i>
-              </span>
+            <div class="field has-addons">
+              <div class="control has-icons-left">
+                <input
+                  type="text"
+                  class="input"
+                  placeholder="请输入4位邮箱验证码"
+                  id="emailCode"
+                  size="40"
+                />
+                <span class="icon is-small is-left">
+                  <i class="fas fa-shield"></i>
+                </span>
+              </div>
+              <div class="control">
+                <button class="button">获取邮箱验证码</button>
+              </div>
             </div>
-            <p class="help is-hidden" id="passwordInfo"></p>
-          </div>
-          <div class="field">
-            <div class="control has-icons-left">
-              <input
-                type="password"
-                class="input"
-                placeholder="确认密码"
-                id="confirmPwd"
-                v-model="confirmPassword"
-                @input="confirmPwdInput"
-              />
-              <span class="icon is-small is-left">
-                <i class="fas fa-lock"></i>
-              </span>
-            </div>
-            <p class="help is-hidden" id="confirmInfo"></p>
-          </div>
-          <div class="field">
-            <div class="control">
-              <button
-                class="button input"
-                style="color: black"
-                @click="changePwd"
-              >
-                确认
-              </button>
-            </div>
-          </div>
-        </modal>
-        <!-- 绑定邮箱 -->
-        <modal title="绑定邮箱" v-show="emailModal">
-          <div class="field">
-            <div class="control has-icons-left">
-              <input
-                type="email"
-                class="input"
-                placeholder="新的邮箱地址"
-                id="email"
-                v-model="email"
-                @input="emailInput"
-              />
-              <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>
-            </div>
-            <p class="help is-hidden" id="emailInfo"></p>
-          </div>
 
-          <div class="field has-addons">
-            <div class="control has-icons-left">
-              <input
-                type="text"
-                class="input"
-                placeholder="请输入4位邮箱验证码"
-                id="emailCode"
-                size="40"
-              />
-              <span class="icon is-small is-left">
-                <i class="fas fa-shield"></i>
-              </span>
+            <div class="field">
+              <div class="control">
+                <button
+                  class="input button"
+                  id="modalBtn"
+                  @click="changeEmail"
+                  style="background-color: #8fc3ff; color: white"
+                >
+                  确认
+                </button>
+              </div>
             </div>
-            <div class="control">
-              <button class="button">获取邮箱验证码</button>
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="control">
-              <button
-                class="input button"
-                style="color: black"
-                @click="changeEmail"
-              >
-                确认
-              </button>
-            </div>
-          </div>
-        </modal>
+          </modal>
+        </div>
       </div>
     </div>
   </div>
@@ -265,22 +269,27 @@ export default {
     // 验证身份--修改密码
     verifyPwd() {
       let that = this;
-      let userId = localStorage.getItem("userId");
+      let st = localStorage.getItem("user");
+      st = JSON.parse(st);
+      let userId = st.userId;
       let pwd = this.verifyPwdInput;
       $.ajax({
         type: "get",
-        url: "http://localhost:9000/user/getUserInfo",
+        url: "http://localhost:9000/user/getUserInfo?userId=" + userId,
         async: true,
-        data: userId,
         success: function (data) {
           console.log(data);
           if (that.$md5(pwd) == data.password) {
-            that.setSuccessInfo($("#verifyPwdInfo"));
-            $("#verifyPwdInfo").html("密码正确！");
+            that.$message({
+              type: "success",
+              message: "验证通过！",
+            });
             that.pwdModal = true;
           } else {
-            that.setDangerInfo($("#verifyPwdInfo"));
-            $("#verifyPwdInfo").html("密码错误！");
+            that.$message({
+              type: "error",
+              message: "密码错误！",
+            });
           }
           // that.$router.push("/setting");
         },
@@ -291,24 +300,28 @@ export default {
     }, // 验证身份--绑定邮箱
     verifyEmail() {
       let that = this;
-      let userId = localStorage.getItem("userId");
+      let st = localStorage.getItem("user");
+      st = JSON.parse(st);
+      let userId = st.userId;
       let pwd = this.verifyEmailInput;
       $.ajax({
         type: "get",
-        url: "http://localhost:9000/user/getUserInfo",
+        url: "http://localhost:9000/user/getUserInfo?userId=" + userId,
         async: true,
-        data: userId,
         success: function (data) {
           console.log(data);
           if (that.$md5(pwd) == data.password) {
-            that.setSuccessInfo($("#verifyEmailInfo"));
-            $("#verifyEmailInfo").html("密码正确！");
+            that.$message({
+              type: "success",
+              message: "验证通过！",
+            });
             that.emailModal = true;
           } else {
-            that.setDangerInfo($("#verifyEmailInfo"));
-            $("#verifyEmailInfo").html("密码错误！");
+            that.$message({
+              type: "error",
+              message: "密码错误！",
+            });
           }
-          // that.$router.push("/setting");
         },
         error: function () {
           console.log("验证身份失败!");
@@ -318,53 +331,61 @@ export default {
     // 修改密码
     changePwd() {
       if (!this.isLegalPwd || !this.isLegalConPwd) {
-        alert("请检查输入是否合法！");
+        this.$message({
+          type: "error",
+          message: "请检查输入是否合法！",
+        });
         return;
       }
       let that = this;
-      let pwd = this.$md5(this.password);
-      let userId = localStorage.getItem("userId");
-      // that.$jwt.verify(token, that.$secret, function (err, decoded) {
-      //   console.log(decoded);
-      //   userId = decoded.userId;
-      // });
+      let st = localStorage.getItem("user");
+      st = JSON.parse(st);
+      let userId = st.userId;
+      let pwd = this.password;
       console.log(userId);
       console.log(pwd);
+      pwd = this.$md5(pwd);
       $.ajax({
         type: "post",
         url: "http://localhost:9000/user/postPassword",
         async: true,
         data: { userId: userId, password: pwd },
         success: function (data) {
-          console.log(data);
-          that.pwdModal = false;
-          // that.$router.push("/setting");
+          that.$message({
+            type: "success",
+            message: "修改密码成功！",
+          });
+          that.$router.go(1);
         },
         error: function () {
+          that.$router.go(1);
           console.log("修改密码失败!");
         },
       });
+      that.$router.go(-1);
     },
     // 绑定邮箱
     changeEmail() {
       if (!this.isLegalEmail) {
-        alert("请检查输入是否合法！");
+        this.$message({
+          type: "error",
+          message: "请检查输入是否合法！",
+        });
         return;
       }
       let that = this;
-      $.ajax({
-        type: "post",
-        url: "http://localhost:9000/user/postEmail",
-        data: { userId: userId, email: that.email },
-        success: function (data) {
-          console.log(data);
-          that.emailModal = false;
-          // that.$router.push("/setting");
-        },
-        error: function () {
-          console.log("绑定邮箱失败!");
-        },
-      });
+      // $.ajax({
+      //   type: "post",
+      //   url: "http://localhost:9000/user/postEmail",
+      //   data: { userId: userId, email: that.email },
+      //   success: function (data) {
+      //     console.log(data);
+
+      //   },
+      //   error: function () {
+      //     console.log("绑定邮箱失败!");
+      //   },
+      // });
     },
     // 监听密码输入框
     pwdInput() {
@@ -421,7 +442,6 @@ export default {
     emailInput() {
       let email = $("#email");
       let emailInfo = $("#emailInfo");
-      // console.log(this.checkEmail(email.val()));
       let flag = false;
       if (email.val() == "") {
         this.setHiddenInfo(emailInfo);
@@ -441,8 +461,10 @@ export default {
   },
 };
 </script>
+<style lang="css" src="../assets/css/bulma.min.css" scoped>
+</style>
 
-<style scoped>
-@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+<style scoped >
+/* @import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"; */
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
 </style>

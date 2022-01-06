@@ -42,7 +42,11 @@ export default {
   methods: {
     closeModal() {
       this.show = false;
+      this.$router.push("/HotCard");
+      this.$router.go(-1);
     },
   },
 };
 </script>
+
+<style lang="css" src="../assets/css/bulma.min.css" scoped></style>
