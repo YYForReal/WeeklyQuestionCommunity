@@ -66,9 +66,13 @@
                 </p>
                 <div class="field">
                   <div class="control">
-                    <a class="button input log-btn" id="login" @click="Login"
-                      >登录</a
+                    <button
+                      class="button input log-btn"
+                      id="login"
+                      @click="Login"
                     >
+                      登录
+                    </button>
                     <p class="help is-hidden" id="logInfo"></p>
                   </div>
                 </div>
@@ -180,8 +184,7 @@ export default {
       isLegalSignPwd: false,
       isLegalSignCon: false,
 
-      secret:
-        "09f26e402586e2faa8da4c98a35f1b20d6b033c6097befa8be3486a829587fe2f90a832bd3ff9d42710a4da095a2ce285b009f0c3730cd9b8e1af3eb84df6611",
+      token: "",
     };
   },
   computed: {
@@ -203,7 +206,6 @@ export default {
       dataType: "json",
       success: function (res) {
         that.allUserId = res;
-        console.log(res);
       },
       error: function () {
         console.log("获取用户名失败！");
@@ -218,25 +220,30 @@ export default {
     seeLoginPwd() {
       this.seen = !this.seen;
     },
+    sendState(state) {
+      this.$E.$emit("State", state);
+    },
     // 点击登录按钮后的事件
     Login() {
-      console.log(this.$jwt);
-      // 签名默认用HS256算法加密，防止数据篡改
-      let token = this.$jwt.sign({ userId: "123" }, this.secret);
-      console.log(token);
-      this.$jwt.verify(token, this.secret, function (err, decoded) {
-        console.log(err);
-        console.log(decoded.userId);
-      });
-
+      // 密码输入框
+      let loginPwd = $("#loginPwd");
+      // 密码提示信息
+      let userPwdInfo = $("#loginPwdInfo");
+      // 用户名输入框
       let userId = $("#userId");
+      // 用户名提示信息
       let userIdInfo = $("#userIdInfo");
 
       if (!this.isRepeatedUserId(this.login_userId)) {
         this.setDangerInfo(userIdInfo);
         this.setDangerInput(userId);
         userIdInfo.html("用户名不存在！");
+
+        this.setHiddenInfo(userPwdInfo);
+        loginPwd.attr("class", "input");
       } else {
+        this.setHiddenInfo(userIdInfo);
+        userId.attr("class", "input");
         // 获取用户密码并检验，ajax是异步的，所以要在success后再检查密码！
         let that = this;
         $.ajax({
@@ -246,23 +253,26 @@ export default {
             that.login_userId,
           success: function (res) {
             let md5Pwd = that.$md5(that.loginPassword);
-            // console.log(res.password);
-            // console.log(md5Pwd);
 
             if (res.password == md5Pwd) {
               console.log("密码正确！");
-              that.setHiddenInfo(userIdInfo);
-              that.setSuccessInput(userId);
-              const user = {
-                userId: that.login_userId,
-                password: that.loginPassword,
-              };
+              that.setHiddenInfo(userPwdInfo);
+              that.setSuccessInput(loginPwd);
+              that.$message({
+                type: "success",
+                message: "登录成功！",
+              });
+              // TODO
+              // 保存用户id
+              localStorage.setItem("userId", that.login_userId);
+              console.log("创建Storage: " + localStorage.getItem("userId"));
+              that.sendState(true);
 
-              console.log(user.password);
+              that.$router.push("/");
             } else {
-              that.setDangerInfo(userIdInfo);
-              that.setDangerInput(userId);
-              userIdInfo.html("密码错误！");
+              that.setDangerInfo(userPwdInfo);
+              that.setDangerInput(loginPwd);
+              userPwdInfo.html("密码错误！");
             }
           },
           error: function () {
@@ -332,6 +342,17 @@ export default {
         data: { userId: that.sign_userId, password: pwd },
         success: function (data) {
           console.log(data);
+          that.$message({
+            type: "success",
+            message: "注册成功！",
+          });
+
+          // TODO
+          // 保存用户id
+          localStorage.setItem("userId", that.sign_userId);
+          console.log("创建Storage: " + localStorage.getItem("userId"));
+          that.sendState(true);
+          that.$router.push("/");
         },
         error: function () {
           console.log("提交信息失败!");
@@ -439,6 +460,7 @@ export default {
   background-image: url(https://static.zhihu.com/heifetz/assets/sign_bg.db29b0fb.png);
   background-repeat: no-repeat;
   background-size: cover;
+  min-height: 600px;
 }
 
 .login-image {

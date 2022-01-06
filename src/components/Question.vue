@@ -1,44 +1,87 @@
 <template lang="">
   <div class="article-maincontainer article-card card">
-    <div class="article-tag-box">
-      <a v-for="tag in article.tags.split(',')" href="" class="article-tag" >{{tag}}</a>
+    <div class="article-tag-box" v-if="article.tags">
+      <a v-for="tag in article.tags.split(',')" style="cursor: pointer;" class="article-tag">{{tag}}</a>
     </div>
 
     <h1 class="main-article-title"> {{article.title}}</h1>
 
-    <p class="wrap-line4">{{article.content}}</p>
-    <!-- 如果有视频就放，没有就不显示了（估计没有） -->
-    <video class="middle-video" v-if="article.vsrc!=null&&article.vsrc!=''" controls>
+    <p class="wrap-line4 text-indent" v-html="article.content"></p>
+    <!-- 如果有视频就放，没有就不显示了（已经没有了） -->
+    <video class="media-box" v-if="article.vsrc!=null&&article.vsrc!=''" controls>
       <source :src="article.vsrc" type="video/mp4">
     </video>
+    <!-- 如果有封面就放，没有就不显示了（估计没有） -->
+    <img class="media-box" v-if="article.img!=null&&article.img!=''" :src="article.img">
+    </img>
 
-    <div class="article-bottom-box">
+    <div class="article-bottom-box" v-if="article.type == 0">
+
       <button class="button foucs-button ">关注问题</button>
-      <button class="button write-button  iconfont icon-xiazai43"> 写回答</button>
+      <button class="button write-button  iconfont icon-xiazai43" @click="handleWriteAnswer()">
+        {{isWrite?'关闭回答':'写回答'}}</button>
       <button class="button invite-button iconfont icon-yaoqing"> 邀请回答</button>
 
       <div class="article-bottom-link">
-        <a href="" class="article-card-link iconfont icon-zantongfill"> 好问题 {{article.agree}}</a>
-        <a href="" class="article-card-link iconfont icon-icon_comment"> {{article.reviews==null?0:article.reviews}} 条评论</a>
-        <a href="" class="article-card-link iconfont icon-fenxiang1">分享</a>
-        <a href="" class="article-card-link iconfont icon-24gf-ellipsis"></a>
+        <a class="article-card-link iconfont icon-zantongfill" :class="{blue:isAgree}" @click="handleAgree()"> 好问题
+          {{article.agree}}</a>
+        <a class="article-card-link iconfont icon-icon_comment" @click="handleReview()">
+          <!-- {{article.reviews==null?0:article.reviews}} 条评论 -->
+          评论
+        </a>
+        <a class="article-card-link iconfont icon-fenxiang1">分享</a>
+        <a class="article-card-link iconfont icon-24gf-ellipsis"></a>
       </div>
     </div>
+
+    <div class="answers-bottom" v-else>
+      <div class="agree-box">
+        <a class="agree-button" :class="{'has-agree':isAgree}" @click="handleAgree()"> <span
+            class="iconfont icon-sanjiaoxing small"></span> {{isAgree?'已':''}}赞同
+          <span v-if="article.agree!=0">{{article.agree}}</span></a>
+
+        <a class="disagree-button" :class="{'has-agree':isDisagree}" @click="handleDisagree()">
+          <span class="iconfont icon-sanjiaoxing1 small"></span>
+        </a>
+      </div>
+      <a class="article-card-link iconfont icon-pinglun" v-if="reviewsNumber>0" @click="handleReview()">{{reviewsNumber}}条评论</a>
+      <a class="article-card-link iconfont icon-pinglun" v-else @click="handleReview()">添加评论</a>
+
+      <a class="article-card-link iconfont icon-fenxiang">分享</a>
+      <a class="article-card-link iconfont icon-shoucang1">收藏</a>
+      <a class="article-card-link iconfont icon-jubao" v-if="article.agree==0">举报</a>
+      <div class="agree-box" v-else>
+        <a class="article-card-link iconfont icon-31guanzhu1xuanzhong">喜欢</a>
+        <a class="article-card-link iconfont icon-24gf-ellipsis"></a>
+      </div>
+      <p>编辑于 {{article.releaseTime}}</p>
+    </div>
+
+
+
+    <ReviewsBox v-if="seeReviews" :type="Number(article.type)" :articleId="article.articleId"></ReviewsBox>
+    <EditAnswer v-if="isWrite" :authorId="1" :articleId="article.articleId"></EditAnswer>
   </div>
 </template>
 <script>
+  import ReviewsBox from './ReviewsBox.vue'
+  import EditAnswer from './EditAnswer.vue'
+  import {
+    marked
+  } from 'marked'
   export default {
     data() {
       return {
-        // article: {
-        //   tags: ["生活", "情感", "社会", "正能量", "2021年度盘点"],
-        //   title: "如何用一个词概括2021年？",
-        //   content: "如何用一个词概括 2021 年？央视新闻联合知乎发布年度大事记视频《穿透》，给出了答案。用知乎年度 100 问，回顾今年那些「向上穿透」的瞬间。曾经我们面对着无数坚硬的天花板，但再坚硬的天花板，也挡不住一个时代的穿透！（联合策划：群玉山）",
-        //   vsrc: "./image/video1.mp4",
-        //   agree: 90,
-        //   reviews: 45,
-        // },
+        isAgree: false,
+        isDisagree:false,
+        isWrite: false,
+        seeReviews: false,
+        reviewsNumber: 0,
       }
+    },
+    components: {
+      ReviewsBox,
+      EditAnswer
     },
     props: {
       article: {
@@ -46,6 +89,68 @@
         required: true,
       },
     },
+    mounted() {
+      //转换mark格式
+      this.article.content = marked.parse(this.article.content);
+      console.log("article is ", this.article);
+    },
+    methods: {
+      handleWriteAnswer() {
+        this.isWrite = !this.isWrite;
+        this.seeReviews = false;
+      },
+      handleReview() {
+        this.seeReviews = !this.seeReviews;
+        this.isWrite = false;
+      },
+      handleAgree() {
+        let that = this;
+        let agreeNumber = 0 - ((this.isAgree + 0) * 2 - 1);
+        that.isAgree = !that.isAgree;
+        that.article.agree += agreeNumber;
+        $.ajax({
+          type: "post",
+          url: that.baseUrl + "/article/agree",
+          async: true,
+          data: {
+            articleId: that.article.articleId,
+            agreeNumber
+          },
+          success: function (data) {
+            console.log(typeof data, data);
+
+
+            // that.article = data;
+          }
+        })
+
+      }
+    },
+    watch: {
+      article: {
+        handler(newValue) {
+          // this.article.content = marked.parse(this.article.content);
+          // console.log("mard", this.article.content);
+          let that = this;
+
+          let form = {
+            articleId: this.article.articleId,
+            type: Number(this.article.type), //回答是0
+          };
+          $.ajax({
+            type: "get",
+            url: that.baseUrl + "/review/getReviews",
+            async: true,
+            data: form,
+            success: function (data) {
+              that.reviewsNumber = data.length;
+              console.log("reviewsLength: ", that.reviewsNumber);
+            }
+          })
+        },
+        deep: true
+      }
+    }
   }
 
 </script>
@@ -76,7 +181,9 @@
     color: blue;
   }
 
-
+  .blue {
+    color: blue;
+  }
 
 
   /* tag */
@@ -119,6 +226,7 @@
     display: inline-block;
     height: 40px;
     margin-left: 10px;
+    letter-spacing: 2px;
   }
 
   .article-maincontainer {
@@ -128,6 +236,38 @@
 
   .button {
     height: 25px;
+  }
+
+
+  .media-box {
+    display: block;
+    max-width: 80%;
+    margin: 10px auto;
+
+  }
+
+
+
+
+  .agree-box .has-agree {
+    background-color: #0066FF;
+    color: white;
+  }
+
+  .has-agree:hover {
+    background-color: rgb(42, 120, 236);
+    color: white;
+  }
+
+  .disagree-button {
+    cursor: pointer;
+  }
+
+  .agree-button {
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 14px;
+    cursor: pointer;
   }
 
 </style>

@@ -2,7 +2,7 @@
   <div class="answers-maincontainer card">
     <header class="card-header">
       <p class="card-header-title">
-        1,132个回答
+        {{answers.length}}个回答
       </p>
       <button class="card-header-icon" aria-label="more options">
         <div class="float-right">
@@ -11,9 +11,8 @@
       </button>
     </header>
     <div id="answers-box">
-        <Answer v-for="(answer,index) in answers" key="index"    :answer = "answer" />
+        <Answer v-for="(answer,index) in answers" :key="answer.answerId"    :answer = "answer" />
     </div>
-
   </div>
 </template>
 <script>

@@ -1,124 +1,139 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 body {
-    background-color: #dddddd;
+  background-color: #eeeeee;
 }
 
 .clearfix {
-    clear: both;
+  clear: both;
 }
 
-.float-left{
-    float: left;
+.float-left {
+  float: left;
 }
 
-.float-right{
-    float:right;
+.float-right {
+  float: right;
 }
 
-.wrap-line2{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;  
+.wrap-line2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
-.wrap-line4{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;  
-}
-
-
-
-code{
-    background-color: rgba(243, 214, 214, 0.733);
+.wrap-line4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
 }
 
 
-.foucs-button{
-    background-color: #0066ff!important;
-    color: white!important;
-    border: 1px solid #0066ff!important; 
-    margin-left: 5px;
-    margin-right: 5px;
-    
+
+code {
+  background-color: rgba(243, 214, 214, 0.733);
 }
+
+
+.foucs-button {
+  background-color: #0066ff !important;
+  color: white !important;
+  border: 1px solid #0066ff !important;
+  margin-left: 5px;
+  margin-right: 5px;
+
+}
+
 /* 由于引用了CSS库，所以不提高优先级的话会被覆盖掉 */
-.write-button{
-    background-color: #fff!important;
-    color: #0066ff!important;
-    border: 1px solid #0066ff!important;
-    margin-left: 5px;
-    margin-right: 5px;    
+.write-button {
+  background-color: #fff !important;
+  color: #0066ff !important;
+  border: 1px solid #0066ff !important;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
-.invite-button{
-    background-color: #fff!important;
-    color: grey!important;
-    border: 1px solid grey!important;
-    margin-left: 5px;
-    margin-right: 5px;
+.invite-button {
+  background-color: #fff !important;
+  color: grey !important;
+  border: 1px solid grey !important;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
-.write-button:hover , .invite-button:hover{
-    background-color: #F0F6FF!important;
-}
-.foucs-button:hover{
-    background-color: #005CE6!important;
+.write-button:hover,
+.invite-button:hover {
+  background-color: #F0F6FF !important;
 }
 
-.middle-video{
-    width: 800px;
-    height: 490px;
-    margin: 0 auto;
-    border-radius: 10px;
-    padding: 0;
+.foucs-button:hover {
+  background-color: #005CE6 !important;
 }
 
-.orange{
-    color: orange;
+.middle-video {
+  width: 800px;
+  height: 490px;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 0;
 }
 
-.blue{
-    color: skyblue;
+/* 颜色 */
+
+.red {
+  color: red;
 }
 
-/* -------------------------- */
+.white{
+  color: white!important;
+}
 
-h3 {
-    font-size: large;
-    font-weight: bold;
+.blue {
+  color: skyblue;
 }
 
 .orange {
-    color: orange !important;
+  color: orange !important;
 }
 
-.main-body {
-    width: 1300px;
-    height: 1500px;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 3px;
+/* 普通样式 */
 
+h3 {
+  font-size: large;
+  font-weight: bold;
+}
+
+
+
+.main-body {
+  width: 1300px;
+  min-height: 1500px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 3px;
 }
 
 article {
-    width: 900px;
-    height: 900px;
-    margin: 0 auto;
-    background-color: pink;
+  width: 75%;
+  min-width: 900px;
+  min-height: 900px;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.text-align{
+  text-align: center;
 }
 
 /* aside {
@@ -129,58 +144,134 @@ article {
 } */
 
 nav ul li {
-    display: block;
-    float: left;
-    width: 50px;
-    height: 50px;
-    margin: 0 10px;
+  display: block;
+  float: left;
+  width: 50px;
+  height: 50px;
+  margin: 0 10px;
 }
 
+/* 赞同 */
 .agree-box {
-    display: inline-block;
-    margin-right: 15px;
-    height: 30px;
+  display: inline-block;
+  margin-right: 15px;
+  height: 30px;
 }
 
 .agree-button {
-    display: inline-block;
-    text-align: center;
-    border-radius: 2px;
-    min-width: 90px;
-    height: 30px;
-    line-height: 30px;
-    background-color: #E5EFFF;
-    color: #0066FF;
+  display: inline-block;
+  text-align: center;
+  border-radius: 2px;
+  min-width: 90px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #E5EFFF;
+  color: #0066FF;
 }
 
 .disagree-button {
-    display: inline-block;
-    text-align: center;
-    border-radius: 2px;
-    width: 40px;
-    height: 30px;
-    line-height: 30px;
-    background-color: #E5EFFF;
-    color: #0066FF;
-    margin-right: 2px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 2px;
+  width: 40px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #E5EFFF;
+  color: #0066FF;
+  margin-right: 2px;
 }
 
 .agree-button:hover {
-    background-color: #D9E8FF;
+  background-color: #D9E8FF;
 }
 
 .disagree-button:hover {
-    background-color: #D9E8FF;
+  background-color: #D9E8FF;
 }
 
 .small {
-    font-size: small;
+  font-size: small;
+}
+.smaller {
+  font-size: smaller;
+}
+
+
+/* 照片 */
+.img-box img {
+  width: 100%;
+  height: 100%;
+}
+
+.article-card-link {
+  letter-spacing: 1px;
+}
+
+.text-indent {
+  text-indent: 2rem;
 }
 
 
 
 
-.img-box img {
-    width: 100%;
-    height: 100%;
-  }
+/* 结束符号：左右小横线 */
+.list-end {
+  display: block;
+  text-align: center;
+  color: #999;
+}
+
+.list-end:after,
+.list-end:before {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  margin: 0 10px;
+  vertical-align: middle;
+  background-color: #d3d3d3;
+}
+
+/* 鼠标样式 */
+.canTap {
+  cursor: pointer;
+}
+
+/* markdown样式 */
+.markdown-box-content h1,
+.markdown-box-content h2,
+.markdown-box-content h3 {
+  margin-bottom: 10px;
+}
+/* 动态渲染的 */
+.markdown-box-content>>>p {
+  margin: 15px;
+  line-height: 1.5rem;
+  letter-spacing: 0.1rem;
+  text-indent: 2rem;
+}
+
+.markdown-box-content>>>img {
+  min-width: 300px !important;
+  max-width: 600px !important;
+  margin: 0 auto;
+  display: block;
+}
+/* 静态渲染的 */
+.markdown-box-content p {
+  margin: 15px;
+  line-height: 1.5rem;
+  letter-spacing: 0.1rem;
+  text-indent: 2rem;
+}
+
+.markdown-box-content img {
+  min-width: 300px !important;
+  max-width: 600px !important;
+  margin: 0 auto;
+  display: block;
+}
+
+.article-card{
+  letter-spacing: 1px;
+}

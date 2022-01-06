@@ -13,13 +13,12 @@
         <div class="navbar-start">
           <div class="navbar-item"></div>
 
-          <a class="navbar-item">首页</a>
-          <a class="navbar-item">发现</a>
-          <a class="navbar-item">等你来答</a>
-
-          <div class="navbar-item"></div>
-          <div class="navbar-item"></div>
-          <div class="navbar-item"></div>
+          <router-link to="/" class="navbar-item">首页</router-link>
+          <router-link to="/RecommendCard" class="navbar-item"
+            >推荐</router-link
+          >
+          <router-link to="/HotCard" class="navbar-item">热榜</router-link>
+          <router-link to="/VideoBox" class="navbar-item">视频</router-link>
 
           <div class="navbar-item">
             <p class="control has-icons-right">
@@ -36,13 +35,26 @@
             </p>
           </div>
           <div class="navbar-item">
-            <button type="button" class="mybtn button is-rounded nav-line">
-              提问
+            <button
+              type="button"
+              class="mybtn button is-rounded nav-line"
+              @click="search"
+            >
+              搜索
             </button>
           </div>
           <div class="navbar-item">
             <button type="button" class="mybtn button is-rounded nav-line">
-              <router-link to="/EditArticle/1"> 编辑文章 </router-link>
+              <router-link class="white" to="/EditArticle/1">
+                发布文章
+              </router-link>
+            </button>
+          </div>
+          <div class="navbar-item">
+            <button type="button" class="mybtn button is-rounded nav-line">
+              <router-link class="white" to="/EditArticle/0">
+                我要提问
+              </router-link>
             </button>
           </div>
         </div>
@@ -62,7 +74,7 @@
           <div class="navbar-item"></div>
 
           <!-- 登录后的显示的user-icon -->
-          <div class="navbar-item has-dropdown is-hoverable" v-if="isLogin">
+          <div class="navbar-item has-dropdown is-hoverable" v-if="loginState">
             <span
               class="icon dropbtn navbar-link is-arrowless"
               style="font-size: 0.45rem"
@@ -77,14 +89,14 @@
               <router-link to="/setting" class="navbar-item"
                 ><i class="fas fa-cog"></i>&nbsp;设置</router-link
               >
-              <a class="navbar-item" @click="logout">
+              <a class="navbar-item is-clickable" @click="logout">
                 <i class="fas fa-sign-out-alt"></i>&nbsp;退出
               </a>
             </div>
           </div>
 
           <!-- 未登录时显示的user-icon -->
-          <router-link to="/login" class="navbar-item" v-if="!isLogin">
+          <router-link to="/login" class="navbar-item" v-else>
             <span class="icon" style="font-size: 0.45rem">
               <i class="fas fa-user-plus fa-3x"> </i>
             </span>
@@ -98,15 +110,42 @@
 </template>
 
 <script>
+// import { set } from "vue/types/umd";
 export default {
   data() {
-    return {
-      isLogin: true,
-    };
+    return { loginState: this.isLogin() };
+  },
+  computed: {},
+  watch: {},
+  mounted() {
+    this.$E.$on("State", (state) => {
+      this.loginState = state;
+    });
   },
   methods: {
+    isLogin() {
+      if (localStorage.getItem("userId") == null) {
+        return false;
+      } else {
+        return true;
+      }
+    },
     logout() {
-      this.isLogin = false;
+      localStorage.removeItem("userId");
+      console.log("removeItem");
+      this.state = false;
+
+      // 刷新页面
+      this.$router.go(0);
+
+      this.$message({
+        type: "success",
+        message: "成功退出账号！",
+      });
+    },
+    search() {
+      console.log("localStorage: ");
+      console.log(localStorage.getItem("userId"));
     },
   },
 };

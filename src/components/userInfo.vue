@@ -8,7 +8,7 @@
       <figure class="image is-128x128">
         <img
           class="is-rounded"
-          src="https://bulma.io/images/placeholders/128x128.png"
+          src="https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg"
         />
       </figure>
     </div>

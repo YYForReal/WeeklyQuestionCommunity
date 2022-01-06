@@ -1,7 +1,7 @@
 <template lang="">
   <div>
-    <section>
-      <div class="article-card" v-for="(article,index) in articlesWithImg">
+    <section v-if="articles.length > 0 ">
+      <div class="article-card" v-for="(article,index) in articles">
         <div class="article-rank-box">
           <h1 class="article-rank" :class="{'orange':index<3}">{{index+1}}</h1>
         </div>
@@ -11,13 +11,13 @@
             <h2 class="content-title">{{article.title}}</h2>
             <p class="black article-content-main">{{article.content}}</p>
             <div class="article-bottom">
-              <a class="article-card-link iconfont icon-redu" href="">{{article.hot}}万热度</a>
+              <a class="article-card-link iconfont icon-redu" href="">{{article.hot>10000?(article.hot/10000).toFixed(2)+'万':article.hot}}热度</a>
               <a class="article-card-link iconfont icon-fasong" href="">分享</a>
             </div>
           </router-link>
 
         </div>
-        <div class="img-box float-right" v-if="article.img!=null  ">
+        <div class="img-box float-right" v-if="article.img">
           <router-link :to="('/SpecialArticle/'+article.articleId)">
             <img loading="lazy" :src="article.img" :alt="article.title" :title="article.title">
           </router-link>
@@ -26,58 +26,67 @@
           <hr>
         </div>
       </div>
+      <div class="list-end">没有更多内容</div>
+
+
+    </section>
+
+    <section v-else-if="errorType">
+      <h1 style="font-size:36px">请求文章数据失败</h1>
+      <p>可能原因：<span class="red"> 服务器异常</span> 或<span class="red"> 网络异常</span>。</p>
+    </section>
+    <section v-else>
+      <el-skeleton :rows="5" animated />
     </section>
   </div>
 </template>
 <script>
   import ArticleButtonBox from './ArticleButtonBox.vue'
+  import WaitingBox from '../WaitingBox.vue'
   export default {
     data() {
       return {
-        articlesWithImg: [{
-            type: 1, //1 是文章 0 是回答
-            articleId: 12,
-            title: "高水平运动员如何避免运动拉伤？高水平运动员如何避免运动拉伤？高水平运动员如何避免运动拉伤？",
-            img: "https://pica.zhimg.com/80/v2-d8b4ef5d7ddb321c5d6637dfb0104e9e_400x224.png",
-            hot: 790,
-            author: "author",
-            judge: 2,
-            agree: 1,
-            time: "12",
-            content: "吕小军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
-          },
-          {
-            type: 1, //1 是文章 0 是回答
-            title: "高水平运动员如何避免运动拉伤？",
-            img: "https://pica.zhimg.com/80/v2-d8b4ef5d7ddb321c5d6637dfb0104e9e_400x224.png",
-            hot: 790,
-            agree: 1,
+        articles: [],
+        errorType: false,
 
-            content: "吕小军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
-          },
-          {
-            type: 0, //1 是文章 0 是回答
-            title: "高水平运动员如何避免运动拉伤？",
-           // img: "",
-            hot: 790,
-            agree: 1,
-
-            content: "吕小军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
-          },
-          {
-            type: 1, //1 是文章 0 是回答
-            title: "高水平运动员如何避免运动拉伤？",
-            img: "https://pica.zhimg.com/80/v2-d8b4ef5d7ddb321c5d6637dfb0104e9e_400x224.png",
-            hot: 790,
-            agree: 1,
-
-            content: "吕小军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
-          },
-        ],
       }
     },
     components: {
-      ArticleButtonBox
+      ArticleButtonBox,
+      WaitingBox
+    },
+    mounted() {
+      let that = this;
+      $.ajax({
+        type: 'get',
+        url: that.baseUrl + '/article/getHot',
+        async: true,
+        data: {},
+        success: function (data) {
+          that.articles = data;
+          console.log("获取热榜模块数据成功，", typeof data, data);
+          //转换markdown成正常文本
+          for (let i = 0; i < that.articles.length; i++) {
+            that.articles[i].content = that.filterDot(that.articles[i].content);
+          }
+        },
+        error: function (data) {
+          that.articles = [];
+          console.log("获取热榜模块数据失败，", typeof data, data);
+          that.errorType = true;
+        }
+      })
+    },
+    methods: {
+      // 卡片里面不能有markdown的标题字符
+      filterDot(str) {
+        var pattern = new RegExp("#")
+        var rs = "";
+        for (var i = 0; i < str.length; i++) {
+          rs = rs + str.substr(i, 1).replace(pattern, '');
+        }
+        return rs;
+      },
     },
   }
 
@@ -156,8 +165,8 @@
   }
 
 
-  a{
-    text-decoration:none ;
+  a {
+    text-decoration: none;
     color: black;
   }
 
@@ -180,4 +189,5 @@
     display: block;
     margin-bottom: 5px;
   }
+
 </style>

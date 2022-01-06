@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3050427 */
-  src: url('//at.alicdn.com/t/font_3050427_r9a5tq3fbec.woff2?t=1640609925185') format('woff2'),
-       url('//at.alicdn.com/t/font_3050427_r9a5tq3fbec.woff?t=1640609925185') format('woff'),
-       url('//at.alicdn.com/t/font_3050427_r9a5tq3fbec.ttf?t=1640609925185') format('truetype');
+  src: url('//at.alicdn.com/t/font_3050427_x4igrgxiyp8.woff2?t=1641372783408') format('woff2'),
+       url('//at.alicdn.com/t/font_3050427_x4igrgxiyp8.woff?t=1641372783408') format('woff'),
+       url('//at.alicdn.com/t/font_3050427_x4igrgxiyp8.ttf?t=1641372783408') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,34 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-icon-test:before {
+  content: "\e608";
+}
+
+.icon-huojian:before {
+  content: "\e616";
+}
+
+.icon-huojian1:before {
+  content: "\e6d1";
+}
+
+.icon-huojian2:before {
+  content: "\e60f";
+}
+
+.icon-cai2:before {
+  content: "\e607";
+}
+
+.icon-icon_reply:before {
+  content: "\e609";
+}
+
+.icon-dianzan:before {
+  content: "\e6c8";
 }
 
 .icon-renzheng:before {

@@ -5,7 +5,10 @@
       <div class="columns is-centered">
         <div class="column is-8">
           <div class="message">
-            <div class="message-header">
+            <div
+              class="message-header"
+              style="background-color: #ffffff; color: black"
+            >
               <p class="">{{ title }}</p>
               <button class="delete" @click="closeModal"></button>
             </div>
