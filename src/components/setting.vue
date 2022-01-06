@@ -271,62 +271,41 @@ export default {
       let that = this;
       let st = localStorage.getItem("user");
       st = JSON.parse(st);
-      let userId = st.userId;
       let pwd = this.verifyPwdInput;
-      $.ajax({
-        type: "get",
-        url: "http://localhost:9000/user/getUserInfo?userId=" + userId,
-        async: true,
-        success: function (data) {
-          console.log(data);
-          if (that.$md5(pwd) == data.password) {
-            that.$message({
-              type: "success",
-              message: "验证通过！",
-            });
-            that.pwdModal = true;
-          } else {
-            that.$message({
-              type: "error",
-              message: "密码错误！",
-            });
-          }
-          // that.$router.push("/setting");
-        },
-        error: function () {
-          console.log("验证身份失败!");
-        },
-      });
+      pwd = this.$md5(pwd);
+      if (pwd == st.password) {
+        that.$message({
+          type: "success",
+          message: "验证通过！",
+        });
+        that.pwdModal = true;
+      } else {
+        that.$message({
+          type: "error",
+          message: "密码错误！",
+        });
+        that.$router.push("/setting");
+      }
     }, // 验证身份--绑定邮箱
     verifyEmail() {
       let that = this;
       let st = localStorage.getItem("user");
       st = JSON.parse(st);
-      let userId = st.userId;
       let pwd = this.verifyEmailInput;
-      $.ajax({
-        type: "get",
-        url: "http://localhost:9000/user/getUserInfo?userId=" + userId,
-        async: true,
-        success: function (data) {
-          console.log(data);
-          if (that.$md5(pwd) == data.password) {
-            that.$message({
-              type: "success",
-              message: "验证通过！",
-            });
-            that.emailModal = true;
-          } else {
-            that.$message({
-              type: "error",
-              message: "密码错误！",
-            });
-          }
-        },
-        error: function () {
-          console.log("验证身份失败!");
-        },
-      });
+      pwd = this.$md5(pwd);
+      if (pwd == st.password) {
+        that.$message({
+          type: "success",
+          message: "验证通过！",
+        });
+        that.emailModal = true;
+      } else {
+        that.$message({
+          type: "error",
+          message: "密码错误！",
+        });
+        that.$router.push("/setting");
+      }
     },
     // 修改密码
     changePwd() {
