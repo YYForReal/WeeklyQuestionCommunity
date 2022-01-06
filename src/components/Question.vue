@@ -5,13 +5,19 @@
     </div>
 
     <h1 class="main-article-title"> {{article.title}}</h1>
+    
+    <div v-if="article.type&&authorInfo!=null">
+        <SmallUserBox :user="authorInfo"></SmallUserBox>
+    </div>
 
-    <p class="wrap-line4 text-indent" v-html="article.content"></p>
+    <!-- 用户的文章内容 -->
+    <div class="markdown-box-content" v-html="article.content"></div>
+
     <!-- 如果有视频就放，没有就不显示了（已经没有了） -->
     <!-- <video class="media-box" v-if="article.vsrc!=null&&article.vsrc!=''" controls>
       <source :src="article.vsrc" type="video/mp4">
     </video> -->
-    <!-- 如果有封面就放，没有就不显示了 -->
+    <!-- 如果问题有封面就放，没有就不显示了 -->
     <img class="media-box" v-if="article.img!=null&&article.img!=''" :src="article.img">
     </img>
 
@@ -60,12 +66,13 @@
     </div>
 
     <ReviewsBox v-if="seeReviews" :type="Number(article.type)" :articleId="article.articleId"></ReviewsBox>
-    <EditAnswer v-if="isWrite" :authorId="1" :articleId="article.articleId"></EditAnswer>
+    <EditAnswer v-if="isWrite"  :articleId="article.articleId"></EditAnswer>
   </div>
 </template>
 <script>
   import ReviewsBox from './ReviewsBox.vue'
   import EditAnswer from './EditAnswer.vue'
+  import SmallUserBox from './user/SmallUserBox.vue'
   import {
     marked
   } from 'marked'
@@ -77,11 +84,13 @@
         isWrite: false,
         seeReviews: false,
         reviewsNumber: 0,
+        authorInfo:null,
       }
     },
     components: {
       ReviewsBox,
-      EditAnswer
+      EditAnswer,
+      SmallUserBox,
     },
     props: {
       article: {
@@ -94,6 +103,21 @@
       this.article.content = marked.parse(this.article.content);
       console.log("article is ", this.article);
       this.translateDate();
+      let that = this;
+      if(this.article.type ==1){
+        $.ajax({
+          type:'get',
+          url:that.baseUrl + '/user/getUserInfo',
+          data:{
+            userId:that.article.authorId,
+          },
+          success:function(data){
+            that.authorInfo = data;
+            console.log("getUserInfo",data);
+          }
+        })
+      }
+
     },
     methods: {
       translateDate() {
@@ -264,8 +288,9 @@
   }
 
   .article-maincontainer {
-    margin: 0 auto;
+    margin: 0px auto;
     width: 96%;
+    padding-bottom:30px;
   }
 
   .button {

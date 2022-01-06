@@ -115,7 +115,9 @@
 // import { set } from "vue/types/umd";
 export default {
   data() {
-    return { loginState: this.isLogin() };
+    return {
+      loginState: this.isLogin(),
+    };
   },
   computed: {},
   watch: {},
@@ -137,25 +139,21 @@ export default {
       console.log("removeItem");
       this.state = false;
 
-      // console.log(this.$route.path);
       // 如果不在首页，跳转回首页
       if (this.$route.path != "/") {
-        this.$router.push("/HotCard");
+        this.$router.push("/");
       }
       // 刷新页面
       this.$router.go(0);
 
       this.$message({
         type: "success",
-        message: "注销成功！",
+        message: "成功退出账号！",
       });
     },
     search() {
       let temp = localStorage.getItem("user");
-      temp = JSON.parse(temp);
-      if (temp == null) return;
       console.log("localStorage: " + temp);
-      console.log(temp.userId);
     },
   },
 };
@@ -164,8 +162,6 @@ export default {
 
 <style lang="css" src="../assets/css/bulma.min.css" scoped></style>
 <style lang="css" scoped>
-/* @import url("https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"); */
-/* @import '../assets/css/bulma.min.css'; */
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
 
 .navbar-height {
@@ -188,7 +184,7 @@ export default {
 .mybtn {
   background-color: #0066ff;
   color: white !important;
-  margin-left: -10px;
+  margin-left: -3px;
   font-size: 14px;
 }
 
@@ -197,7 +193,8 @@ export default {
 }
 
 .mydropdown {
-  margin-left: -25px;
+  margin-top: -3px;
+  margin-left: -30px;
   width: 100px;
 }
 

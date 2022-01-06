@@ -35,18 +35,21 @@
         content: '',
         markContent: ``,
         hint: false,
+        authorId : 1 ,
       };
     },
     props: {
-      authorId: {
-        required: true,
-      },
       articleId: {
         type: Number,
         required: true,
       }
     },
-    mounted() {},
+    mounted() {
+      this.authorId = window.localStorage.getItem("user_Id");
+      if(this.authorId == null){
+        this.authorId = 1;
+      }
+    },
     watch: {
       // 深度监听表单，若左侧输入框内容修改，则右侧渲染出对应的效果
       // 若通过DOMPurify过滤后的文本与原文本不同，则定时提示。

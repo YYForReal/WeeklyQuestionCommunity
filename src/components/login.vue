@@ -367,10 +367,11 @@ export default {
             type: "success",
             message: "注册成功！",
           });
-          const user = {
+          let user = {
             userId: that.sign_userId,
             password: md5Pwd,
           };
+          user = JSON.stringify(user);
           // TODO
           // 保存用户id和密码
           localStorage.setItem("user", user);
@@ -476,10 +477,9 @@ export default {
 };
 </script>
 
-<style lang="css" src="../assets/css/bulma.min.css" scoped></style>
 
+<style src="../assets/css/bulma.min.css" scoped></style>
 <style scoped>
-/* @import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"; */
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
 
 .page {

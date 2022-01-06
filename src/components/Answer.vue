@@ -1,9 +1,9 @@
 <template lang="">
   <div class="one-answer">
-    <div class="user-info">
-      <div class="user-img">
+    <!-- <div class="user-info">
+      <div class="user-img"> -->
         <!-- 默认头像 -->
-        <img
+        <!-- <img
           :src="answer.authorAvatar?answer.authorAvatar:'https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg'"
           alt="">
       </div>
@@ -12,7 +12,8 @@
         </strong>
         <p class="user-description">{{answer.authorDescription==null?'':answer.authorDescription}}</p>
       </div>
-    </div>
+    </div> -->
+    <SmallUserBox :answer="answer"></SmallUserBox>
     <!-- 没有编辑 标签 “编辑推荐”这种 -->
     <!-- <div class="tag-box">
       <i class="tag" :class="{ 'tag-orange':index%2==0 , 'tag-blue':index%2!=0 }" v-for="(honor,index) in honorTags"><a>
@@ -60,6 +61,7 @@
 </template>
 <script>
   import ReviewsBox from './ReviewsBox.vue'
+  import SmallUserBox from './user/SmallUserBox.vue'
   import {
     marked
   } from 'marked'
@@ -75,6 +77,7 @@
     },
     components: {
       ReviewsBox,
+      SmallUserBox
     },
     props: {
       answer: {

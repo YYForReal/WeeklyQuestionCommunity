@@ -6,7 +6,7 @@
       <div slot="header" class="clearfix">
         <h1 class="text-align">写{{typeMessage}}</h1>
         <br>
-        <el-input v-model="form.title" :placeholder="typeMessage + '标题(最长30个字符)'" maxlength="20"></el-input>
+        <el-input v-model="form.title" :placeholder="typeMessage + '标题(最长30个字符)'" maxlength="30"></el-input>
       </div>
 
       <el-row :gutter="20" class="el-row" type="flex">
@@ -83,6 +83,7 @@
   export default {
     data() {
       return {
+        authorId:'',
         typeMessage: '',
         dialogFormVisible: false,
         dialogVisible: false,
@@ -99,16 +100,24 @@
       };
     },
     props: {
-      authorId: {
-
-        default: 1,
-      },
+      // authorId: {
+      //   default: 1,
+      // },
       // 类型默认是文章 ， 0 是问题
       type: {
         default: 1,
       }
     },
     mounted() {
+      if(window.localStorage.getItem("userId")==null){
+        this.$message({
+          type:'warning',
+          message:'发布文章或问题需要先登录噢'
+        })
+        this.$router.push("/login");
+      }else{
+        this.authorId = window.localStorage.getItem("userId");
+      }
       if (this.type == 0) {
         this.typeMessage = "问题";
       } else if (this.type == 1) {
@@ -216,6 +225,7 @@
           }, 200);
           flag = false;
         }
+        
         if (!flag) return;
 
         //校验用户的输入
@@ -252,7 +262,7 @@
               message: '提交成功',
               type: 'success'
             });
-            that.turnToRelease();
+             that.turnToRelease();
             //            window.location.reload();
             // that.$router.push({
             //   name: 'SpecialArticle',

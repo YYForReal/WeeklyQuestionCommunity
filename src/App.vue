@@ -1,9 +1,7 @@
 <template>
   <div class="container is-fullhd" id="app" style="width: 100%">
     <NavHeader></NavHeader>
-
     <router-view :key="$route.path" />
-
     <BackTop></BackTop>
   </div>
 </template>
@@ -11,23 +9,12 @@
 <script>
 import NavHeader from "./components/NavHeader.vue";
 import BackTop from "./components/BackTop.vue";
-// import Login from "./components/login.vue";
-// import userInfo from "./components/userInfo.vue";
-// import Setting from "./components/setting.vue";
 
 export default {
   name: "App",
   components: {
     NavHeader,
     BackTop,
-    // Login,
-    // Setting,
-    // userInfo,
-  },
-  methods: {
-    jumpToArticle(id) {
-      this.$router.push("/SpecialArticle/" + id);
-    },
   },
   mounted() {
     // 展示上次浏览的历史文章
@@ -41,7 +28,7 @@ export default {
         title: "最近浏览",
         message: message,
         position: "top-left",
-        offset: 100,
+        offset: 120,
         dangerouslyUseHTMLString: true,
         duration: 6000,
         onClick() {
