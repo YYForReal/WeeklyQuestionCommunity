@@ -13,7 +13,12 @@
       </figure>
     </div>
     <div class="media-content">
-      <div class="level"></div>
+      <!-- 用户名 -->
+      <div class="level">
+        <div class="level-left">
+          <div class="level-item">用户名：{{ userId }}</div>
+        </div>
+      </div>
       <!-- 昵称 -->
       <div class="level">
         <div class="level-left">
@@ -35,7 +40,9 @@
                 v-model.trim="nameModel"
                 @input="nameInput"
               />
-              <button class="level-item button">确认</button>
+              <button class="level-item button" @click="updateName">
+                确认
+              </button>
             </div>
           </div>
         </div>
@@ -59,7 +66,13 @@
                 v-model.trim="signatureModel"
                 @input="signatureInput"
               ></textarea>
-              <button class="button" style="margin-top: 10px">确认</button>
+              <button
+                class="button"
+                style="margin-top: 10px"
+                @click="updateSignature"
+              >
+                确认
+              </button>
             </div>
           </div>
         </div>
@@ -90,8 +103,10 @@
 export default {
   data() {
     return {
-      userName: "带土",
-      signature: "我就是我",
+      userId: "",
+      userName: "",
+      signature: "",
+      avatarUrl: "",
       changeName: true,
       changeSignature: true,
       nameModel: "",
@@ -100,12 +115,32 @@ export default {
         "url(https://static.zhihu.com/heifetz/assets/sign_bg.db29b0fb.png)",
     };
   },
+  created() {
+    // 获取用户信息
+    let that = this;
+    this.userId = localStorage.getItem("userId");
+    $.ajax({
+      type: "get",
+      url: "http://localhost:9000/user/getUserInfo?userId=" + that.userId,
+      success: function (data) {
+        console.log("getUserName: " + data.userName);
+        that.userName = data.userName;
+        that.signature = data.description;
+        that.avatarUrl = data.avatar;
+      },
+      error: function () {
+        console.log("获取昵称失败");
+      },
+    });
+  },
   methods: {
     nameInput() {
       if (this.nameModel == "") {
       }
     },
     signatureInput() {},
+    updateName() {},
+    updateSignature() {},
   },
 };
 </script>
