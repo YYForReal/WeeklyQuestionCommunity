@@ -18,7 +18,7 @@
         let that = this;
         console.log(document.documentElement.scrollTop);
         let delt = document.documentElement.scrollTop / 150.0;
-        console.log(delt);
+        // console.log(delt);
         let timer = setInterval(function () {
           document.documentElement.scrollTop -= delt;
           if (document.documentElement.scrollTop <= delt) {

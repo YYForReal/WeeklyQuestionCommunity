@@ -114,7 +114,7 @@
           this.answer.agree--;
           $.ajax({
             type: "post",
-            url: "http://localhost:9000/answer/agree",
+            url: that.baseUrl + "/answer/agree",
             async: true,
             data: {
               answerId: that.answer.answerId,
@@ -129,12 +129,13 @@
       },
       handleDisagree() {
         this.isDisagree = !this.isDisagree;
+        let that = this;
         if (this.isAgree) {
           this.isAgree = false;
           this.answer.agree--;
           $.ajax({
             type: "post",
-            url: "http://localhost:9000/answer/agree",
+            url: that.baseUrl + "/answer/agree",
             async: true,
             data: {
               answerId: that.answer.answerId,

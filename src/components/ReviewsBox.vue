@@ -53,6 +53,24 @@
           })
           return;
         }
+        if (this.reviewContent == "") {
+          this.$message({
+            type: 'error',
+            message: "评论信息不能为空"
+          })
+          return;
+        }
+        // 匹配特殊字符
+        let regEx = /[@#$%^&*()_\[\]{}\\|<>\/?]/;
+        if (regEx.test(this.reviewContent)) {
+          this.$message({
+            type: 'error',
+            message: "评论信息不能为包含特殊字符"
+          })
+          return;
+        }
+
+
         let form = {
           content: this.reviewContent,
           articleId: this.articleId,
@@ -67,7 +85,7 @@
           url: "http://localhost:9000/user/getUserInfo?userId=" + userId,
           async: true,
           success: function (data) {
-            console.log("data",data);
+            console.log("data", data);
             if (pwd == data.password) {
               that.$message({
                 type: "success",

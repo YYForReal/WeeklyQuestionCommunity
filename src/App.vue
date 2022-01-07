@@ -30,11 +30,16 @@ export default {
         position: "top-left",
         offset: 120,
         dangerouslyUseHTMLString: true,
-        duration: 6000,
+        duration: 5000,
         onClick() {
           that.jumpToArticle(id);
         },
       });
+    }
+  },
+  methods: {
+    jumpToArticle(id){
+      this.$router.push("/SpecialArticle/"+id);
     }
   },
 };

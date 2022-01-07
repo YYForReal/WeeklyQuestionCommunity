@@ -80,7 +80,7 @@
       // 获取文章或者问题的信息
       $.ajax({
         type: "get",
-        url: "http://localhost:9000/article/getArticleFromId",
+        url: that.baseUrl + "/article/getArticleFromId",
         async: true,
         data: {
           articleId: that.articleId,

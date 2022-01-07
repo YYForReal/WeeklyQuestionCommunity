@@ -2,25 +2,22 @@
   <div class="post-box">
     <el-card class="box-card original-box">
 
-
       <div slot="header" class="clearfix">
         <h1 class="text-align">写{{typeMessage}}</h1>
         <br>
         <el-input v-model="form.title" :placeholder="typeMessage + '标题(最长30个字符)'" maxlength="30"></el-input>
       </div>
-
       <el-row :gutter="20" class="el-row" type="flex">
         <el-col :span="12">
-          <el-input type="textarea" :rows="10" :placeholder="'请在此编辑您的'+typeMessage+'内容（支持markdown语法）'"
-            v-model="form.content">
+          <el-input type="textarea" :rows="20" :placeholder="'请在此编辑您的'+typeMessage+'内容（支持markdown语法）'"
+            v-model="form.content" >
           </el-input>
         </el-col>
         <el-col :span="12">
           <h3 v-if="markContent =='' ">
             此处可以预览您的{{typeMessage}}内容
           </h3>
-          <el-input v-else type="textarea" :rows="10" v-html="markContent" disabled> </el-input>
-
+          <el-input v-else type="textarea" :rows="20" v-html="markContent" disabled> </el-input>
         </el-col>
       </el-row>
 
@@ -155,9 +152,7 @@
         const isJPG = file.type === 'image/jpg';
         const isPNG = file.type === 'image/png';
         const isJPEG = file.type === 'image/jpeg';
-
         const isLt2M = file.size / 1024 / 1024 < 2;
-
         if (!isJPG && !isJPEG && !isPNG) {
           this.$message.error('上传的图片只能是 JPG,JPEG 或者 PNG 格式!');
           return false;
@@ -166,7 +161,6 @@
           this.$message.error('上传的图片大小不能超过 2MB!');
           return false;
         }
-        //        return true;
         let that = this;
         var formData = new FormData();
         formData.append('file', file, 'file');
@@ -228,9 +222,7 @@
           }, 200);
           flag = false;
         }
-        
         if (!flag) return;
-
         //校验用户的输入
         if (this.form.content != DOMPurify.sanitize(this.form.content)) {
           this.$confirm('检测到您的文章可能含有非法格式，如需发布会过滤掉非法内容，发布后效果如右侧所示，是否继续发布?', '提示', {

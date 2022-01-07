@@ -11,8 +11,10 @@
             <h2 class="content-title">{{article.title}}</h2>
             <p class="black article-content-main" v-html="article.content"></p>
             <div class="article-bottom">
-              <a class="article-card-link iconfont icon-redu" href="">{{article.hot>10000?(article.hot/10000).toFixed(2)+'万':article.hot}}热度</a>
-              <a class="article-card-link iconfont icon-fasong" href="">分享</a>
+              <a class="article-card-link iconfont icon-redu" >
+                {{article.hot>10000?(article.hot/10000).toFixed(2)+'万':article.hot}}热度
+              </a>
+              <a class="article-card-link iconfont icon-fasong">分享</a>
             </div>
           </router-link>
 

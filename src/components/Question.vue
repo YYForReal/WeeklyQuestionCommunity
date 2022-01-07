@@ -5,9 +5,9 @@
     </div>
 
     <h1 class="main-article-title"> {{article.title}}</h1>
-    
+
     <div v-if="article.type&&authorInfo!=null">
-        <SmallUserBox :user="authorInfo"></SmallUserBox>
+      <SmallUserBox :user="authorInfo"></SmallUserBox>
     </div>
 
     <!-- 用户的文章内容 -->
@@ -20,7 +20,7 @@
     <!-- 如果问题有封面就放，没有就不显示了 -->
     <img class="media-box" v-if="article.img!=null&&article.img!=''" :src="article.img">
     </img>
-
+    <p>编辑于 {{article.releaseTime}}</p>
     <div class="article-bottom-box" v-if="article.type == 0">
 
       <button class="button foucs-button ">关注问题</button>
@@ -62,11 +62,11 @@
         <!-- <a class="article-card-link iconfont icon-24gf-ellipsis"></a> -->
         <a class="article-card-link iconfont icon-wenzhangzhuanzai" v-if="article.type">文章转载</a>
       </div>
-      <p>编辑于 {{article.releaseTime}}</p>
+
     </div>
 
     <ReviewsBox v-if="seeReviews" :type="Number(article.type)" :articleId="article.articleId"></ReviewsBox>
-    <EditAnswer v-if="isWrite"  :articleId="article.articleId"></EditAnswer>
+    <EditAnswer v-if="isWrite" :articleId="article.articleId"></EditAnswer>
   </div>
 </template>
 <script>
@@ -84,7 +84,7 @@
         isWrite: false,
         seeReviews: false,
         reviewsNumber: 0,
-        authorInfo:null,
+        authorInfo: null,
       }
     },
     components: {
@@ -104,16 +104,16 @@
       console.log("article is ", this.article);
       this.translateDate();
       let that = this;
-      if(this.article.type ==1){
+      if (this.article.type == 1) {
         $.ajax({
-          type:'get',
-          url:that.baseUrl + '/user/getUserInfo',
-          data:{
-            userId:that.article.authorId,
+          type: 'get',
+          url: that.baseUrl + '/user/getUserInfo',
+          data: {
+            userId: that.article.authorId,
           },
-          success:function(data){
+          success: function (data) {
             that.authorInfo = data;
-            console.log("getUserInfo",data);
+            console.log("getUserInfo", data);
           }
         })
       }
@@ -121,8 +121,8 @@
     },
     methods: {
       translateDate() {
-        let d = new Date(this.article.releaseTime);       
-        d = d.getTime() + d.getTimezoneOffset()*60*1000; // - 480分钟
+        let d = new Date(this.article.releaseTime);
+        d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
         d = new Date(d);
         let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
         let resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
@@ -233,16 +233,12 @@
     color: gray;
     margin-right: 20px;
   }
-
-
   .article-card-link:hover {
     color: blue;
   }
-
   .blue {
     color: blue;
   }
-
 
   /* tag */
   .article-tag {
@@ -290,11 +286,11 @@
   .article-maincontainer {
     margin: 0px auto;
     width: 96%;
-    padding-bottom:30px;
+    padding-bottom: 30px;
   }
 
   .button {
-    height: 35px;
+    height: 30px;
   }
 
 
@@ -304,9 +300,6 @@
     margin: 10px auto;
 
   }
-
-
-
 
   .agree-box .has-agree {
     background-color: #0066FF;

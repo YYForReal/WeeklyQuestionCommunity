@@ -53,6 +53,11 @@ export default new Router({
       ]
     },
     {
+      path: '/SpecialArticle/:articleId',
+      name: 'SpecialArticle',
+      component: SpecialArticle,
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login
@@ -62,12 +67,7 @@ export default new Router({
       name: 'setting',
       component: setting
     },
-    {
-      path: '/SpecialArticle/:articleId',
-      name: 'SpecialArticle',
-      component: SpecialArticle,
 
-    },
     {
       //  开头“/”会被当成根路径
       path: '/EditArticle/:type',

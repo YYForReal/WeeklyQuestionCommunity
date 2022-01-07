@@ -147,7 +147,8 @@
               message: '提交成功',
               type: 'success'
             });
-            window.location.reload();
+            // window.location.reload();
+            that.$router.go(0);
             // that.$router.push({
             //   name: 'SpecialArticle',
             //   params: {
