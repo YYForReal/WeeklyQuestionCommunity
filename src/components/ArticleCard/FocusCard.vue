@@ -43,6 +43,7 @@
   </div>
 </template>
 <script>
+
   import ArticleButtonBox from './ArticleButtonBox.vue'
   import WaitingBox from '../WaitingBox2.vue'
 
@@ -130,7 +131,6 @@
           let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
           let resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
           this.articles[i].releaseTime = resDate + " " + resTime;
-
           d = new Date(this.articles[i].updateTime);
           d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
           d = new Date(d);
