@@ -49,7 +49,7 @@
       let that = this;
       $.ajax({
         type: "get",
-        url: "http://localhost:9000/review/getReviews",
+        url: that.baseUrl + "/review/getReviews",
         async: true,
         data: {
           articleId: that.article.articleId,
@@ -92,7 +92,7 @@
           this.article.agree++;
           $.ajax({
             type: "post",
-            url: "http://localhost:9000/article/agree",
+            url: that.baseUrl + "/article/agree",
             async: true,
             data: {
               articleId: that.article.articleId,
@@ -107,7 +107,7 @@
           this.article.agree--;
           $.ajax({
             type: "post",
-            url: "http://localhost:9000/article/agree",
+            url: that.baseUrl + "/article/agree",
             async: true,
             data: {
               articleId: that.article.articleId,
@@ -128,7 +128,7 @@
           this.article.agree--;
           $.ajax({
             type: "post",
-            url: "http://localhost:9000/answer/agree",
+            url: that.baseUrl + "/answer/agree",
             async: true,
             data: {
               answerId: that.answer.answerId,

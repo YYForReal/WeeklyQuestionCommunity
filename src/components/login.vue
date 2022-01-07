@@ -204,7 +204,7 @@ export default {
     let that = this;
     $.ajax({
       type: "get",
-      url: "http://localhost:9000/user/getAllUserId",
+      url: that.baseUrl + "/user/getAllUserId",
       dataType: "json",
       success: function (res) {
         that.allUserId = res;
@@ -258,7 +258,7 @@ export default {
         $.ajax({
           type: "get",
           url:
-            "http://localhost:9000/user/getUserInfo?userId=" +
+          that.baseUrl + "/user/getUserInfo?userId=" +
             that.login_userId,
           success: function (res) {
             let md5Pwd = that.$md5(that.loginPassword);
@@ -358,7 +358,7 @@ export default {
       let md5Pwd = this.$md5(that.signPwd);
       $.ajax({
         type: "post",
-        url: "http://localhost:9000/user/postLoginInfo",
+        url: that.baseUrl + "/user/postLoginInfo",
         async: true,
         data: { userId: that.sign_userId, password: md5Pwd },
         success: function (data) {

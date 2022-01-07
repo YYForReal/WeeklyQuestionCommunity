@@ -171,7 +171,7 @@
           this.article.agree--;
           $.ajax({
             type: "post",
-            url: "http://localhost:9000/article/agree",
+            url: that.baseUrl + "/article/agree",
             async: true,
             data: {
               articleId: that.article.articleId,

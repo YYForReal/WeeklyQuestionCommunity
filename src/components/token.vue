@@ -20,7 +20,7 @@ export default {
       $.ajax({
         type: "get",
         url:
-          "http://localhost:9000/user/token?userId=" +
+        that.baseUrl + "/user/token?userId=" +
           userId +
           "&password=" +
           pwd,

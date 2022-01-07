@@ -71,8 +71,6 @@
 
     100% {
       background-color: #E6E6E6;
-      left: 10%;
-      top: 0px;
     }
   }
 

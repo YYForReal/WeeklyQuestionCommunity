@@ -37,23 +37,17 @@
     animation-delay: -1.1s;
     width: 75%;
   }
-
   .waiting-box .rect3 {
     animation-delay: -1.0s;
     width: 60%;
-
   }
-
   .waiting-box .rect4 {
     animation-delay: -0.9s;
     width: 100%;
-
   }
-
   .waiting-box .rect5 {
     animation-delay: -0.8s;
     width: 34%;
-
   }
 
 

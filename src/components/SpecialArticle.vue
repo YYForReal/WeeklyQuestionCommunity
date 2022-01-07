@@ -106,7 +106,7 @@
       //获取对应的回答
       $.ajax({
         type: "get",
-        url: "http://localhost:9000/answer/getAnswers",
+        url: that.baseUrl + "/answer/getAnswers",
         async: true,
         data: {
           articleId: that.articleId,

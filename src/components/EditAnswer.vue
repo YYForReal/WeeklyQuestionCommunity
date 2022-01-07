@@ -103,7 +103,7 @@
         let pwd = this.user.password;
         $.ajax({
           type: "get",
-          url: "http://localhost:9000/user/getUserInfo?userId=" + userId,
+          url: that.baseUrl + "/user/getUserInfo?userId=" + userId,
           async: true,
           success: function (data) {
             console.log("data", data);
@@ -138,7 +138,7 @@
         console.log("submit");
         $.ajax({
           type: "post",
-          url: "http://localhost:9000/answer/postAnswer", //需要获取的页面内容
+          url: that.baseUrl + "/answer/postAnswer", //需要获取的页面内容
           async: true, //异步
           data: submitForm,
           success: function (data) {

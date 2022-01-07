@@ -5,8 +5,7 @@
         <img :src="review.userAvatar?review.userAvatar:'https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg'" alt="">
       </div>
       <div class="user-name">
-        <strong>{{review.userName==null?'匿名用户':review.userName}}
-        </strong>
+        <strong>{{review.userName==null?'匿名用户':review.userName}}</strong>
       </div>
       <div class="float-right">
         <span> {{review.releaseTime}}</span>
@@ -49,7 +48,7 @@
         this.review.agree += agreeNumber;
         $.ajax({
           type: 'post',
-          url: 'http://localhost:9000/review/agree',
+          url: that.baseUrl + '/review/agree',
           data: {
             reviewId: that.review.reviewId,
             agreeNumber

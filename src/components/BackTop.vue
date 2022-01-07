@@ -77,20 +77,13 @@
     -webkit-animation: moveUp 0.9s ease-in-out;
     animation: moveUp 0.9s ease-in-out;
   }
-
-
-
-
   @keyframes moveUp {
     0% {
       bottom: 100px;
     }
-
-
     99% {
       bottom: 1000px;
     }
-
     100% {
       bottom: 100px;
     }

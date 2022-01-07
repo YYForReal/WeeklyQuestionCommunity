@@ -82,7 +82,7 @@
         let pwd = this.user.password;
         $.ajax({
           type: "get",
-          url: "http://localhost:9000/user/getUserInfo?userId=" + userId,
+          url: that.baseUrl + "/user/getUserInfo?userId=" + userId,
           async: true,
           success: function (data) {
             console.log("data", data);
@@ -147,7 +147,7 @@
       let that = this;
       $.ajax({
         type: 'get',
-        url: 'http://localhost:9000/review/getReviews',
+        url: that.baseUrl + '/review/getReviews',
         async: true,
         data: {
           articleId: that.articleId,

@@ -326,7 +326,7 @@ export default {
       pwd = this.$md5(pwd);
       $.ajax({
         type: "post",
-        url: "http://localhost:9000/user/postPassword",
+        url: that.baseUrl + "/user/postPassword",
         async: true,
         data: { userId: userId, password: pwd },
         success: function (data) {

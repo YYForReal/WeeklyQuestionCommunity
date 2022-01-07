@@ -154,7 +154,7 @@ export default {
     this.userId = user.userId;
     $.ajax({
       type: "get",
-      url: "http://localhost:9000/user/getUserInfo?userId=" + that.userId,
+      url: that.baseUrl + "/user/getUserInfo?userId=" + that.userId,
       success: function (data) {
         that.userName = data.userName;
         that.signature = data.description;
@@ -186,7 +186,7 @@ export default {
       } else {
         $.ajax({
           type: "post",
-          url: "http://localhost:9000/user/postName",
+          url: that.baseUrl + "/user/postName",
           async: true,
           data: { userId: that.userId, userName: that.nameModel },
           success: function (data) {
@@ -213,7 +213,7 @@ export default {
       } else {
         $.ajax({
           type: "post",
-          url: "http://localhost:9000/user/postDes",
+          url: that.baseUrl + "/user/postDes",
           async: true,
           data: { userId: that.userId, description: that.signatureModel },
           success: function (data) {
@@ -248,7 +248,7 @@ export default {
 
         $.ajax({
           type: "post",
-          url: "http://localhost:9000/user/postBackground",
+          url: that.baseUrl + "/user/postBackground",
           async: true,
           data: { userId: that.userId, background: that.background },
           success: function (data) {
@@ -274,7 +274,7 @@ export default {
 
         $.ajax({
           type: "post",
-          url: "http://localhost:9000/user/postAvatar",
+          url: that.baseUrl + "/user/postAvatar",
           async: true,
           data: { userId: that.userId, avatar: that.avatarUrl },
           success: function (data) {
