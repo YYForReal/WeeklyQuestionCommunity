@@ -125,7 +125,9 @@
       },
       translateDate() {
         for (let i = 0; i < this.articles.length; i++) {
+          console.log("release Time : ",this.articles[i].releaseTime);
           let d = new Date(this.articles[i].releaseTime);
+          console.log("new Date : ",d);
           d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
           d = new Date(d);
           let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())

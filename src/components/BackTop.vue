@@ -40,16 +40,10 @@
       }
     },
     mounted() {
-      setTimeout(() => {
-        let bodyHeight = document.body.scrollHeight;
-        let screenHeight = window.screen.height; //屏幕高度
-        console.log("bodyHeight : ", bodyHeight);
-        console.log("screenHeight : ", screenHeight);
-        if (bodyHeight > screenHeight) {
-          this.isShow = true;
-        }
-
-      }, 2000);
+      let _this = this;
+      window.addEventListener("scroll",(e)=>{
+        _this.isShow = true;
+      })
     },
     watch: {
       $route: {
@@ -64,13 +58,12 @@
 <style lang="">
   .back-top {
     position: fixed;
-    width: 100px;
-    height: 50px;
-    right: 50px;
-    bottom: 100px;
-    font-size: 72px;
+    width: 5rem;
+    height: 5rem;
+    right: 5rem;
+    bottom: 6rem;
+    font-size: 5rem;
     color: red;
-
   }
 
   .animation-move {
@@ -79,13 +72,13 @@
   }
   @keyframes moveUp {
     0% {
-      bottom: 100px;
+      bottom: 6rem;
     }
     99% {
-      bottom: 1000px;
+      bottom: 120%;
     }
     100% {
-      bottom: 100px;
+      bottom: 6rem;
     }
   }
 
