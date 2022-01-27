@@ -1,8 +1,28 @@
-# zhihu
+# 仿知乎
 
-> Zhihu Website
+> 仿PC端知乎，多人交流平台
 
-## Build Setup
+## 模块
+
+1. 用户模块
+    - 登录注册
+    - 信息修改
+    - 个人主页（TODO）
+
+2. 内容模块
+    - 文章展示
+    - 文章点赞&评论
+    - 文章发布&回答
+
+## 特色
+
+1. jwt加密
+2. 自定义markdown编辑
+3. 自定义个人背景
+
+
+
+## 项目运行流程
 
 ``` bash
 # install dependencies
@@ -19,14 +39,6 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-
-
-
-
-
-
-
 
 vue create 
 
