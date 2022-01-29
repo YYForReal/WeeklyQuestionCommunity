@@ -1,7 +1,7 @@
 <template lang="">
   <div>
     <section v-if="articles.length > 0 ">
-      <div class="article-card" v-for="(article,index) in articles">
+      <div class="article-card" v-for="(article,index) in showArticles">
         <div class="article-rank-box">
           <h1 class="article-rank" :class="{'orange':index<3}">{{index+1}}</h1>
         </div>
@@ -28,7 +28,12 @@
           <hr>
         </div>
       </div>
-      <div class="list-end">没有更多内容</div>
+      <div v-if="showNumber<articles.length" class="list-end">
+        <el-button @click="showMore()">
+          展示更多
+        </el-button>
+      </div>
+      <div v-else class="list-end">没有更多内容</div>
 
 
     </section>
@@ -53,7 +58,8 @@
       return {
         articles: [],
         errorType: false,
-
+        showArticles:[],
+        showNumber:10,
       }
     },
     components: {
@@ -74,6 +80,11 @@
           for (let i = 0; i < that.articles.length; i++) {
             that.articles[i].content = marked.parse(that.filterDot(that.articles[i].content));
           }
+          if(that.articles.length<10){
+            that.setShowArticles(that.articles.length);
+          }else{
+            that.setShowArticles(10);
+          }
         },
         error: function (data) {
           that.articles = [];
@@ -92,6 +103,14 @@
         }
         return rs;
       },
+      setShowArticles(num){
+        this.showArticles = this.articles.slice(0,num);
+        this.showNumber = num;
+      },
+      showMore(){
+        this.showNumber = this.showNumber + 10 > this.articles.length ? this.articles.length : this.showNumber + 10 ;
+        this.setShowArticles(this.showNumber);
+      }
     },
   }
 
