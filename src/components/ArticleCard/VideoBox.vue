@@ -57,39 +57,9 @@
             showTimes: "1.6",
             honor: "",
           },
-          {
-            link: "",
-            img: "https://pic3.zhimg.com/v2-78ea4c63ab83097b39cee74029d4011c_640w.jpg?source=382ee89a",
-            description: "学习Python Web框架需要学习JavaScript吗？",
-            author: "Devil.羽",
-            timeLength: "8:30",
-            showTimes: "1.6",
-            honor: "",
-          },
-          {
-            link: "",
-            img: "https://pic1.zhimg.com/v2-7d6558e84fe00832ca52e823d0a7de15_640w.jpg?source=12a79843",
-            description: "学习Python Web框架需要学习JavaScript吗？",
-            author: "Devil.羽",
-            timeLength: "8:30",
-            showTimes: "1.6",
-            honor: "超多赞同",
-          },
-          {
-            link: "",
-            img: "https://pic1.zhimg.com/v2-7d6558e84fe00832ca52e823d0a7de15_640w.jpg?source=12a79843",
-            description: "学习Python Web框架需要学习JavaScript吗？",
-            author: "Devil.羽",
-            timeLength: "8:30",
-            showTimes: "1.6",
-            honor: "超多赞同",
-          },
         ],
       }
     }
   }
 
 </script>
-<style lang="">
-
-</style>
