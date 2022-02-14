@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-  import Answer from '@/components/Answer/Answer.vue'
+  import Answer from '@/components/answer/Answer.vue'
   export default {
     data() {
       return {
@@ -39,16 +39,17 @@
 
 </script>
 <style src="@/assets/css/bulma.min.css" scoped></style>
-<style lang="" scoped>
+<style lang="less" scoped>
+.answers-maincontainer {
+  margin: 0 auto;
+  width: 97%;
+  margin-top: 20px;
+  padding: 5px;
 
-  .answers-maincontainer {
-    margin: 0 auto;
-    min-width: 600px;
-    width: 97%;
+  @media screen and (min-width:768px) {
+    min-width: 600px;    
     min-height: 600px;
-    margin-top: 20px;
-    padding: 5px;
   }
-
+}
 
 </style>

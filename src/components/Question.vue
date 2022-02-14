@@ -70,9 +70,9 @@
   </div>
 </template>
 <script>
-  import ReviewsBox from '@/components/Review/ReviewsBox.vue'
-  import EditAnswer from './EditAnswer.vue'
-  import SmallUserBox from '@/components/User/SmallUserBox.vue'
+  import ReviewsBox from '@/components/review/ReviewsBox.vue'
+  import EditAnswer from '@/components/edit/EditAnswer.vue'
+  import SmallUserBox from '@/components/user/SmallUserBox.vue'
   import {
     marked
   } from 'marked'

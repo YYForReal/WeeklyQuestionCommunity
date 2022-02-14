@@ -2,7 +2,6 @@
   <div class="container">
     <div class="column"></div>
     <nav class="navbar box navbar-height is-fixed-top" id="navbar">
-      <div class="navbar-item"></div>
       <div class="navbar-item">
         <router-link to="/">
           <img src="../assets/image/zhi.png" alt="logo" />
@@ -11,7 +10,6 @@
       </div>
       <div class="navbar-menu">
         <div class="navbar-start">
-          <div class="navbar-item"></div>
 
           <router-link to="/FocusCard/1" class="navbar-item">首页</router-link>
           <router-link to="/RecommendCard" class="navbar-item"
@@ -204,10 +202,17 @@ export default {
 }
 
 #navbar {
+  display:flex;
   padding: 0;
+  width:100%;
 }
 
 .mybtn {
   padding: 0;
+}
+
+.navbar-menu{
+  min-width:600px;
+  height:100%
 }
 </style>

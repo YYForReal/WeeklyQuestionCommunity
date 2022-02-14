@@ -189,9 +189,9 @@
 <script>
 import Tab from "@/components/login/loginTab.vue";
 import Tabs from "@/components/login/loginTabs.vue";
-import userInfo from "./userInfo.vue";
-import verify from "./verify.vue";
-import modal from "./modal.vue";
+import userInfo from "@/components/user/userInfo.vue";
+import verify from "@/components/user/verify.vue";
+import modal from "@/components/user/modal.vue";
 
 export default {
   data() {
@@ -440,7 +440,7 @@ export default {
   },
 };
 </script>
-<style lang="css" src="../assets/css/bulma.min.css" scoped>
+<style lang="css" src="@/assets/css/bulma.min.css" scoped>
 </style>
 
 <style scoped >

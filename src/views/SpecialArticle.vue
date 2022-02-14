@@ -9,12 +9,11 @@
     <!-- 判断是文章 -->
     <div v-else-if="article.type == 1">
       <Question :article="article"></Question>
-      <!-- <AnswersBox :answers="answers"></AnswersBox> -->
     </div>
 
     <div v-else-if="errorType">
       <h1>您要找的文章离你而去了~</h1>
-      <img src="../assets/image/sad.png" alt="" class="error-img">
+      <img src="../assets/image/sad.png" class="error-img">
       <p class="error-message">可能原因：{{errorMessage}}。</p>
     </div>
 
@@ -25,13 +24,11 @@
   </div>
 </template>
 <script>
-  import {
-    marked
-  } from 'marked'
-  import Question from './Question.vue'
-  import Answer from '@/components/Answer/Answer.vue'
-  import AnswersBox from '@/components/Answer/AnswersBox.vue'
-  import WaitingBox from '@/components/WaitingBox/WaitingBox.vue'
+
+  import Question from '@/components/Question.vue'
+  import Answer from '@/components/answer/Answer.vue'
+  import AnswersBox from '@/components/answer/AnswersBox.vue'
+  import WaitingBox from '@/components/waitingBox/WaitingBox.vue'
   export default {
     data() {
       return {
@@ -40,17 +37,6 @@
         answers: [],
         errorType: false,
         errorMessage: '网络异常'
-        // authorArticles: [],
-
-        // authorInfo: {},
-        // userInfo: {
-
-        // },
-        // authorInfo: {
-        //   username: '匿名用户',
-        //   password: '123',
-        //   avatar: 'https://img0.baidu.com/it/u=4213503151,140101761&fm=26',
-        // }
 
       }
     },
@@ -106,25 +92,6 @@
           that.answers = data;
         }
       })
-
-
-
-      // $.ajax({
-      //   type: "get",
-      //   url: "http://localhost:9000/article/getArticlesFromAuthor", //需要获取的页面内容
-      //   async: true, //异步
-      //   data: {
-      //     authorId: that.authorId,
-      //   },
-      //   success: function (data) {
-      //     console.log(typeof data, data);
-      //     that.authorArticles = data;
-      //     for (let i = 0; i < that.authorArticles.length; i++) {
-      //       that.authorArticles[i].content = marked.parse(that.authorArticles[i].content);
-      //       console.log(that.authorArticles[i].content);
-      //     }
-      //   },
-      // });
     },
     watch: {
       article: {

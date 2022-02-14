@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-  import Review from '@/components/Review/Review.vue'
+  import Review from '@/components/review/Review.vue'
 
   export default {
     data() {
@@ -115,7 +115,6 @@
                 message: "密码错误！",
               });
             }
-            // that.$router.push("/setting");
           },
           error: function () {
             console.log("验证身份失败!");
@@ -133,16 +132,11 @@
         type: Number,
         required: true,
       }
-      // reviews:{
-      //   type:Array,
-      //   default:()=>[],
-      // }
     },
     mounted() {
       let userString = window.localStorage.getItem("user");
       console.log("userString:", userString);
       this.user = JSON.parse(userString);
-
 
       let that = this;
       $.ajax({

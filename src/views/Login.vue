@@ -1,17 +1,18 @@
 <template>
   <div class="page">
-    <div class="columns is-centered">
-      <a href="" class="columns is-centered login-image">
-        <img src="@/assets/image/login.png" alt="" />
-      </a>
+    <div class="bgmp4">
+      <video  src="https://img-baofun.zhhainiao.com/market/133/2366564fa6b83158208eb3181752a8d6_preview.mp4" autoplay loop muted></video>
     </div>
-    <div class="columns is-centered">
+    <div class="columns is-centered login-title-box">
+      <h1 class="login-title">问答天地</h1>
+    </div>
+    <div class="columns is-centered login-form-box" style="z-index:20;">
       <div class="column is-4">
-        <div class="box">
+        <div class="box login-form">
           <tabs>
             <!-- 登录 -->
             <tab title="登录">
-              <form action="">
+              <div>
                 <!-- 账号 -->
                 <div class="field">
                   <div class="control has-icons-left">
@@ -68,7 +69,7 @@
                     <p class="help is-hidden" id="logInfo"></p>
                   </div>
                 </div>
-              </form>
+              </div>
             </tab>
 
             <!-- 注册 -->
@@ -145,6 +146,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -419,7 +421,6 @@ export default {
       var confirmInfo = $("#confirmInfo");
       var password = $("#password");
       let flag = false;
-
       if (confirmPwd.val() == "") {
         confirmPwd.attr("class", "input");
         this.setHiddenInfo(confirmInfo);
@@ -459,17 +460,45 @@ export default {
 
 
 <style src="@/assets/css/bulma.min.css" scoped></style>
-<style scoped>
+<style  scoped>
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
-
 .page {
-  background-image: url(https://static.zhihu.com/heifetz/assets/sign_bg.db29b0fb.png);
+  position: relative;
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 600px;
   width: 100%;
 }
 
+
+.login-title-box,.login-form-box{
+  position: relative;
+  z-index: 10;
+  margin-bottom: 10px;
+
+}
+.login-form{
+  transition: all 0.5s;
+}
+
+.login-title{
+  font-family: '思源黑体', 'Times New Roman', Times, serif;
+  font-size: 3.2rem;
+  z-index: 99;
+  color: white;
+  margin-top: 10vh;
+}
+.bgmp4{
+  position: absolute;
+  width: 100%;
+  height:100%;
+  opacity: 0.7;
+  z-index: 0;
+}
+.bgmp4  video{
+  width:100%;
+  object-fit:fill;
+  z-index:-1;
+}
 .login-image {
   width: 128px;
   height: 81px;

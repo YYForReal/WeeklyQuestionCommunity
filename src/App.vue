@@ -1,19 +1,17 @@
 <template>
-  <div class="container is-fullhd" id="app" style="width: 100%">
-    <NavHeader></NavHeader>
+  <div class="is-fullhd" id="app" style="width: 100%">
     <router-view :key="$route.path" />
     <BackTop></BackTop>
   </div>
 </template>
 
 <script>
-import NavHeader from "./components/NavHeader.vue";
-import BackTop from "./components/BackTop.vue";
+
+import BackTop from "@/components/BackTop.vue";
 
 export default {
   name: "App",
   components: {
-    NavHeader,
     BackTop,
   },
   mounted() {
@@ -51,7 +49,7 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-top: 50px;
   background-color: white;
+  width:100%;
 }
 </style>

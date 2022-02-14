@@ -22,15 +22,11 @@
         <a class="article-card-link iconfont icon-31guanzhu1xuanzhong">不感兴趣</a>
       </div>
     </div>
-
     <ReviewsBox v-if="seeReviews" :type="Number(article.type)" :articleId="article.articleId"></ReviewsBox>
-
-
-
   </div>
 </template>
 <script>
-  import ReviewsBox from "@/components/Review/ReviewsBox.vue";
+  import ReviewsBox from "@/components/review/ReviewsBox.vue";
 
   export default {
     data() {
@@ -183,10 +179,6 @@
     display: block;
     margin-bottom: 5px;
   }
-
-
-
-
   .agree-box .has-agree {
     background-color: #0066FF;
     color: white;
@@ -217,7 +209,4 @@
   .more:hover+.more-box {
     visibility: visible;
   }
-
-
-
 </style>

@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Main from '@/components/Main'
-import EditArticle from '@/components/EditArticle'
-import SpecialArticle from '@/components/SpecialArticle'
+import Main from '@/views/Main'
+import EditArticle from '@/components/edit/EditArticle'
+import SpecialArticle from '@/views/SpecialArticle'
 import FocusCard from '@/components/ArticleCard/FocusCard'
 import RecommendCard from '@/components/ArticleCard/RecommendCard'
 import HotCard from '@/components/ArticleCard/HotCard'
 import VideoBox from '@/components/ArticleCard/VideoBox'
-import Login from '@/components/login/login'
-import setting from '@/components/setting'
+import Login from '@/views/Login'
+import setting from '@/components/user/setting'
 
 
 Vue.use(Router)
@@ -26,12 +26,21 @@ Router.prototype.push = function push(location){
 
 
 export default new Router({
-  routes: [{
+  routes: [
+    {
       path: '/',
       name: 'Main',
       component: Main,
       redirect:'/RecommendCard',//重定向
-      children: [{
+      children: [
+        {
+          //  开头“/”会被当成根路径
+          path: '/EditArticle/:type',
+          name: 'EditArticle',
+          component: EditArticle,
+          props: true,
+        },
+        {
           path: '/FocusCard/:userId',
           name: 'FocusCard',
           component: FocusCard,
@@ -71,13 +80,7 @@ export default new Router({
       component: setting
     },
 
-    {
-      //  开头“/”会被当成根路径
-      path: '/EditArticle/:type',
-      name: 'EditArticle',
-      component: EditArticle,
-      props: true,
-    },
+
 
   ]
 })

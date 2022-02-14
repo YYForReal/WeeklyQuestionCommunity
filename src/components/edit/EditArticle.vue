@@ -1,7 +1,6 @@
 <template lang="">
   <div class="post-box">
     <el-card class="box-card original-box">
-
       <div slot="header" class="clearfix">
         <h1 class="text-align">写{{typeMessage}}</h1>
         <br>
