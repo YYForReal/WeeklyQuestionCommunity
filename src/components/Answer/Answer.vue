@@ -1,18 +1,5 @@
 <template lang="">
   <div class="one-answer">
-    <!-- <div class="user-info">
-      <div class="user-img"> -->
-        <!-- 默认头像 -->
-        <!-- <img
-          :src="answer.authorAvatar?answer.authorAvatar:'https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg'"
-          alt="">
-      </div>
-      <div class="user-name">
-        <strong>{{answer.authorName==null?'匿名用户':answer.authorName}} <i class="iconfont icon-huiyuan orange"></i>
-        </strong>
-        <p class="user-description">{{answer.authorDescription==null?'':answer.authorDescription}}</p>
-      </div>
-    </div> -->
     <SmallUserBox :answer="answer"></SmallUserBox>
     <!-- 没有编辑 标签 “编辑推荐”这种 -->
     <!-- <div class="tag-box">
@@ -60,8 +47,8 @@
   </div>
 </template>
 <script>
-  import ReviewsBox from './ReviewsBox.vue'
-  import SmallUserBox from './user/SmallUserBox.vue'
+  import ReviewsBox from '@/components/Review/ReviewsBox.vue'
+  import SmallUserBox from '@/components/user/SmallUserBox.vue'
   import {
     marked
   } from 'marked'
@@ -208,8 +195,8 @@
 
 </script>
 
+<style src="@/assets/css/bulma.min.css" scoped></style>
 <style lang="" scoped>
-  @import '../assets/css/bulma.min.css';
 
   .article-card-link {
     display: inline-block;

@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-  import Answer from './Answer.vue'
+  import Answer from '@/components/Answer/Answer.vue'
   export default {
     data() {
       return {
@@ -38,8 +38,9 @@
   }
 
 </script>
+<style src="@/assets/css/bulma.min.css" scoped></style>
 <style lang="" scoped>
-  @import '../assets/css/bulma.min.css';
+
   .answers-maincontainer {
     margin: 0 auto;
     min-width: 600px;

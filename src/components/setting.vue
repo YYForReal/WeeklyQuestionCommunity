@@ -187,8 +187,8 @@
 </template>
 
 <script>
-import Tab from "./loginTab.vue";
-import Tabs from "./loginTabs.vue";
+import Tab from "@/components/login/loginTab.vue";
+import Tabs from "@/components/login/loginTabs.vue";
 import userInfo from "./userInfo.vue";
 import verify from "./verify.vue";
 import modal from "./modal.vue";

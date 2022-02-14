@@ -70,7 +70,7 @@
   </div>
 </template>
 <script>
-  import ReviewsBox from './ReviewsBox.vue'
+  import ReviewsBox from '@/components/Review/ReviewsBox.vue'
   import EditAnswer from './EditAnswer.vue'
   import SmallUserBox from './user/SmallUserBox.vue'
   import {

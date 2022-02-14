@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import TabBar from '@/components/TabBar'
+import Main from '@/components/Main'
 import EditArticle from '@/components/EditArticle'
 import SpecialArticle from '@/components/SpecialArticle'
 import FocusCard from '@/components/ArticleCard/FocusCard'
 import RecommendCard from '@/components/ArticleCard/RecommendCard'
 import HotCard from '@/components/ArticleCard/HotCard'
 import VideoBox from '@/components/ArticleCard/VideoBox'
-import Login from '@/components/login'
+import Login from '@/components/login/login'
 import setting from '@/components/setting'
 
 
@@ -28,8 +28,8 @@ Router.prototype.push = function push(location){
 export default new Router({
   routes: [{
       path: '/',
-      name: 'TabBar',
-      component: TabBar,
+      name: 'Main',
+      component: Main,
       redirect:'/RecommendCard',//重定向
       children: [{
           path: '/FocusCard/:userId',

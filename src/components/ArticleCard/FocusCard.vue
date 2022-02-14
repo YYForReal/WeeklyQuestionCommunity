@@ -45,7 +45,7 @@
 <script>
 
   import ArticleButtonBox from './ArticleButtonBox.vue'
-  import WaitingBox from '../WaitingBox2.vue'
+  import WaitingBox from '@/components/WaitingBox/WaitingBox2.vue'
 
   import {
     marked

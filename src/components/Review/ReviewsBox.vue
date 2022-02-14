@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-  import Review from './Review.vue'
+  import Review from '@/components/Review/Review.vue'
 
   export default {
     data() {
@@ -200,8 +200,8 @@
   }
 
 </script>
+<style src="@/assets/css/bulma.min.css" scoped></style>
 <style lang="" scoped>
-  @import '../assets/css/bulma.min.css';
 
   .answers-maincontainer {
     margin: 0 auto;

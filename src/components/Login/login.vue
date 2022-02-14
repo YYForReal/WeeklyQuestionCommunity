@@ -2,7 +2,7 @@
   <div class="page">
     <div class="columns is-centered">
       <a href="" class="columns is-centered login-image">
-        <img src="../assets/image/login.png" alt="" />
+        <img src="@/assets/image/login.png" alt="" />
       </a>
     </div>
     <div class="columns is-centered">
@@ -166,8 +166,8 @@
 </template>
 
 <script>
-import Tab from "./loginTab.vue";
-import Tabs from "./loginTabs.vue";
+import Tab from "@/components/login/loginTab.vue";
+import Tabs from "@/components/login/loginTabs.vue";
 
 export default {
   data() {
@@ -478,7 +478,7 @@ export default {
 </script>
 
 
-<style src="../assets/css/bulma.min.css" scoped></style>
+<style src="@/assets/css/bulma.min.css" scoped></style>
 <style scoped>
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
 

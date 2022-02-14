@@ -25,7 +25,7 @@
               <input
                 type="text"
                 class="input is-rounded is-normal input-resize nav-line"
-                placeholder="裸考四六级过的可能性"
+                placeholder="择日开放"
                 size="40"
                 id="searchBox"
               />
@@ -46,14 +46,14 @@
           <div class="navbar-item">
             <button type="button" class="mybtn button is-rounded nav-line">
               <router-link class="white" to="/EditArticle/1">
-                发布文章
+                我要分享
               </router-link>
             </button>
           </div>
           <div class="navbar-item">
             <button type="button" class="mybtn button is-rounded nav-line">
               <router-link class="white" to="/EditArticle/0">
-                我要提问
+                我要设问
               </router-link>
             </button>
           </div>

@@ -1,15 +1,5 @@
 <template lang="">
   <div class="special-box">
-
-    <!-- <el-card class="box-card" v-for="(article,index) in authorArticles" :key="index">
-      <div slot="header" class="clearfix">
-        <h1 class="card-title">{{article.title}}</h1>
-      </div>
-      <div v-html="article.content">
-      </div>
-    </el-card> -->
-
-
     <!-- 判断是否问题，若是则展示回答列表 -->
     <div v-if="article.type == 0">
       <Question :article="article"></Question>
@@ -39,9 +29,9 @@
     marked
   } from 'marked'
   import Question from './Question.vue'
-  import Answer from './Answer.vue'
-  import AnswersBox from './AnswersBox.vue'
-  import WaitingBox from './WaitingBox.vue'
+  import Answer from '@/components/Answer/Answer.vue'
+  import AnswersBox from '@/components/Answer/AnswersBox.vue'
+  import WaitingBox from '@/components/WaitingBox/WaitingBox.vue'
   export default {
     data() {
       return {

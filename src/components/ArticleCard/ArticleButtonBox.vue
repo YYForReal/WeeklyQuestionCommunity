@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-  import ReviewsBox from "../ReviewsBox.vue";
+  import ReviewsBox from "@/components/Review/ReviewsBox.vue";
 
   export default {
     data() {
