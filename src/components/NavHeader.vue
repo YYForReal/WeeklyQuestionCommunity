@@ -13,7 +13,7 @@
         <div class="navbar-start">
           <div class="navbar-item"></div>
 
-          <router-link to="/HotCard" class="navbar-item">首页</router-link>
+          <router-link to="/FocusCard/1" class="navbar-item">首页</router-link>
           <router-link to="/RecommendCard" class="navbar-item"
             >推荐</router-link
           >

@@ -48,7 +48,7 @@
 </template>
 <script>
   import ReviewsBox from '@/components/Review/ReviewsBox.vue'
-  import SmallUserBox from '@/components/user/SmallUserBox.vue'
+  import SmallUserBox from '@/components/User/SmallUserBox.vue'
   import {
     marked
   } from 'marked'

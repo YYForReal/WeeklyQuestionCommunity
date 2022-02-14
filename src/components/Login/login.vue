@@ -56,14 +56,6 @@
                     <p class="help is-hidden" id="loginPwdInfo"></p>
                   </div>
                 </div>
-                <p class="info">
-                  登录即代表同意<a href="https://www.zhihu.com/term/zhihu-terms"
-                    >《知乎协议》</a
-                  >
-                  <a href="https://www.zhihu.com/term/privacy"
-                    >《隐私保护指引》</a
-                  >
-                </p>
                 <div class="field">
                   <div class="control">
                     <button
@@ -105,7 +97,7 @@
                     <input
                       type="password"
                       class="input"
-                      placeholder="密码"
+                      placeholder="密码（6-15位字母或数字）"
                       id="password"
                       @input="listenPwd"
                       v-model="signPwd"
@@ -139,15 +131,6 @@
                   </div>
                   <p class="help is-hidden" id="confirmInfo"></p>
                 </div>
-
-                <p class="info">
-                  注册后自动登录，登录代表同意<a
-                    href="https://www.zhihu.com/term/zhihu-terms"
-                    >《知乎协议》</a
-                  ><a href="https://www.zhihu.com/term/privacy"
-                    >《隐私保护指引》</a
-                  >
-                </p>
 
                 <div class="field">
                   <div class="control">
@@ -321,10 +304,10 @@ export default {
       if (this.sign_userId == "") {
         signIdInput.attr("class", "input");
         this.setHiddenInfo(signIdInfo);
-      } else if (this.sign_userId.length < 4 || this.sign_userId.length > 12) {
+      } else if (this.sign_userId.length < 2 || this.sign_userId.length > 12) {
         this.setDangerInput(signIdInput);
         this.setDangerInfo(signIdInfo);
-        signIdInfo.html("用户名长度必须为4~12个字符！");
+        signIdInfo.html("用户名长度必须为2~12个字符！");
       } else if (this.isIlLegalAccount(this.sign_userId)) {
         this.setDangerInput(signIdInput);
         this.setDangerInfo(signIdInfo);
@@ -387,16 +370,13 @@ export default {
     // 判断密码是否由字母、数字和特殊字符3种组合组成
     isLegalPwd(value) {
       // 匹配非数字、字母和英文特殊字符的字符
-      let regEx1 = /[^!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?a-zA-Z0-9]/;
+      let regEx1 = /[^!@#$%^&*()_+\-=\[\]{};':"\\|,.\/?a-zA-Z0-9]/;
 
       // 匹配英文特殊字符
-      let regEx2 = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+      let regEx2 = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.\/?]/;
 
       return (
-        !regEx1.test(value) &&
-        /[\d]/.test(value) &&
-        /[a-z]/i.test(value) &&
-        regEx2.test(value)
+        !regEx1.test(value) &&( /[\d]/.test(value) ||  /[a-z]/i.test(value) || regEx2.test(value) )
       );
     },
     listenPwd() {
@@ -407,14 +387,14 @@ export default {
       if (this.signPwd == "") {
         password.attr("class", "input");
         this.setHiddenInfo(passwordInfo);
-      } else if (this.signPwd.length < 8 || this.signPwd.length > 16) {
+      } else if (this.signPwd.length < 6 || this.signPwd.length > 15) {
         this.setDangerInput(password);
         this.setDangerInfo(passwordInfo);
-        passwordInfo.html("密码长度必须为8-16位！");
+        passwordInfo.html("密码长度必须为6-15位！");
       } else if (!this.isLegalPwd(this.signPwd)) {
         this.setDangerInput(password);
         this.setDangerInfo(passwordInfo);
-        passwordInfo.html("密码必须由字母、数字和特殊字符3种组合组成！");
+        passwordInfo.html("请不要包含特殊字符");
       } else {
         this.setSuccessInfo(passwordInfo);
         this.setSuccessInput(password);
@@ -501,11 +481,6 @@ export default {
   color: white !important;
 }
 
-.info {
-  font-size: 13px;
-  margin-bottom: 15px;
-  float: left;
-}
 
 tab {
   background-color: inherit;

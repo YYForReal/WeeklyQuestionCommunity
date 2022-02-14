@@ -72,7 +72,7 @@
 <script>
   import ReviewsBox from '@/components/Review/ReviewsBox.vue'
   import EditAnswer from './EditAnswer.vue'
-  import SmallUserBox from './user/SmallUserBox.vue'
+  import SmallUserBox from '@/components/User/SmallUserBox.vue'
   import {
     marked
   } from 'marked'
@@ -187,8 +187,6 @@
     watch: {
       article: {
         handler(newValue) {
-          // this.article.content = marked.parse(this.article.content);
-          // console.log("mard", this.article.content);
           let that = this;
 
           let form = {
