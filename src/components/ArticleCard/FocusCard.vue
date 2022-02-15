@@ -104,6 +104,7 @@
     methods: {
       getUserInfo(){
         //获取用户信息
+        this.authorId =JSON.parse(localStorage.getItem("user")).userId;
       },
       TurnToArticle(id) {
         this.$router.push({
