@@ -4,14 +4,13 @@
     <nav class="navbar box navbar-height is-fixed-top" id="navbar">
       <div class="navbar-item">
         <router-link to="/">
-          <img src="../assets/image/zhi.png" alt="logo" />
-          <img src="../assets/image/hu.png" alt="logo" />
+          <h1>问答天地</h1>
         </router-link>
       </div>
       <div class="navbar-menu">
         <div class="navbar-start">
 
-          <router-link to="/FocusCard/1" class="navbar-item">首页</router-link>
+          <router-link to="/FocusCard" class="navbar-item">我的</router-link>
           <router-link to="/RecommendCard" class="navbar-item"
             >推荐</router-link
           >

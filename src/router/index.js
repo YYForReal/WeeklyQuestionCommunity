@@ -15,7 +15,7 @@ Vue.use(Router)
 
 //118.31.165.150
 //localhost
-Vue.prototype.baseUrl = 'http://118.31.165.150:9000'
+Vue.prototype.baseUrl = 'http://localhost:9000'
 
 // 获取原型对象上的push函数
 const originalPush = Router.prototype.push;
@@ -41,10 +41,9 @@ export default new Router({
           props: true,
         },
         {
-          path: '/FocusCard/:userId',
+          path: '/FocusCard',
           name: 'FocusCard',
           component: FocusCard,
-          props: true,
         },
         {
           path: '/RecommendCard',
@@ -61,26 +60,24 @@ export default new Router({
           name: 'VideoBox',
           component: VideoBox
         },
+        {
+          path: '/setting',
+          name: 'setting',
+          component: setting
+        },
+        {
+          path: '/SpecialArticle/:articleId',
+          name: 'SpecialArticle',
+          component: SpecialArticle,
+        },
 
       ]
-    },
-    {
-      path: '/SpecialArticle/:articleId',
-      name: 'SpecialArticle',
-      component: SpecialArticle,
     },
     {
       path: '/login',
       name: 'login',
       component: Login
     },
-    {
-      path: '/setting',
-      name: 'setting',
-      component: setting
-    },
-
-
 
   ]
 })
