@@ -1,5 +1,7 @@
 <template lang="">
   <div>
+        <video :src="src" style="width:100%" preload controls ></video>
+
       <!-- <div calss="video-card-box">
         <div class="video-card" v-for="(video,index) in videos">
           <div class="video-img-box" @click="handleClickVideo(video)">
@@ -19,44 +21,43 @@
         </div>
       </div> -->
       <!-- <div class="list-end">没有更多内容</div> -->
-      <el-dialog
+      <!-- <el-dialog
         title="提示"
         :visible.sync="dialogVisible"
         width="90%"
         >
-        <video :src="src" style="width:100%" autoplay controls ></video>
         <span slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible = false">取 消</el-button>
           <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
         </span>
-      </el-dialog>
+      </el-dialog> -->
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      dialogVisible: true,
+      // dialogVisible: true,
       src: "https://om.tc.qq.com/gzc_1000102_0b53qeaaeaaaguab567utbq4baodakgqabsa.f2.mp4?vkey=C0334BD8A9059AD4A578E57AE672989A7CEED92092F82ABDD38096D157C24C86973BC6825900A03B1AA74CB6F90859104477CDF90A7BF0BA3C61E2394DA1673B9F868A1BCF23D5E8855C2ECFC49B0B16521432688C53B66B34AF18B8DBE97F0CCF5D2AA014B8051AA42AE9334951A2024C9C66956EFD682791414CDE4CEC09B493F7731331FB91B4",
-      videos: [
-        {
-          src: "https://om.tc.qq.com/gzc_1000102_0b53qeaaeaaaguab567utbq4baodakgqabsa.f2.mp4?vkey=C0334BD8A9059AD4A578E57AE672989A7CEED92092F82ABDD38096D157C24C86973BC6825900A03B1AA74CB6F90859104477CDF90A7BF0BA3C61E2394DA1673B9F868A1BCF23D5E8855C2ECFC49B0B16521432688C53B66B34AF18B8DBE97F0CCF5D2AA014B8051AA42AE9334951A2024C9C66956EFD682791414CDE4CEC09B493F7731331FB91B4",
-          img: "https://pic1.zhimg.com/v2-7d6558e84fe00832ca52e823d0a7de15_640w.jpg?source=12a79843",
-          description: "学习Python Web框架需要学习JavaScript吗？11111111",
-          author: "Devil.羽",
-          timeLength: "8:30",
-          showTimes: "1.6",
-          honor: "超多赞同",
-        },
-      ],
+      // videos: [
+      //   {
+      //     src: "https://om.tc.qq.com/gzc_1000102_0b53qeaaeaaaguab567utbq4baodakgqabsa.f2.mp4?vkey=C0334BD8A9059AD4A578E57AE672989A7CEED92092F82ABDD38096D157C24C86973BC6825900A03B1AA74CB6F90859104477CDF90A7BF0BA3C61E2394DA1673B9F868A1BCF23D5E8855C2ECFC49B0B16521432688C53B66B34AF18B8DBE97F0CCF5D2AA014B8051AA42AE9334951A2024C9C66956EFD682791414CDE4CEC09B493F7731331FB91B4",
+      //     img: "https://pic1.zhimg.com/v2-7d6558e84fe00832ca52e823d0a7de15_640w.jpg?source=12a79843",
+      //     description: "学习Python Web框架需要学习JavaScript吗？11111111",
+      //     author: "Devil.羽",
+      //     timeLength: "8:30",
+      //     showTimes: "1.6",
+      //     honor: "超多赞同",
+      //   },
+      // ],
     };
   },
   methods: {
-    handleClickVideo(video) {
-      console.log("111");
-      this.src = video.src;
-      this.dialogVisible = true;
-    },
+    // handleClickVideo(video) {
+    //   console.log("111");
+    //   this.src = video.src;
+    //   this.dialogVisible = true;
+    // },
   },
 };
 </script>
