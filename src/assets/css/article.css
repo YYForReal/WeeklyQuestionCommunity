@@ -14,6 +14,7 @@
    width: 95%;
    background-color: skyblue;
    padding-left: 20px;
+   overflow: hidden;
  }
 
  .article-card .article-rank-box {
@@ -88,12 +89,13 @@
    width: 750px;
    height: 150px;
    margin-top: 10px;
+   overflow: hidden;
    /* background-color: red; */
  }
 
  .article-card .recommend-article-content-without-img {
    width: 800px;
-
+  overflow: hidden;
  }
 
  .article-card .recommend-article-content .recommend-article-content-main {

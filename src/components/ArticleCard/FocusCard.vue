@@ -43,199 +43,218 @@
   </div>
 </template>
 <script>
+import ArticleButtonBox from "./ArticleButtonBox.vue";
+import WaitingBox from "@/components/WaitingBox/WaitingBox2.vue";
 
-  import ArticleButtonBox from './ArticleButtonBox.vue'
-  import WaitingBox from '@/components/WaitingBox/WaitingBox2.vue'
+import { marked } from "marked";
+export default {
+  data() {
+    return {
+      authorId: 1,
+      errorType: false,
+      readingStatus: false,
+      articles: [],
+      markContents: [],
+    };
+  },
+  mounted() {
+    this.getUserInfo();
+    let that = this;
+    $.ajax({
+      type: "get",
+      url: that.baseUrl + "/article/getArticlesFromAuthor",
+      async: true,
+      data: {
+        authorId: that.authorId,
+      },
+      success: function (data) {
+        that.articles = data;
+        console.log("获取关注模块数据成功，", typeof data, data);
+        //转换markdown成正常文本
+        for (let i = 0; i < that.articles.length; i++) {
+          that.markContents.push(
+            that.filterImgSource(marked.parse(that.filterDot(that.articles[i].content)))
+          );
 
-  import {
-    marked
-  } from 'marked'
-  export default {
-    data() {
-      return {
-        authorId:1,
-        errorType: false,
-        readingStatus: false,
-        articles: [],
-        markContents: [],
+        }
+        //转换时间格式
+        that.translateDate();
+      },
+      error: function (data) {
+        that.articles = [];
+        console.log("获取关注模块数据失败，", typeof data, data);
+        that.errorType = true;
+      },
+    });
+  },
+
+  components: {
+    ArticleButtonBox,
+    WaitingBox,
+  },
+  watch: {
+    articles: {
+      handler(newValue) {},
+      deep: true,
+    },
+  },
+
+  methods: {
+    filterImgSource(str) {
+      var reTag = /<img(?:.|\s)*?>/g;
+      return str.replace(reTag, "");
+    },
+    getUserInfo() {
+      //获取用户信息
+      this.authorId = JSON.parse(localStorage.getItem("user")).userId;
+    },
+    TurnToArticle(id) {
+      this.$router.push({
+        name: "SpecialArticle",
+        params: {
+          articleId: id,
+        },
+      });
+    },
+    // 卡片里面不能有markdown的标题字符
+    filterDot(str) {
+      var pattern = new RegExp("#");
+
+      var rs = "";
+      for (var i = 0; i < str.length; i++) {
+        rs = rs + str.substr(i, 1).replace(pattern, "");
+      }
+      return rs;
+    },
+    translateDate() {
+      for (let i = 0; i < this.articles.length; i++) {
+        console.log("release Time : ", this.articles[i].releaseTime);
+        let d = new Date(this.articles[i].releaseTime);
+        console.log("new Date : ", d);
+        d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
+        d = new Date(d);
+        let resDate =
+          d.getFullYear() +
+          "-" +
+          this.p(d.getMonth() + 1) +
+          "-" +
+          this.p(d.getDate());
+        let resTime =
+          this.p(d.getHours()) +
+          ":" +
+          this.p(d.getMinutes()) +
+          ":" +
+          this.p(d.getSeconds());
+        this.articles[i].releaseTime = resDate + " " + resTime;
+        d = new Date(this.articles[i].updateTime);
+        d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
+        d = new Date(d);
+        resDate =
+          d.getFullYear() +
+          "-" +
+          this.p(d.getMonth() + 1) +
+          "-" +
+          this.p(d.getDate());
+        resTime =
+          this.p(d.getHours()) +
+          ":" +
+          this.p(d.getMinutes()) +
+          ":" +
+          this.p(d.getSeconds());
+        this.articles[i].updateTime = resDate + " " + resTime;
       }
     },
-    mounted() {
-      this.getUserInfo();
-      let that = this;
-      $.ajax({
-        type: 'get',
-        url: that.baseUrl + '/article/getArticlesFromAuthor',
-        async: true,
-        data: {
-          authorId:that.authorId
-        },
-        success: function (data) {
-          that.articles = data;
-          console.log("获取关注模块数据成功，", typeof data, data);
-          //转换markdown成正常文本
-          for (let i = 0; i < that.articles.length; i++) {
-            that.markContents.push(marked.parse(that.filterDot(that.articles[i].content)));
-          }
-          //转换时间格式
-          that.translateDate();
-        },
-        error: function (data) {
-          that.articles = [];
-          console.log("获取关注模块数据失败，", typeof data, data);
-          that.errorType = true;
-        }
-      })
+    p(s) {
+      return s < 10 ? "0" + s : s;
     },
-
-    components: {
-      ArticleButtonBox,
-      WaitingBox,
-    },
-    watch:{
-      articles:{
-        handler(newValue){
-
-        },
-        deep:true
-      }
-    },
-
-    methods: {
-      getUserInfo(){
-        //获取用户信息
-        this.authorId =JSON.parse(localStorage.getItem("user")).userId;
-      },
-      TurnToArticle(id) {
-        this.$router.push({
-          name: 'SpecialArticle',
-          params: {
-            articleId: id
-          }
-        })
-      },
-      // 卡片里面不能有markdown的标题字符
-      filterDot(str) {
-        var pattern = new RegExp("#")
-
-        var rs = "";
-        for (var i = 0; i < str.length; i++) {
-          rs = rs + str.substr(i, 1).replace(pattern, '');
-        }
-        return rs;
-      },
-      translateDate() {
-        for (let i = 0; i < this.articles.length; i++) {
-          console.log("release Time : ",this.articles[i].releaseTime);
-          let d = new Date(this.articles[i].releaseTime);
-          console.log("new Date : ",d);
-          d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
-          d = new Date(d);
-          let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
-          let resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
-          this.articles[i].releaseTime = resDate + " " + resTime;
-          d = new Date(this.articles[i].updateTime);
-          d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
-          d = new Date(d);
-          resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
-          resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
-          this.articles[i].updateTime = resDate + " " + resTime;
-        }
-      },
-      p(s) {
-        return s < 10 ? '0' + s : s
-      }
-    },
-  }
-
+  },
+};
 </script>
+<style src="@/assets/css/bulma.min.css" scoped></style>
 <style lang="" scoped>
-  @import '../../assets/css/bulma.min.css';
 
-  .content-title,
-  .recommend-content-title {
-    font-size: large;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
+.content-title,
+.recommend-content-title {
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
 
-  .time-release {
-    color: grey;
-    font-size: small;
-  }
+.time-release {
+  color: grey;
+  font-size: small;
+}
 
-  .read-all {
-    color: blue;
-  }
+.read-all {
+  color: blue;
+}
 
-  .article-card {
-    width: 95%;
-    text-align: left;
-    padding-left: 20px;
-  }
+.article-card {
+  width: 95%;
+  text-align: left;
+  padding-left: 20px;
+}
 
-  .article-card .article-content {
-    width: 600px;
-    height: 150px;
-    margin-top: 10px;
-    float: left;
-    /* background-color: red; */
-  }
+.article-card .article-content {
+  width: 600px;
+  height: 150px;
+  margin-top: 10px;
+  float: left;
+  /* background-color: red; */
+}
 
-  .article-card .article-content-without-img {
-    width: 700px;
-  }
+.article-card .article-content-without-img {
+  width: 700px;
+}
 
-  .article-card .article-content .article-content-main {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
+.article-card .article-content .article-content-main {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
 
-  .img-box {
-    width: 20%;
-    min-width: 120px;
-    margin-right: 20px;
-    height: 10%;
-    max-height: 130px;
-    /* background-color: yellow; */
-  }
+.img-box {
+  width: 20%;
+  min-width: 120px;
+  margin-right: 20px;
+  height: 10%;
+  max-height: 130px;
+  /* background-color: yellow; */
+}
 
-  /* 关注 */
+/* 关注 */
 
-  .article-card .recommend-article-content {
-    width: 97%;
-    height: 115px;
-    margin-top: 10px;
-    /* background-color: red; */
-  }
+.article-card .recommend-article-content {
+  width: 100%;
+  height: 115px;
+  margin-top: 10px;
+  /* background-color: red; */
+}
 
-  .article-card .recommend-article-content-without-img {
-    width: 100%;
+.article-card .recommend-article-content-without-img {
+  width: 100%;
+}
 
-  }
+.recommend-article-content-main {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
 
-  .recommend-article-content-main {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-  }
+img {
+  height: 120px;
+}
 
-  img {
-    height: 120px;
-  }
-
-  /* 文章类型的标签 */
-  .article-type-tag {
-    font-size: 16px;
-    display: inline-block;
-    /* width: 60px; */
-    background-color: rgb(170, 166, 166);
-    font-weight: 400;
-  }
-
+/* 文章类型的标签 */
+.article-type-tag {
+  font-size: 16px;
+  display: inline-block;
+  /* width: 60px; */
+  background-color: rgb(170, 166, 166);
+  font-weight: 400;
+}
 </style>

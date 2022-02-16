@@ -18,9 +18,9 @@
     <div class="answers-bottom">
       <a class="article-card-link iconfont icon-dianzan" :class="{blue:isAgree}"
         @click="handleAgree()">{{review.agree==0?'':review.agree}}</a>
-      <a class="article-card-link iconfont icon-fenxiang hover-show" v-show="isHover">分享</a>
-      <a class="article-card-link iconfont icon-shoucang1 hover-show" v-show="isHover">收藏</a>
-      <a class="article-card-link iconfont icon-jubao hover-show" v-show="isHover">举报</a>
+      <a class="article-card-link iconfont icon-fenxiang " :class="{'hover-none': !isHover,'hover-display':isHover}">分享</a>
+      <a class="article-card-link iconfont icon-shoucang1 " :class="{'hover-none': !isHover,'hover-display':isHover}">收藏</a>
+      <a class="article-card-link iconfont icon-jubao " :class="{'hover-none': !isHover,'hover-display':isHover}">举报</a>
     </div>
     <hr>
   </div>
@@ -105,6 +105,14 @@
     margin-right: 15px;
     letter-spacing: 2px;
     cursor: pointer;
+    transition: all 1s;
+  }
+
+  .hover-none{
+    opacity: 0;
+  }
+  .hover-dislay{
+    opacity: 1;
   }
 
 </style>

@@ -11,12 +11,13 @@ const http = {
     if (params) config.params = params;
     return request(config);
   },
-  post(url, data) {
+  post(url, data,headers) {
     let config = {
       method: "post",
       url: url,
     };
     if (data) config.data = data;
+    if (headers) config.headers = headers;
     return request(config);
   },
   put(url, params) {

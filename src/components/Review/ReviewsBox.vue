@@ -200,7 +200,7 @@
   .answers-maincontainer {
     margin: 0 auto;
     min-width: 600px;
-    width: 80%;
+    width: 90%;
     min-height: 300px;
     max-height: 600px;
     margin-top: 20px;

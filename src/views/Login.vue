@@ -116,7 +116,6 @@
                     <p class="help is-hidden" id="passwordInfo"></p>
                   </div>
                 </div>
-
                 <div class="field">
                   <div class="control has-icons-left">
                     <input
@@ -132,7 +131,6 @@
                   </div>
                   <p class="help is-hidden" id="confirmInfo"></p>
                 </div>
-
                 <div class="field">
                   <div class="control">
                     <button class="button input log-btn" @click="postUserInfo">

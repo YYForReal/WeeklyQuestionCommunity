@@ -25,10 +25,11 @@
 </template>
 <script>
 
-  import Question from '@/components/Question.vue'
-  import Answer from '@/components/answer/Answer.vue'
-  import AnswersBox from '@/components/answer/AnswersBox.vue'
-  import WaitingBox from '@/components/waitingBox/WaitingBox.vue'
+import Question from '@/components/Question.vue'
+import Answer from '@/components/answer/Answer.vue'
+import AnswersBox from '@/components/answer/AnswersBox.vue'
+import WaitingBox from '@/components/waitingBox/WaitingBox.vue'
+
   export default {
     data() {
       return {
@@ -108,9 +109,9 @@
   }
 
 </script>
-<style lang="">
+<style lang="" >
   .special-box {
-    width: 75%;
+    width: 90%;
     min-width: 300px;
     min-height: 600px;
     margin: 0 auto;

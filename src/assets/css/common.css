@@ -124,13 +124,6 @@ h3 {
   border-radius: 3px;
 }
 
-article {
-  width: 75%;
-  min-width: 900px;
-  min-height: 900px;
-  margin: 0 auto;
-  background-color: white;
-}
 
 .text-align{
   text-align: center;

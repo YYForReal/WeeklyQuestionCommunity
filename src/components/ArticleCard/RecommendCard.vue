@@ -55,32 +55,6 @@
           //   time: "12",
           //   content: "吕小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚小军:人在训练， 刚上知乎。在训练， 刚上知乎。在训练， 刚上知乎。在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
           // },
-
-          // {
-          //   type: 1, //1 是文章 0 是回答
-          //   title: "高水平运动员如何避免运动拉伤？",
-          //   img: "https://infinitypro-img.infinitynewtab.com/findaphoto/bigLink/1641053102219.jpg?imageView2/2/w/1920/format/webp/interlace/1",
-          //   hot: 790,
-          //   agree: 1,
-          //   content: "吕小军:人在训练， 刚人在训练， 刚人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
-          // },
-          // {
-          //   type: 0, //1 是文章 0 是回答
-          //   title: "高水平运动员如何避免运动拉伤？",
-          //   img: "",
-          //   hot: 790,
-          //   agree: 1,
-          //   content: "吕小军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
-          // },
-
-          // {
-          //   type: 1, //1 是文章 0 是回答
-          //   title: "高水平运动员如何避免运动拉伤？",
-          //   img: "https://pica.zhimg.com/80/v2-d8b4ef5d7ddb321c5d6637dfb0104e9e_400x224.png",
-          //   hot: 790,
-          //   agree: 1,
-          //   content: "吕小军:人在训练， 刚上知乎。收到@,谢邀了(他们说这是固定格式)。运动员受伤，在所难免。但绝对不是家堂便饭了。而县能有效防控和提前预防的。前面几篇- ..",
-          // },
         ],
       }
     },
@@ -96,7 +70,7 @@
           console.log("获取热榜模块数据成功，", typeof data, data);
           //转换markdown成正常文本
           for (let i = 0; i < that.articles.length; i++) {
-            that.articles[i].content = marked.parse(that.filterDot(that.articles[i].content));
+            that.articles[i].content = that.filterImgSource(marked.parse(that.filterDot(that.articles[i].content)));
           }
         },
         error: function (data) {
@@ -110,6 +84,10 @@
       ArticleButtonBox
     },
     methods: {
+      filterImgSource(str) {
+        var reTag = /<img(?:.|\s)*?>/g;
+        return str.replace(reTag, "");
+      },
       turnToArticle(id) {
         this.$router.push({
           name: 'SpecialArticle',

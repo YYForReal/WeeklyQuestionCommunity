@@ -38,3 +38,7 @@ npm run build
 npm run build --report
 ```
 
+### 依赖
+
+1. mavon-editor
+2. axios

@@ -16,6 +16,13 @@ export default {
 };
 </script>
 <style lang="" scoped>
+article {
+  width: 90%;
+  min-width: 900px;
+  min-height: 900px;
+  margin: 0 auto;
+  background-color: white;
+}
 
 .router-body{
   width: 100%;

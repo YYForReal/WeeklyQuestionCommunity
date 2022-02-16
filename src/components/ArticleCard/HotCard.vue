@@ -79,7 +79,7 @@
           console.log("获取热榜模块数据成功，", typeof data, data);
           //转换markdown成正常文本
           for (let i = 0; i < that.articles.length; i++) {
-            that.articles[i].content = marked.parse(that.filterDot(that.articles[i].content));
+            that.articles[i].content = that.filterImgSource(marked.parse(that.filterDot(that.articles[i].content)));
           }
           if(that.articles.length<10){
             that.setShowArticles(that.articles.length);
@@ -95,6 +95,10 @@
       })
     },
     methods: {
+      filterImgSource(str) {
+        var reTag = /<img(?:.|\s)*?>/g;
+        return str.replace(reTag, "");
+      },
       // 卡片里面不能有markdown的标题字符
       filterDot(str) {
         var pattern = new RegExp("#")
@@ -116,8 +120,7 @@
   }
 
 </script>
-<style lang="" scoped>
-  /* @import '../../assets/css/bulma.min.css'; */
+<style scoped>
 
   .read-all {
     color: blue;

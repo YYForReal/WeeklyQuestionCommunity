@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.26.0",
     "dompurify": "^2.3.4",
     "element-ui": "^2.15.6",
     "html-loader": "^0.5.5",
@@ -19,6 +20,7 @@
     "less": "^3.0.0",
     "markdown-loader": "^6.0.0",
     "marked": "^4.0.8",
+    "mavon-editor": "^2.10.4",
     "md5": "^2.3.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
