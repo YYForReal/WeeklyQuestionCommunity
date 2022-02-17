@@ -2,11 +2,13 @@
   <div class="post-box">
     <el-card class="box-card original-box">
       <div slot="header" class="clearfix">
-        <h1 class="text-align">写{{typeMessage}}</h1>
+        <h1 class="text-align">发布{{typeMessage}}</h1>
         <br>
         <el-input v-model="form.title" :placeholder="typeMessage + '标题(最长30个字符)'" maxlength="30"></el-input>
       </div>
-      <div id="editor">
+
+      <!-- 文章/问题编辑区域 -->
+      <div id="editor" v-if="type<=1">
           <mavon-editor style="height: 100%" 
           v-model="form.content"
           :toolbars = "toolbars"
@@ -15,19 +17,33 @@
           ></mavon-editor>
       </div>
 
-      <!-- <el-row :gutter="20" class="el-row" type="flex">
+      <!--选择题 编辑框 -->
+      <el-row :gutter="20" class="el-row" type="flex" v-else>
         <el-col :span="12">
           <el-input type="textarea" :rows="20" :placeholder="'请在此编辑您的'+typeMessage+'内容（支持markdown语法）'"
             v-model="form.content" >
           </el-input>
         </el-col>
         <el-col :span="12">
-          <h3 v-if="markContent =='' ">
+          <el-button v-if="type==2" @click="addItem()" type="primary">增加选项</el-button>
+
+          <div v-for="(item, index) in form.dynamicItem" :key="index">
+            <div class="choice-line">
+              <p class="choice-label">选项{{getAlphabet(index)}}</p>
+              <el-input v-model="item.content" placeholder="在此处填写选项内容，右侧选择该选项的正确性" class="choice-input"></el-input>            
+              <el-checkbox-group v-model="item.isCorrect">
+                <el-checkbox label="√" :name="item.isCorrect"></el-checkbox>
+              </el-checkbox-group>
+              <el-button class="choice-button" type="danger" icon="el-icon-delete" circle @click="deleteItem(item, index)"></el-button>          
+            </div>
+          </div>
+
+          <!-- <h3 v-if="markContent =='' ">
             此处可以预览您的{{typeMessage}}内容
           </h3>
-          <el-input v-else type="textarea" :rows="20" v-html="markContent" disabled> </el-input>
+          <el-input v-else type="textarea" :rows="20" v-html="markContent" disabled> </el-input> -->
         </el-col>
-      </el-row> -->
+      </el-row>
 
       <div class="button-box">
         <el-button type="button" @click="dialogFormVisible=true">其他配置</el-button>
@@ -36,7 +52,7 @@
       </div>
     </el-card>
 
-    <el-dialog title="放大预览" :visible.sync="dialogVisible" width="72%" class="markdown-box-content">
+    <el-dialog title="放大预览" :visible.sync="dialogVisible" width="72%" class="markdown-box-content markdown">
       <h1>{{form.title}}</h1>
 
       <div v-html="markContent" disabled>
@@ -89,7 +105,7 @@ import http from "@/utils/http.js";
 export default {
   data() {
     return {
-      img_file:[],
+      img_file: [],
       authorId: "",
       user: null,
       typeMessage: "",
@@ -102,6 +118,8 @@ export default {
         type: "",
         tags: "",
         img: "",
+        // add
+        dynamicItem: [],
       },
       markContent: ``,
       hint: false,
@@ -146,15 +164,16 @@ export default {
     mavonEditor,
   },
   props: {
-    // authorId: {
-    //   default: 1,
-    // },
-    // 类型默认是文章 ， 0 是问题
+    // 类型默认是文章 ， 0 是问题 , 2是选择题
     type: {
       default: 1,
     },
   },
   mounted() {
+    if (this.type < 0 && this.type > 2) {
+      //参数错误则回退
+      this.$router.back(-1);
+    }
     if (window.localStorage.getItem("user") == null) {
       this.$message({
         type: "warning",
@@ -169,6 +188,8 @@ export default {
       this.typeMessage = "问题";
     } else if (this.type == 1) {
       this.typeMessage = "文章";
+    } else if (this.type == 2) {
+      this.typeMessage = "选择题";
     }
   },
   watch: {
@@ -199,17 +220,41 @@ export default {
     },
   },
   methods: {
+    getAlphabet(index) {
+      let baseArr = ["A", "B", "C", "D", "E", "F", "G"];
+      return baseArr[index];
+    },
+    addItem() {
+      if (this.form.dynamicItem.length > 6) {
+        this.$message({
+          type: "warning",
+          message: "添加的选项太多啦",
+        });
+        return;
+      }
+      this.form.dynamicItem.push({
+        content: "",
+        isCorrect: "",
+      });
+    },
+    deleteItem(item, index) {
+      this.form.dynamicItem.splice(index, 1);
+    },
     // 绑定@imgAdd event
     $imgAdd(pos, $file) {
       // 第一步.将图片上传到服务器.
       var formdata = new FormData();
       formdata.append("file", $file);
       this.img_file[pos] = $file;
-      http.post(this.baseUrl + "/article/postImg",formdata,{ "Content-Type": "multipart/form-data" }).then((res) => {
-        let _res = res.data;
-        // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
-        this.$refs.md.$img2Url(pos, _res);
-      });
+      http
+        .post(this.baseUrl + "/article/postImg", formdata, {
+          "Content-Type": "multipart/form-data",
+        })
+        .then((res) => {
+          let _res = res.data;
+          // 第二步.将返回的url替换到文本原位置![...](0) -> ![...](url)
+          this.$refs.md.$img2Url(pos, _res);
+        });
     },
     $imgDel(pos) {
       delete this.img_file[pos];
@@ -294,6 +339,45 @@ export default {
           });
         }, 200);
         flag = false;
+      }
+      if(this.type==2){
+        if(this.form.dynamicItem.length==0){
+          setTimeout(() => {
+            this.$message({
+              type: "error",
+              message: "既然都是选择题了，怎么着都出几个选项吧~",
+            });
+          }, 200);
+          flag = false;
+        }else{
+          let rightFlag = false;
+          for(let i=0;i<this.form.dynamicItem.length;i++){
+            if(this.form.dynamicItem[i].content==""){
+              setTimeout(() => {
+                this.$message({
+                  type: "error",
+                  message: "既然都增加选项了，怎么着都得说点话吧~",
+                });
+              }, 250);
+              flag = false;
+              break;
+            }
+            if(this.form.dynamicItem[i].isCorrect==true){
+              rightFlag = true;
+            }else{
+              this.form.dynamicItem[i].isCorrect = false;
+            }
+          }
+          if(!rightFlag){
+            setTimeout(() => {
+              this.$message({
+                type: "error",
+                message: "既然给选项了，怎么着都得设点正确答案吧~",
+              });
+            }, 300);
+            flag = false;
+          }
+        }
       }
       if (!flag) return;
       //校验用户的输入
@@ -385,7 +469,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .post-box {
   width: 80%;
   min-width: 600px;
@@ -426,16 +510,33 @@ export default {
 
 .img-upload {
   margin: 5px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
-.img-upload img {
-  width: 100%;
-  height: 100%;
-}
 #editor {
   margin: auto;
   width: 100%;
   height: 580px;
+}
+
+.choice-line {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin: 5px auto;
+  .choice-label {
+    display: flex;
+    align-items: center;
+  }
+  .choice-input {
+    width: 70%;
+  }
+  .choice-button {
+    display: block;
+  }
 }
 </style>
 

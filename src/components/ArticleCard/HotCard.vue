@@ -43,8 +43,6 @@
       <p>可能原因：<span class="red"> 服务器异常</span> 或<span class="red"> 网络异常</span>。</p>
     </section>
     <section v-else>
-      
-      <!-- <el-skeleton :rows="5" animated /> -->
       <WaitingBox></WaitingBox>
     </section>
   </div>
@@ -125,7 +123,6 @@
   .read-all {
     color: blue;
   }
-
 
   .article-card {
     width: 98%;

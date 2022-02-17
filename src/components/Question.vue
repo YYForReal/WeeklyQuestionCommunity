@@ -9,14 +9,17 @@
     <div v-if="article.type&&authorInfo!=null">
       <SmallUserBox :user="authorInfo"></SmallUserBox>
     </div>
+    <!-- 如果问题有封面就放，没有就不显示了 -->
+    <img class="media-box" v-if="article.img!=null&&article.img!=''" :src="article.img">
+    </img>
 
     <!-- 用户的文章内容 -->
     <div class="markdown-box-content" v-html="article.content"></div>
 
-    <!-- 如果问题有封面就放，没有就不显示了 -->
-    <img class="media-box" v-if="article.img!=null&&article.img!=''" :src="article.img">
-    </img>
+    <ChoiceCard></ChoiceCard>
+
     <p>编辑于 {{article.releaseTime}}</p>
+
     <div class="article-bottom-box" v-if="article.type == 0">
       <button class="button foucs-button">关注问题</button>
       <button class="button write-button  iconfont icon-xiazai43" @click="handleWriteAnswer()">
@@ -56,7 +59,6 @@
         <a class="article-card-link iconfont icon-wenzhangzhuanzai" v-if="article.type">文章转载</a>
       </div>
     </div>
-    <ChoiceCard></ChoiceCard>
     <ReviewsBox v-if="seeReviews" :type="Number(article.type)" :articleId="article.articleId"></ReviewsBox>
     <EditAnswer v-if="isWrite" :articleId="article.articleId"></EditAnswer>
 
@@ -207,7 +209,6 @@
 </script>
 
 <style src="@/assets/css/bulma.min.css" scoped></style>
-<!-- <style src="@/assets/css/markdown.css" scoped></style> -->
 <style lang="less">
 .markdown{
   a {

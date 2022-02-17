@@ -202,8 +202,7 @@
     min-width: 600px;
     width: 90%;
     min-height: 300px;
-    max-height: 600px;
-    margin-top: 20px;
+      margin-top: 20px;
     padding: 5px;
     display: block;
     clear: both;

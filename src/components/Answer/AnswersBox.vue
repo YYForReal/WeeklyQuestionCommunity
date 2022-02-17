@@ -10,7 +10,7 @@
         </div>
       </button>
     </header>
-    <div id="answers-box">
+    <div id="answers-box" class="markdown">
         <Answer v-for="(answer,index) in answers" :key="answer.answerId"    :answer = "answer" />
     </div>
   </div>
