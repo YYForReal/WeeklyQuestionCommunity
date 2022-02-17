@@ -41,13 +41,13 @@ export default {
   },
   mounted() {
     let _this = this;
-    window.addEventListener("scroll", (e) => {
+    window.addEventListener("scroll", () => {
       _this.isShow = true;
     });
   },
   watch: {
     $route: {
-      handler(newValue, oldValue) {
+      handler() {
         this.reload();
       },
     },
@@ -56,7 +56,7 @@ export default {
 </script>
 
 
-<style lang="">
+<style>
 .icon-huojian1:before {
   font-size: 5rem ;
 }
