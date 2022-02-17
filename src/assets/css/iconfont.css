@@ -1,17 +1,32 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3050427 */
-  src: url('//at.alicdn.com/t/font_3050427_9tdx6b6k1i.woff2?t=1641396574012') format('woff2'),
-       url('//at.alicdn.com/t/font_3050427_9tdx6b6k1i.woff?t=1641396574012') format('woff'),
-       url('//at.alicdn.com/t/font_3050427_9tdx6b6k1i.ttf?t=1641396574012') format('truetype');
+  src: url('//at.alicdn.com/t/font_3050427_wcxuxb3663e.woff2?t=1645079964361') format('woff2'),
+       url('//at.alicdn.com/t/font_3050427_wcxuxb3663e.woff?t=1645079964361') format('woff'),
+       url('//at.alicdn.com/t/font_3050427_wcxuxb3663e.ttf?t=1645079964361') format('truetype');
 }
 
 .iconfont {
   font-family: "iconfont" !important;
   font-size: 16px;
-
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-wenti:before {
+  content: "\e606";
+}
+
+.icon-xuanzeti:before {
+  content: "\e763";
+}
+
+.icon-yongyan:before {
+  content: "\e605";
+}
+
+.icon-tianchongxing-:before {
+  content: "\e640";
 }
 
 .icon-wenzhangzhuanzai:before {
@@ -31,7 +46,6 @@
 }
 
 .icon-huojian2:before {
-
   content: "\e60f";
 }
 
