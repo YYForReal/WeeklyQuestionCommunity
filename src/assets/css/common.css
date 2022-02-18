@@ -15,6 +15,10 @@ body {
   clear: both;
 }
 
+.flex{
+  display: flex;
+}
+
 .float-left {
   float: left;
 }
