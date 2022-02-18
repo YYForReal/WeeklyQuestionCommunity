@@ -458,7 +458,7 @@ export default {
 
 
 <style src="@/assets/css/bulma.min.css" scoped></style>
-<style  scoped>
+<style scoped>
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
 .page {
   position: relative;
@@ -466,7 +466,6 @@ export default {
   background-size: cover;
   width: 100%;
 }
-
 
 .login-title-box,.login-form-box{
   position: relative;
@@ -502,12 +501,10 @@ export default {
   height: 81px;
   margin-top: 45px;
 }
-
 .log-btn {
   background-color: #0066ff;
   color: white !important;
 }
-
 
 tab {
   background-color: inherit;
