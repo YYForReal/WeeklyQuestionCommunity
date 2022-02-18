@@ -16,7 +16,6 @@
     <!-- 用户的文章内容 -->
     <div class="markdown-box-content" v-html="article.content"></div>
 
-    <ChoiceCard></ChoiceCard>
 
     <p>编辑于 {{article.releaseTime}}</p>
 
@@ -37,7 +36,7 @@
       </div>
     </div>
 
-    <div class="answers-bottom" v-else>
+    <div class="answers-bottom" v-else-if="article-type == 1">
       <div class="agree-box">
         <a class="agree-button" :class="{'has-agree':isAgree}" @click="handleAgree()"> <span
             class="iconfont icon-sanjiaoxing small"></span> {{isAgree?'已':''}}赞同
@@ -55,7 +54,6 @@
       <a class="article-card-link iconfont icon-jubao">举报</a>
       <div class="agree-box">
         <a class="article-card-link iconfont icon-31guanzhu1xuanzhong">喜欢</a>
-        <!-- <a class="article-card-link iconfont icon-24gf-ellipsis"></a> -->
         <a class="article-card-link iconfont icon-wenzhangzhuanzai" v-if="article.type">文章转载</a>
       </div>
     </div>

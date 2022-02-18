@@ -1,23 +1,62 @@
 <template>
     <div class="choice-card">
         <h1 class="title">{{title}}</h1>
-        <p class="description">{{description}}</p>
+        <p class="description" v-html="description"></p>
         <div class="choice-area">
-            <p v-for="(choice,index) in choices" :key="index">{{('A'+index)}}.{{choice}}</p>
+            <p v-for="(choice,index) in choices" :key="index" @click="handleClickAnswer(choice)">{{(baseArr[index])}}.{{choice.content}}</p>
         </div>
     </div>
 </template>
 <script>
+  import {
+    marked
+  } from 'marked'
 export default {
     data(){
         return {
-            title:'问题标题',
-            description:'问题描述',
-            choices:["选项A","选项B","选项C"],
+            baseArr:['A','B','C','D','E','F','G']
+            // title:'问题标题',
+            // description:'问题描述',
+            // choices:["选项A","选项B","选项C"],
+        }
+    },
+    props:{
+        title:{
+            type:String,
+            required:true,
+        },
+        content:{
+            type:String,
+            required:true,
+        },
+        choices:{
+            type:Array,
+            required:true,
+        },
+    },
+
+    computed:{
+        description:function(){
+            console.log(this.content);
+            console.log( marked.parse(this.content));
+            return marked.parse(this.content);
         }
     },
     methods:{
-
+        handleClickAnswer(choice){
+            console.log(choice);
+            if(choice.isCorrect){
+                this.$message({
+                    type:'success',
+                    message:'答对啦',
+                })
+            }else{
+                this.$message({
+                    type:'error',
+                    message:'答错啦',
+                })
+            }
+        }
     }
 }
 </script>
@@ -41,8 +80,9 @@ export default {
     }
     .description{
         color: brown;
-        letter-spacing: .5ch;
+        letter-spacing: .3ch;
         text-indent: 2rem;
+        text-align: justify;
     }
     .choice-area{
         width:100%;

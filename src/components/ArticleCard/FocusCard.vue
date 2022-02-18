@@ -58,7 +58,11 @@ export default {
     };
   },
   mounted() {
-    this.getUserInfo();
+    try{
+      this.getUserInfo();
+    }catch(err){
+      this.$route.push("/login");
+    }
     let that = this;
     $.ajax({
       type: "get",

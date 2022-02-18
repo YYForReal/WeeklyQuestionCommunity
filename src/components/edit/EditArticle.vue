@@ -444,7 +444,8 @@ export default {
         type: "post",
         url: that.baseUrl + "/article/postArticle", //需要获取的页面内容
         async: true, //异步
-        data: submitForm,
+        data:  JSON.stringify(submitForm),
+        contentType:"application/json",
         success: function (data) {
           console.log(typeof data, data);
           that.$message({

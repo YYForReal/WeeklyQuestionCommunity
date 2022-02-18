@@ -11,6 +11,12 @@
       <Question :article="article"></Question>
     </div>
 
+    <!-- 判断是文章 -->
+    <div v-else-if="article.type == 2">
+      <Question :article="article"></Question>
+      <ChoiceCard :title="article.title" :content="article.content" :choices="article.choices"></ChoiceCard> 
+    </div>
+
     <div v-else-if="errorType">
       <h1>您要找的文章离你而去了~</h1>
       <img src="../assets/image/sad.png" class="error-img">
@@ -26,6 +32,7 @@
 <script>
 
 import Question from '@/components/Question.vue'
+import ChoiceCard from '@/components/ChoiceCard.vue'
 import Answer from '@/components/answer/Answer.vue'
 import AnswersBox from '@/components/answer/AnswersBox.vue'
 import WaitingBox from '@/components/waitingBox/WaitingBox.vue'
@@ -45,7 +52,8 @@ import WaitingBox from '@/components/waitingBox/WaitingBox.vue'
       Question,
       Answer,
       AnswersBox,
-      WaitingBox
+      WaitingBox,
+      ChoiceCard
     },
     methods: {
 
