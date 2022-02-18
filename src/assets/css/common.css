@@ -27,6 +27,14 @@ body {
   float: right;
 }
 
+.relative{
+  position: relative!important;
+}
+
+.absolute{
+  position: absolute!important;
+}
+
 .wrap-line2 {
   overflow: hidden;
   text-overflow: ellipsis;

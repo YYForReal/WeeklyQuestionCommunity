@@ -3,38 +3,29 @@
     class="media"
     id="page"
     :style="{ 'background-image': 'url(' + background + ')' }"
-    style="background-repeat: no-repeat; background-size: cover"
+    style="background-repeat: no-repeat; background-size: cover;"
   >
-    <div class="media-left">
+    <div class="media-left avatar-box">
       <!-- 头像 -->
-      <figure class="image is-128x128" @mouseleave="hideAvatar">
+      <figure
+        class="image is-128x128 relative"
+        @mouseleave="isShowChange = false"
+      >
+        <label class="absolute file-label input-mask">
+          <input
+            class="file-input"
+            type="file"
+            accept="image/*"
+            @change="uploadAvatar"
+          />
+        </label>
+
         <img
           class="Avatar"
           :src="avatarUrl"
           alt="修改头像"
-          @mouseenter="showAvatar"
+          @mouseover="isShowChange = true"
         />
-        <div
-          class="file is-hidden"
-          style="
-            font-size: 15px;
-            font-weight: bold;
-            margin-top: -55px;
-            margin-left: 35px;
-            color: white;
-          "
-          id="showAvatar"
-        >
-          <label class="file-label">
-            <input
-              class="file-input"
-              type="file"
-              accept="image/*"
-              @change="uploadAvatar"
-            />
-            <span class="file-label">修改头像</span>
-          </label>
-        </div>
       </figure>
     </div>
     <div class="media-content">
@@ -83,7 +74,6 @@
               <textarea
                 placeholder="编辑个性签名，展现个人风采~"
                 class="textarea has-fixed-size"
-                id=""
                 cols="33"
                 rows="5"
                 v-model.trim="signatureModel"
@@ -127,6 +117,7 @@
 </template>
 
 <script>
+import http from '@/utils/http.js'
 export default {
   data() {
     return {
@@ -135,7 +126,6 @@ export default {
       signature: "",
       avatarUrl:
         "https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg",
-
       changeName: true,
       changeSignature: true,
 
@@ -144,6 +134,7 @@ export default {
 
       showAvatarFile: false,
       background: "",
+      isShowChange: false,
     };
   },
   created() {
@@ -230,38 +221,59 @@ export default {
         });
       }
     },
-
-    showAvatar() {
-      $("#showAvatar").attr("class", "file");
-    },
-    hideAvatar() {
-      $("#showAvatar").attr("class", "file is-hidden");
-    },
     // 读取背景图
     uploadBackground(e) {
-      const image = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
       let that = this;
-      reader.onload = (e) => {
-        that.background = e.target.result;
 
-        $.ajax({
-          type: "post",
-          url: that.baseUrl + "/user/postBackground",
-          async: true,
-          data: { userId: that.userId, background: that.background },
-          success: function (data) {
+      const image = e.target.files[0];
+      var formData = new FormData();
+      formData.append("file", image, "file");
+
+      http
+        .post(that.baseUrl + "/article/postImg", formData, {
+          "Content-Type": "multipart/form-data",
+        })
+        .then((res) => {
+          console.log("upload success:", res);
+          if (res.status == 200) {
             that.$message({
+              message: "提交成功",
               type: "success",
-              message: "上传背景图片成功！",
             });
-          },
-          error: function () {
-            console.log("获取用户信息失败");
-          },
+            that.background = res.data;
+
+            $.ajax({
+              type: "post",
+              url: that.baseUrl + "/user/postBackground",
+              async: true,
+              data: { userId: that.userId, background: that.background },
+              success: function (data) {
+                that.$message({
+                  type: "success",
+                  message: "上传背景图片成功！",
+                });
+              },
+              error: function () {
+                console.log("获取用户信息失败");
+              },
+            });
+
+
+
+
+          } else {
+            that.$message({
+              message: "提交失败",
+              type: "warn",
+            });
+          }
+        })
+        .catch((err) => {
+          that.$message({
+            message: "提交失败：" + err,
+            type: "warn",
+          });
         });
-      };
     },
     // 读取头像
     uploadAvatar(e) {
@@ -271,7 +283,6 @@ export default {
       let that = this;
       reader.onload = (e) => {
         that.avatarUrl = e.target.result;
-
         $.ajax({
           type: "post",
           url: that.baseUrl + "/user/postAvatar",
@@ -292,11 +303,34 @@ export default {
   },
 };
 </script>
-
 <style src="@/assets/css/bulma.min.css" scoped></style>
-<style scoped>
+
+<style lang="less" scoped>
 .button {
   background-color: #0066ff;
   color: white;
+}
+
+.avatar-box {
+  border-radius: 50%;
+  .input-mask {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    z-index: 99;
+    transition: all 0.5s;
+    cursor: pointer;
+    input {
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    &:hover {
+      background-color: rgba(128, 128, 128, 0.459);
+      opacity: 0.8;
+    }
+  }
+  img {
+    border-radius: 50%;
+  }
 }
 </style>
