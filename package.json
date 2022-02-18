@@ -1,7 +1,7 @@
 {
-  "name": "zhihu",
+  "name": "community",
   "version": "1.0.0",
-  "description": "Zhihu Website",
+  "description": "Question Commnunity",
   "author": "HuangYouyi <2572082773@qq.com>",
   "private": true,
   "scripts": {

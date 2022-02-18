@@ -38,7 +38,8 @@ export default {
   data() {
     return {
       // dialogVisible: true,
-      src: "https://rrcache.hs-mould.cn/qiyi/cache/ku/8e46ee3ed63391eb1bc41b68599f5c40.mp4",
+      // src: "https://rrcache.hs-mould.cn/qiyi/cache/ku/8e46ee3ed63391eb1bc41b68599f5c40.mp4",
+      src:"http://yywebsite.cn/community/video/network.mp4",
       // videos: [
       //   {
       //     src: "https://om.tc.qq.com/gzc_1000102_0b53qeaaeaaaguab567utbq4baodakgqabsa.f2.mp4?vkey=C0334BD8A9059AD4A578E57AE672989A7CEED92092F82ABDD38096D157C24C86973BC6825900A03B1AA74CB6F90859104477CDF90A7BF0BA3C61E2394DA1673B9F868A1BCF23D5E8855C2ECFC49B0B16521432688C53B66B34AF18B8DBE97F0CCF5D2AA014B8051AA42AE9334951A2024C9C66956EFD682791414CDE4CEC09B493F7731331FB91B4",

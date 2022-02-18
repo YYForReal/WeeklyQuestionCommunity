@@ -15,7 +15,7 @@ Vue.use(Router)
 
 //118.31.165.150
 //localhost
-Vue.prototype.baseUrl = 'http://localhost:9000'
+Vue.prototype.baseUrl = 'http://118.31.165.150:9630'
 
 // 获取原型对象上的push函数
 const originalPush = Router.prototype.push;
