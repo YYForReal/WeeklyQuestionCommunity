@@ -156,7 +156,6 @@
     watch: {
       articleId: {
         handler(newValue) {
-          console.log("articleID checkd");
           let that = this;
           if (this.type != null) {
             //send 
