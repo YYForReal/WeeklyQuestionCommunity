@@ -25,7 +25,7 @@ Router.prototype.push = function push(location){
 }
 
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -81,3 +81,9 @@ export default new Router({
 
   ]
 })
+// 切换路由后将滚动条移至最顶部
+router.afterEach(() => {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+})
+export default router;
