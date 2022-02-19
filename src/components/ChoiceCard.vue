@@ -1,9 +1,16 @@
 <template>
     <div class="choice-card">
-        <h1 class="title">{{title}}</h1>
+        <div class="title-box">
+            <span class="time">{{time}}</span>
+            <h1 class="title">{{title}}</h1>
+        </div>
         <p class="description" v-html="description"></p>
         <div class="choice-area">
             <p v-for="(choice,index) in choices" :key="index" @click="handleClickAnswer(choice)">{{(baseArr[index])}}.{{choice.content}}</p>
+        </div>
+        <div class="submit-button-area">
+            <el-button type="primary" round>提交</el-button>
+            <el-button type="success" round>答案</el-button>
         </div>
     </div>
 </template>
@@ -33,6 +40,11 @@ export default {
             type:Array,
             required:true,
         },
+        time:{
+            type:String,
+            required:true,
+        },
+
     },
 
     computed:{
@@ -63,10 +75,10 @@ export default {
 <style scoped lang="less">
 .choice-card{
     @media screen and (min-width:300px) {
-        width:70vw;
+        width:80vw;
     }
     @media screen and (min-width:768px) {
-        width: 30vw;    
+        width: 40vw;    
     }
     box-sizing: border-box;
     border: 1px dotted dodgerblue;
@@ -74,9 +86,18 @@ export default {
     box-shadow: 5px 5px 10px 2px grey;
     margin:5px auto;
     padding: 5px;
-    .title{
-        font-size: large;
-        text-align: center;
+    .title-box{
+        position: relative;
+        .title{
+            font-size: 2rem;
+            text-align: center;
+        }   
+        .time{
+            position: absolute;
+            right:0;
+            opacity: 0.8;
+        }
+
     }
     .description{
         color: brown;
@@ -104,6 +125,13 @@ export default {
             cursor: pointer;
         }
     }
-    
+    .submit-button-area{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        .submit-button{
+            display: block;
+        }
+    }
 }
 </style>

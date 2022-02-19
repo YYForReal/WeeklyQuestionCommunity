@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div class="answers-bottom" v-else-if="article-type == 1">
+    <div class="answers-bottom" v-else-if="article.type == 1">
       <div class="agree-box">
         <a class="agree-button" :class="{'has-agree':isAgree}" @click="handleAgree()"> <span
             class="iconfont icon-sanjiaoxing small"></span> {{isAgree?'已':''}}赞同
@@ -97,7 +97,7 @@
       //转换mark格式
       this.article.content = marked.parse(this.article.content);
       console.log("article is ", this.article);
-      this.translateDate();
+      // this.translateDate();
       let that = this;
       if (this.article.type == 1) {
         $.ajax({
@@ -115,20 +115,6 @@
 
     },
     methods: {
-      translateDate() {
-        let d = new Date(this.article.releaseTime);
-        d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
-        d = new Date(d);
-        let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
-        let resTime = this.p(d.getHours()) + ':' + this.p(d.getMinutes()) + ':' + this.p(d.getSeconds())
-        // 不够10 前面加0
-        console.log(resDate);
-        console.log(resTime);
-        this.article.releaseTime = resDate + ' ' + resTime;
-      },
-      p(s) {
-        return s < 10 ? '0' + s : s
-      },
       handleWriteAnswer() {
         this.isWrite = !this.isWrite;
         this.seeReviews = false;
