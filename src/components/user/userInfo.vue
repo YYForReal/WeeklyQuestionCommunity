@@ -3,30 +3,29 @@
     class="media"
     id="page"
     :style="{ 'background-image': 'url(' + background + ')' }"
-    style="background-repeat: no-repeat; background-size: cover;"
+    style="background-repeat: no-repeat; background-size: cover"
   >
-    <div class="media-left avatar-box">
+    <div
+      class="image is-128x128 relative avatar-box"
+      @mouseleave="isShowChange = false"
+    >
       <!-- 头像 -->
-      <figure
-        class="image is-128x128 relative"
-        @mouseleave="isShowChange = false"
-      >
-        <label class="absolute file-label input-mask">
-          <input
-            class="file-input"
-            type="file"
-            accept="image/*"
-            @change="uploadAvatar"
-          />
-        </label>
-
-        <img
-          class="Avatar"
-          :src="avatarUrl"
-          alt="修改头像"
-          @mouseover="isShowChange = true"
+      <label class="absolute file-label input-mask">
+        <input
+          class="file-input"
+          type="file"
+          accept="image/*"
+          @change="uploadAvatar"
         />
-      </figure>
+        <p class="change-avatar-hint">修改头像</p>
+      </label>
+
+      <img
+        class="Avatar"
+        :src="avatarUrl"
+        alt="修改头像"
+        @mouseover="isShowChange = true"
+      />
     </div>
     <div class="media-content">
       <!-- 用户名 -->
@@ -37,33 +36,48 @@
       </div>
       <!-- 昵称 -->
       <div class="level">
-        <div class="level-left">
-          <div class="level-item" v-if="changeName">
-            <p class="level-item" id="userName">
-              昵称：<strong style="font-size: large; font-family: '楷体'">{{
-                userName
-              }}</strong>
-            </p>
-            <a class="level-item" @click="changeName = false">修改</a>
-          </div>
-          <div class="level-item" v-else>
-            <div class="field is-grouped">
-              <input
-                type="text"
-                class="input level-item"
-                placeholder="新的昵称"
-                v-model.trim="nameModel"
-              />
-              <button class="level-item button" @click="updateName">
-                确认
-              </button>
-            </div>
-          </div>
+        <div
+          class="sign_container"
+          @mouseenter="changeName = false"
+          @mouseleave="changeName = true"
+        >
+          <span class="el-icon-edit"></span>
+          <span v-show="changeName">{{ userName }}</span>
+          <el-input
+            style="width: 80%"
+            @blur="updateName"
+            v-show="!changeName"
+            v-model="userName"
+            maxlength="20"
+            show-word-limit
+            size="mini"
+          ></el-input>
         </div>
       </div>
 
       <!-- 个性签名 -->
       <div class="level">
+        <div
+          class="sign_container"
+          @mouseenter="changeSignature = false"
+          @mouseleave="changeSignature = true"
+        >
+          <span class="el-icon-edit"></span>
+          <span v-show="changeSignature">{{ signature }}</span>
+          <el-input
+            style="width: 80%"
+            @blur="updateSignature"
+            v-show="!changeSignature"
+            v-model.trim="signature"
+            maxlength="30"
+            show-word-limit
+          ></el-input>
+        </div>
+      </div>
+
+
+
+      <!-- <div class="level">
         <div class="level-right">
           <div class="level-item" v-if="changeSignature">
             <p class="level-item" id="signature">个性签名：{{ signature }}</p>
@@ -76,7 +90,7 @@
                 class="textarea has-fixed-size"
                 cols="33"
                 rows="5"
-                v-model.trim="signatureModel"
+                v-model.trim="signature"
               ></textarea>
               <button
                 class="button"
@@ -88,7 +102,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- 设置背景图 -->
       <div class="level">
         <div class="level-left">
@@ -117,7 +131,7 @@
 </template>
 
 <script>
-import http from '@/utils/http.js'
+import http from "@/utils/http.js";
 export default {
   data() {
     return {
@@ -128,9 +142,6 @@ export default {
         "https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg",
       changeName: true,
       changeSignature: true,
-
-      nameModel: "",
-      signatureModel: "",
 
       showAvatarFile: false,
       background: "",
@@ -164,12 +175,12 @@ export default {
   methods: {
     updateName() {
       let that = this;
-      if (this.nameModel.length > 12) {
+      if (this.userName.length > 12) {
         this.$message({
           type: "error",
           message: "长度不能超过12个字符！",
         });
-      } else if (this.nameModel == "") {
+      } else if (this.userName == "") {
         this.$message({
           type: "error",
           message: "昵称不能为空！",
@@ -179,13 +190,13 @@ export default {
           type: "post",
           url: that.baseUrl + "/user/postName",
           async: true,
-          data: { userId: that.userId, userName: that.nameModel },
+          data: { userId: that.userId, userName: that.userName },
           success: function (data) {
             that.$message({
               type: "success",
               message: "编辑成功！",
             });
-            that.userName = that.nameModel;
+            that.userName = that.userName;
             that.changeName = true;
           },
           error: function () {
@@ -196,7 +207,7 @@ export default {
     },
     updateSignature() {
       let that = this;
-      if (this.signatureModel.length > 30) {
+      if (this.signature.length > 30) {
         this.$message({
           type: "error",
           message: "长度不能超过30个字符！",
@@ -206,13 +217,13 @@ export default {
           type: "post",
           url: that.baseUrl + "/user/postDes",
           async: true,
-          data: { userId: that.userId, description: that.signatureModel },
+          data: { userId: that.userId, description: that.signature },
           success: function (data) {
             that.$message({
               type: "success",
               message: "编辑成功！",
             });
-            that.signature = that.signatureModel;
+            that.signature = that.signature;
             that.changeSignature = true;
           },
           error: function () {
@@ -221,84 +232,102 @@ export default {
         });
       }
     },
-    // 读取背景图
+    // 上传图片
+    postImg(formData) {
+      let that = this;
+      return new Promise((resolve, reject) => {
+        http
+          .post(that.baseUrl + "/article/postImg", formData, {
+            "Content-Type": "multipart/form-data",
+          })
+          .then((res) => {
+            console.log("postImg success", res);
+            if (res.status == 200) {
+              that.$message({
+                type: "success",
+                message: "上传图片成功",
+              });
+              resolve(res.data);
+            } else {
+              reject("上传图片失败");
+            }
+          })
+          .catch(() => {
+            reject("上传图片失败");
+          });
+      });
+    },
+    // 上传背景图
     uploadBackground(e) {
       let that = this;
 
       const image = e.target.files[0];
       var formData = new FormData();
       formData.append("file", image, "file");
-
-      http
-        .post(that.baseUrl + "/article/postImg", formData, {
-          "Content-Type": "multipart/form-data",
-        })
-        .then((res) => {
-          console.log("upload success:", res);
-          if (res.status == 200) {
-            that.$message({
-              message: "提交成功",
-              type: "success",
-            });
-            that.background = res.data;
-
-            $.ajax({
-              type: "post",
-              url: that.baseUrl + "/user/postBackground",
-              async: true,
-              data: { userId: that.userId, background: that.background },
-              success: function (data) {
-                that.$message({
-                  type: "success",
-                  message: "上传背景图片成功！",
-                });
-              },
-              error: function () {
-                console.log("获取用户信息失败");
-              },
-            });
-
-
-
-
-          } else {
-            that.$message({
-              message: "提交失败",
-              type: "warn",
-            });
-          }
+      this.postImg(formData)
+        .then((url) => {
+          this.background = url;
+          $.ajax({
+            type: "post",
+            url: that.baseUrl + "/user/postBackground",
+            async: true,
+            data: { userId: that.userId, background: that.background },
+            success: function (data) {
+              that.$message({
+                type: "success",
+                message: "上传背景图片成功！",
+              });
+            },
+            error: function () {
+              console.log("获取用户信息失败");
+            },
+          });
         })
         .catch((err) => {
-          that.$message({
-            message: "提交失败：" + err,
-            type: "warn",
+          this.$message({
+            type: "warning",
+            message: err,
           });
         });
     },
     // 读取头像
     uploadAvatar(e) {
       const image = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
+      var formData = new FormData();
+      formData.append("file", image, "file");
+      // base64 转码
+      // const reader = new FileReader();
+      // reader.readAsDataURL(image);
+      // reader.onload = (e) => {
+      //   that.avatarUrl = e.target.result;
+      //   post
+      // };
       let that = this;
-      reader.onload = (e) => {
-        that.avatarUrl = e.target.result;
-        $.ajax({
-          type: "post",
-          url: that.baseUrl + "/user/postAvatar",
-          async: true,
-          data: { userId: that.userId, avatar: that.avatarUrl },
-          success: function (data) {
-            that.$message({
-              type: "success",
-              message: "修改成功！",
-            });
-          },
-          error: function () {
-            console.log("获取用户信息失败");
-          },
+      this.postImg(formData)
+        .then((url) => {
+          this.avatarUrl = url;
+          $.ajax({
+            type: "post",
+            url: that.baseUrl + "/user/postAvatar",
+            async: true,
+            data: { userId: that.userId, avatar: that.avatarUrl },
+            success: function (data) {
+              that.$message({
+                type: "success",
+                message: "修改成功！",
+              });
+            },
+            error: function () {
+              console.log("获取用户信息失败");
+            },
+          });
+        })
+        .catch((err) => {
+          this.$message({
+            type: "error",
+            message: err,
+          });
         });
-      };
     },
   },
 };
@@ -313,24 +342,48 @@ export default {
 
 .avatar-box {
   border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+  &:hover > .input-mask {
+    background-color: rgba(128, 128, 128, 0.459);
+    opacity: 0.8;
+    top: 0;
+    color: white;
+  }
   .input-mask {
+    top: 100%;
     width: 128px;
     height: 128px;
     border-radius: 50%;
     z-index: 99;
-    transition: all 0.5s;
+    transition: all 0.3s;
     cursor: pointer;
     input {
       border-radius: 50%;
       cursor: pointer;
     }
-    &:hover {
-      background-color: rgba(128, 128, 128, 0.459);
-      opacity: 0.8;
+    .change-avatar-hint {
+      display: absolute;
+      width: 100%;
+      height: 128px;
+      line-height: 128px;
+      text-align: center;
     }
   }
   img {
     border-radius: 50%;
+  }
+}
+
+.media-content {
+  .sign_container {
+    font-size: 20px;
+    height:35px;
+
+    box-sizing: border-box;
+    span{
+      margin-right: 15px;
+    }
   }
 }
 </style>
