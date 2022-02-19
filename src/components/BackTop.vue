@@ -4,6 +4,7 @@
       @click="backToTop()"></i>
   </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -68,7 +69,7 @@ export default {
   width: 5rem;
   height: 5rem;
   right: 5rem;
-  bottom: 6rem;
+  bottom: 6%;
   font-size: 5rem;
   color: red;
 }
@@ -79,13 +80,13 @@ export default {
 }
 @keyframes moveUp {
   0% {
-    bottom: 6rem;
+    bottom: 6%;
   }
   99% {
-    bottom: 120%;
+    bottom: 150%;
   }
   100% {
-    bottom: 6rem;
+    bottom: 6%;
   }
 }
 </style>
