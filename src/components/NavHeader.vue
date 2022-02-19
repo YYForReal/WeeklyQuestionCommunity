@@ -26,7 +26,7 @@
                 id="searchBox"
               />
               <span class="icon is-right input-icon">
-                <i class="fas fa-search fa-sm"></i>
+                <i class="iconfont icon-sousuo"></i>
               </span>
             </p>
           </div>
@@ -44,7 +44,7 @@
         <div class="navbar-end">
           <el-dropdown>
             <el-button
-              class="writing-button iconfont icon-tianchongxing-"
+              class="nav-button iconfont icon-tianchongxing-"
             ></el-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
@@ -54,12 +54,12 @@
               </el-dropdown-item>
               <el-dropdown-item>
                 <router-link to="/EditArticle/0">
-                  <p class="dropdown-item "><i class="iconfont icon-wenti"></i>发问题</p>
+                  <p class="dropdown-item "><i class="iconfont icon-wenti"></i>发问答</p>
                 </router-link>
               </el-dropdown-item>
               <el-dropdown-item>
                 <router-link to="/EditArticle/2">
-                  <p class="dropdown-item "><i class="iconfont icon-xuanzeti"></i>设问题</p>
+                  <p class="dropdown-item "><i class="iconfont icon-xuanzeti"></i>设选择</p>
                 </router-link>
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -67,66 +67,27 @@
 
           <!-- 登录后的显示的user-icon -->
           <el-dropdown v-if="loginState">
-            <el-button
-              class="writing-button user-bar"
-              style="font-size: 0.55rem"
-              ><i class="fas fa-user fa-3x"></i>
-            </el-button>
+            <el-button class="nav-button iconfont icon-dengluyonghu"> </el-button>
 
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
                 <router-link to="/setting" >
-                  <p class="dropdown-item"><i class="fas fa-user"></i>主页</p>
+                  <p class="dropdown-item"><i class="iconfont icon-dengluyonghu"></i>主页</p>
                 </router-link>
               </el-dropdown-item>
               <el-dropdown-item>
                 <router-link to="/setting">
-                  <p class="dropdown-item"><i class="fas fa-cog"></i>设置</p>
+                  <p class="dropdown-item"><i class="iconfont icon-shezhi"></i>设置</p>
                 </router-link>
               </el-dropdown-item>
               <el-dropdown-item>
                 <a @click="logout">
-                  <p class="dropdown-item"><i class="fas fa-sign-out-alt"></i>退出</p>
+                  <p class="dropdown-item"><i class="iconfont icon-tuichu"></i>退出</p>
                 </a>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-
-          
-          <!-- <div class="navbar-item" v-if="loginState">
-            <p
-              class="navbar-link is-arrowless user-bar"
-              style="font-size: 0.55rem"
-              ><i class="fas fa-user fa-3x"></i>
-            </p>
-            <div class="navbar-dropdown mydropdown">
-              <router-link to="/setting" class="navbar-item"
-                ><i class="fas fa-user"></i>&nbsp;我的主页</router-link
-              >
-              <router-link to="/setting" class="navbar-item"
-                ><i class="fas fa-cog"></i>&nbsp;设置</router-link
-              >
-              <a class="navbar-item is-clickable" @click="logout">
-                <i class="fas fa-sign-out-alt"></i>&nbsp;
-              </a>
-            </div>
-          </div> -->
-
-          <!-- 未登录时显示的user-icon -->
-          <!-- <router-link to="/login" class="navbar-item" v-else>
-            <span class="icon" style="font-size: 0.45rem">
-              <i class="fas fa-user-plus fa-3x"> </i>
-            </span>
-          </router-link> -->
-
-          <el-button
-            class="writing-button user-bar"
-            style="font-size: 0.55rem"
-            @click="$router.push('/login')"
-            v-else
-          >
-            <i class="fas fa-user-plus fa-3x"></i>
-          </el-button>
+          <el-button class="nav-button iconfont icon-zhuce" @click="$router.push('/login')" v-else></el-button>
         </div>
       </div>
     </nav>
@@ -134,7 +95,6 @@
 </template>
 
 <script>
-// import { set } from "vue/types/umd";
 export default {
   data() {
     return {
@@ -200,7 +160,6 @@ export default {
 </style>
 <style lang="css" src="@/assets/css/bulma.min.css" scoped></style>
 <style lang="css" scoped>
-@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
 
 .navbar-height {
   height: 55px;
@@ -226,10 +185,7 @@ export default {
   font-size: 14px;
 }
 
-.user-bar:hover + .mydropdown {
-  display: block;
-  height: 93px;
-}
+
 
 .mydropdown {
   margin-top: -3px;
@@ -260,7 +216,7 @@ export default {
   margin-right: 0!important;
 }
 
-.writing-button {
+.nav-button {
   box-sizing: border-box;
   height: 100%;
   font-size: 1.5rem;
@@ -269,7 +225,7 @@ export default {
   border-width: 0px;
   opacity: 0.9;
 }
-.writing-button:hover {
+.nav-button:hover {
   background-color: hsl(240, 100%, 95%);
   color: #0052cc;
   opacity: 0.8;

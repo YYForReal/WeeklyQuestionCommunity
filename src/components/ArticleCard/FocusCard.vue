@@ -61,7 +61,7 @@ export default {
     try{
       this.getUserInfo();
     }catch(err){
-      this.$route.push("/login");
+      this.$router.push("/login");
     }
     let that = this;
     $.ajax({
@@ -73,7 +73,6 @@ export default {
       },
       success: function (data) {
         that.articles = data;
-        console.log("获取关注模块数据成功，", typeof data, data);
         //转换markdown成正常文本
         for (let i = 0; i < that.articles.length; i++) {
           that.markContents.push(
