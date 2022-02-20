@@ -1,15 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/views/Main'
-import EditArticle from '@/components/edit/EditArticle'
-import SpecialArticle from '@/views/SpecialArticle'
-import FocusCard from '@/components/ArticleCard/FocusCard'
 import RecommendCard from '@/components/ArticleCard/RecommendCard'
-import HotCard from '@/components/ArticleCard/HotCard'
-import VideoBox from '@/components/ArticleCard/VideoBox'
-import Login from '@/views/Login'
-import setting from '@/components/user/setting'
 
+
+//动态路由引入
+const FocusCard = ()=> import('@/components/ArticleCard/FocusCard')
+const EditArticle =()=> import ('@/components/edit/EditArticle')
+const SpecialArticle = ()=> import ('@/views/SpecialArticle')
+const HotCard = ()=> import('@/components/ArticleCard/HotCard')
+const VideoBox = () => import('@/components/ArticleCard/VideoBox')
+const Login = () => import('@/views/Login')
+const setting = () => import('@/components/user/setting')
 
 Vue.use(Router)
 
