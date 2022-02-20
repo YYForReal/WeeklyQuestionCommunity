@@ -1,9 +1,9 @@
 // 封装请求拦截
 
 // 引入axios
-import axios from "axios";
+// import axios from "axios";
 // 引入element作为消息提示
-import { Message } from "element-ui";
+// import { Message } from "element-ui";
 
 // 创建axios实例
 const request = axios.create({

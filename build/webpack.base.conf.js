@@ -78,5 +78,12 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
+  },
+  // cdn引入第三方库，故排除import内容
+  externals:{
+    'vue': 'Vue',
+    'vue-router': 'VueRouter',
+    'ElementUI': 'ELEMENT',
+    'axios': 'axios',
   }
 }
