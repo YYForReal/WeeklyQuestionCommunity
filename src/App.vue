@@ -1,18 +1,21 @@
 <template>
-  <div class="is-fullhd" id="app" style="width: 100%">
+  <div class="is-fullhd" id="app"  style="width: 100%">
     <router-view :key="$route.path" />
     <BackTop></BackTop>
+    <MusicDisk/>
   </div>
 </template>
 
 <script>
 
 import BackTop from "@/components/BackTop.vue";
+import MusicDisk from "@/components/MusicDisk.vue";
 
 export default {
   name: "App",
   components: {
     BackTop,
+    MusicDisk
   },
   mounted() {
     // 展示上次浏览的历史文章
