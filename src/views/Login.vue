@@ -25,7 +25,7 @@
                       required
                     />
                     <span class="icon is-small is-left">
-                      <i class="fas fa-user"></i>
+                      <i class="iconfont icon-dengluyonghu"></i>
                     </span>
                     <p class="help is-hidden" id="userIdInfo"></p>
                   </div>
@@ -42,15 +42,15 @@
                       required
                     />
                     <span class="icon is-small is-left">
-                      <i class="fas fa-lock"></i>
+                      <i class="iconfont icon-tianchongxing-1"></i>
                     </span>
                     <span
                       class="icon is-right is-clickable"
                       @click="seeLoginPwd()"
                     >
                       <i
-                        class="fas"
-                        :class="{ 'fa-eye': !seen, 'fa-eye-slash': seen }"
+                        class="iconfont"
+                        :class="{ 'icon-yanjing': !seen, 'icon-yanjing1': seen }"
                         id="eye"
                       ></i>
                     </span>
@@ -87,7 +87,7 @@
                       required
                     />
                     <span class="icon is-small is-left">
-                      <i class="fas fa-user"></i>
+                      <i class="iconfont icon-dengluyonghu"></i>
                     </span>
                     <p class="help" id="signIdInfo"></p>
                   </div>
@@ -105,13 +105,13 @@
                       required
                     />
                     <span class="icon is-small is-left">
-                      <i class="fas fa-lock"></i>
+                      <i class="iconfont icon-tianchongxing-1"></i>
                     </span>
                     <span
                       class="icon is-right is-clickable"
                       @click="showPassword()"
                     >
-                      <i class="fas fa-eye" id="sign-fa-eye"></i>
+                      <i class="iconfont icon-yanjing" id="sign-fa-eye"></i>
                     </span>
                     <p class="help is-hidden" id="passwordInfo"></p>
                   </div>
@@ -126,7 +126,7 @@
                       @input="listenConfirmPwd"
                     />
                     <span class="icon is-small is-left">
-                      <i class="fas fa-lock"></i>
+                      <i class="iconfont icon-tianchongxing-1"></i>
                     </span>
                   </div>
                   <p class="help is-hidden" id="confirmInfo"></p>
@@ -407,10 +407,10 @@ export default {
     showPassword() {
       var password = $("#password");
       if (password.attr("type") == "password") {
-        $("#sign-fa-eye").attr("class", "fas fa-eye-slash");
+        $("#sign-fa-eye").attr("class", "iconfont icon-yanjing1");
         password.attr("type", "text");
       } else {
-        $("#sign-fa-eye").attr("class", "fas fa-eye");
+        $("#sign-fa-eye").attr("class", "iconfont icon-yanjing");
         password.attr("type", "password");
       }
     },
@@ -459,7 +459,7 @@ export default {
 
 <style src="@/assets/css/bulma.min.css" scoped></style>
 <style scoped>
-@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css";
+
 .page {
   position: relative;
   background-repeat: no-repeat;
