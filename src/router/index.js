@@ -1,8 +1,7 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/views/Main'
 import RecommendCard from '@/components/ArticleCard/RecommendCard'
-
 
 //动态路由引入
 const FocusCard = ()=> import('@/components/ArticleCard/FocusCard')
