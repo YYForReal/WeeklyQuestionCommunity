@@ -48,7 +48,7 @@
             @blur="updateName"
             v-show="!changeName"
             v-model="userName"
-            maxlength="20"
+            maxlength="12"
             show-word-limit
             size="mini"
           ></el-input>

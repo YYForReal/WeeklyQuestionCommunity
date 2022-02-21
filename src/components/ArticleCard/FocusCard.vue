@@ -173,7 +173,6 @@ export default {
   },
 };
 </script>
-<style src="@/assets/css/bulma.min.css" scoped></style>
 <style lang="" scoped>
 
 .content-title,
@@ -196,6 +195,7 @@ export default {
   width: 95%;
   text-align: left;
   padding-left: 20px;
+  margin-bottom: 5px;
 }
 
 .article-card .article-content {

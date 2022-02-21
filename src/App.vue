@@ -1,5 +1,5 @@
 <template>
-  <div class="is-fullhd" id="app"  style="width: 100%">
+  <div id="app">
     <router-view :key="$route.path" />
     <BackTop></BackTop>
     <MusicDisk/>
@@ -45,7 +45,6 @@ export default {
   },
 };
 </script>
-<style lang="css" src="@/assets/css/bulma.min.css" scoped></style>
 
 <style>
 #app {

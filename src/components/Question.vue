@@ -20,10 +20,10 @@
     <p>编辑于 {{article.releaseTime}}</p>
 
     <div class="article-bottom-box" v-if="article.type == 0">
-      <button class="button foucs-button">关注问题</button>
-      <button class="button write-button  iconfont icon-xiazai43" @click="handleWriteAnswer()">
-        {{isWrite?'关闭回答':'写回答'}}</button>
-      <button class="button invite-button iconfont icon-yaoqing"> 邀请回答</button>
+      <el-button class="foucs-button">关注问题</el-button>
+      <el-button class="write-button  iconfont icon-xiazai43" @click="handleWriteAnswer()">
+        {{isWrite?'关闭回答':'写回答'}}</el-button>
+      <el-button class="invite-button iconfont icon-yaoqing"> 邀请回答</el-button>
 
       <div class="article-bottom-link">
         <a class="article-card-link iconfont icon-zantongfill" :class="{blue:isAgree}" @click="handleAgree()"> 好问题
@@ -192,7 +192,6 @@
 
 </script>
 
-<style src="@/assets/css/bulma.min.css" scoped></style>
 <style lang="less">
 .markdown{
   a {
@@ -664,6 +663,7 @@ code {
     display: inline-block;
     color: gray;
     margin-right: 20px;
+    cursor: pointer;
   }
   .article-card-link:hover {
     color: blue;

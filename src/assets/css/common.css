@@ -11,6 +11,10 @@ body {
   background-color: #eeeeee;
 }
 
+hr{
+  color: grey;
+}
+
 .clearfix {
   clear: both;
 }
@@ -64,7 +68,6 @@ code {
   border: 1px solid #0066ff !important;
   margin-left: 5px;
   margin-right: 5px;
-
 }
 
 /* 由于引用了CSS库，所以不提高优先级的话会被覆盖掉 */
