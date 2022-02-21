@@ -3,7 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -31,11 +31,46 @@ module.exports = {
   },
   module: {
     rules: [
+      //  {
+      //    test: /\.css$/,
+      //     use: ExtractTextPlugin.extract({
+      //         fallback: "style-loader",
+      //         use: "css-loader"
+      //     })
+      //   },  
       {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
       },
+      // {
+      //   test: /\.css$/,
+      //   loader: ExtractTextPlugin.extract({
+      //     use: 'css-loader',
+      //     fallback: 'vue-style-loader'
+      //   })
+      // },
+
+      // {     //处理js中引入的css
+      //   test: /\.css$/,
+      //   loader: ExtractTextPlugin.extract({
+      //       use: [
+      //           {
+      //               loader: 'css-loader'
+      //           }
+      //       ]
+      //   })
+      // },
+      // {
+      //     test: /\.vue$/,
+      //     loader: 'vue-loader',
+      //     options: {loaders:{
+      //         css: ExtractTextPlugin.extract({
+      //             use: 'css-loader',
+      //             fallback: 'vue-style-loader'
+      //         })
+      //     }}
+      // },
       {
         test: /\.js$/,
         loader: 'babel-loader',
@@ -43,11 +78,21 @@ module.exports = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          name: utils.assetsPath('img/[name].[hash:7].[ext]')
-        }
+        use:[
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: utils.assetsPath('img/[name].[hash:7].[ext]')
+            }    
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true,
+            }
+          }
+        ]
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
@@ -85,5 +130,8 @@ module.exports = {
     'vue-router': 'VueRouter',
     'ElementUI': 'ELEMENT',
     'axios': 'axios',
-  }
+  },
+  // plugins: [ //这个不添加allChunks参数的话，不会抽离chunk的css
+  //   new ExtractTextPlugin("style.css")
+  // ]
 }

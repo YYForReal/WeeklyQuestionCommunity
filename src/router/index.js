@@ -2,14 +2,13 @@
 import Router from 'vue-router'
 import Main from '@/views/Main'
 import RecommendCard from '@/components/ArticleCard/RecommendCard'
-
+import Login from '@/views/Login'
 //动态路由引入
 const FocusCard = ()=> import('@/components/ArticleCard/FocusCard')
 const EditArticle =()=> import ('@/components/edit/EditArticle')
 const SpecialArticle = ()=> import ('@/views/SpecialArticle')
 const HotCard = ()=> import('@/components/ArticleCard/HotCard')
 const VideoBox = () => import('@/components/ArticleCard/VideoBox')
-const Login = () => import('@/views/Login')
 const setting = () => import('@/components/user/setting')
 
 Vue.use(Router)
