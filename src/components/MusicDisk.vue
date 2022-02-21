@@ -9,8 +9,7 @@ export default {
   data() {
     return {
       playing: true,
-      imgSrc:
-        "https://hbimg.huabanimg.com/bf156e93f3b6b4db3a026b26df2be5d583761d57891b-rYoA1Z_fw658/format/webp",
+      imgSrc: "https://source.acexy.cn/view/X8X3FEM",
       source: "http://music.163.com/song/media/outer/url?id=2081057.mp3",
     };
   },
