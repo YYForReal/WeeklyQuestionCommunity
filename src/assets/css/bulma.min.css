@@ -385,10 +385,6 @@ iframe {
   border: 0
 }
 
-table {
-  border-collapse: collapse;
-  border-spacing: 0
-}
 
 td,
 th {
@@ -521,20 +517,6 @@ pre code {
   color: currentColor;
   font-size: 1em;
   padding: 0
-}
-
-table td,
-table th {
-  vertical-align: top
-}
-
-table td:not([align]),
-table th:not([align]) {
-  text-align: inherit
-}
-
-table th {
-  color: #363636
 }
 
 @-webkit-keyframes spinAround {
@@ -2377,43 +2359,6 @@ fieldset[disabled] .button {
 .content sub,
 .content sup {
   font-size: 75%
-}
-
-.content table {
-  width: 100%
-}
-
-.content table td,
-.content table th {
-  border: 1px solid #dbdbdb;
-  border-width: 0 0 1px;
-  padding: .5em .75em;
-  vertical-align: top
-}
-
-.content table th {
-  color: #363636
-}
-
-.content table th:not([align]) {
-  text-align: inherit
-}
-
-.content table thead td,
-.content table thead th {
-  border-width: 0 0 2px;
-  color: #363636
-}
-
-.content table tfoot td,
-.content table tfoot th {
-  border-width: 2px 0 0;
-  color: #363636
-}
-
-.content table tbody tr:last-child td,
-.content table tbody tr:last-child th {
-  border-bottom-width: 0
 }
 
 .content .tabs li+li {
