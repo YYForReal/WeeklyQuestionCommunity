@@ -66,25 +66,15 @@ npm run build
 npm run build --report
 ```
 
-## 四. 相关依赖介绍 
+## 四. 相关依赖介绍
 
-- "axios": "^0.26.0",
-- "dompurify": "^2.3.4",
-- "element-ui": "^2.15.6",
-- "html-loader": "^0.5.5",
-- "jquery": "^3.6.0",
-- "jsdom": "^19.0.0",
-- "jsonwebtoken": "^8.5.1",
-- "less": "^3.0.0",
-- "markdown-loader": "^6.0.0",
-- "marked": "^4.0.8",
-- "mavon-editor": "^2.10.4",
-- "md5": "^2.3.0",
-- "vue": "^2.5.2",
-- "vue-router": "^3.0.1",
-- "vuejs-jwt": "^1.1.0"
+1. mavon-editor
+2. axios
+3. ElementUI
 
-## 五
-
-app.css 3.83MB -> 3.59MB
-vendor.js  1.79MB -> 1.05MB
+## 五. 即将实现
+1. 全文检索
+2. 用户关注、收藏、动态
+3. 用户之间私聊
+4. 动态推送已关注的问题（是否有新回答）
+5. 回答的点赞、评论通知
