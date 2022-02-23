@@ -49,5 +49,4 @@ export default {
 };
 </script>
 
-<style lang="css" src="@/assets/css/bulma.min.css" scoped></style>
     

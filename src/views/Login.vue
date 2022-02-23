@@ -457,7 +457,6 @@ export default {
 </script>
 
 
-<style src="@/assets/css/bulma.min.css" scoped></style>
 <style scoped>
 
 .page {

@@ -332,9 +332,10 @@ export default {
   },
 };
 </script>
-<style src="@/assets/css/bulma.min.css" scoped></style>
 
 <style lang="less" scoped>
+
+
 .button {
   background-color: #0066ff;
   color: white;

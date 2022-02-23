@@ -158,9 +158,7 @@ export default {
   margin-right: 5px;
 }
 </style>
-<style lang="css" src="@/assets/css/bulma.min.css" scoped></style>
 <style lang="css" scoped>
-
 .navbar-height {
   height: 55px;
 }
@@ -206,9 +204,7 @@ export default {
   width: 100%;
 }
 
-.mybtn {
-  padding: 0;
-}
+
 
 .navbar-menu {
   min-width: 600px;
@@ -232,10 +228,8 @@ export default {
 }
 
 .dropdown-item {
-  margin: 10px auto;
-  padding-left: 15px;
-  padding-right:15px;
-  min-width: 50px;
+  padding-left:0;
+  padding-right:0;
   text-align: center;
 }
 </style>

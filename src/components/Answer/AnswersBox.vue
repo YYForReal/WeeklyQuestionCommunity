@@ -38,8 +38,7 @@
   }
 
 </script>
-<style src="@/assets/css/bulma.min.css" scoped></style>
-<style lang="less" scoped>
+<style lang="less" scoped> 
 .answers-maincontainer {
   margin: 0 auto;
   width: 97%;
