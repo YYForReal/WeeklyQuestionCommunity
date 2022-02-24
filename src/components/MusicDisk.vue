@@ -1,7 +1,7 @@
 <template>
   <div class="music-box" :class="{ rotating: playing }" @click="handleClick()">
     <img :src="imgSrc" />
-    <audio ref="audio" :src="source" autoplay></audio>
+    <audio ref="audioRef" :src="source" autoplay></audio>
   </div>
 </template>
 <script>
@@ -14,10 +14,14 @@ export default {
     };
   },
   mounted(){
-      console.log(this.$refs.audio);
-      this.$refs.audio.oncanplay = function(){
-          this.$refs.audio.volume = 0.3;
-          console.log("set volume = ",0.3);
+      try{
+        this.$refs.audioRef.oncanplay = ()=>{
+          this.$refs.audioRef.volume = 0.8;
+        }
+        console.log(this.$refs);
+
+      }catch(err){
+        console.log("set audio volume error",err);
       }
   },
   methods:{
@@ -25,12 +29,11 @@ export default {
         this.playing = !this.playing;
         // if(this.playing)
         if(this.playing){
-            this.$refs.audio.play();
+            this.$refs.audioRef.play();
         }else{
-            this.$refs.audio.pause();
+            this.$refs.audioRef.pause();
         }
     },
-
   }
 };
 </script>
