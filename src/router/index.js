@@ -3,15 +3,14 @@ import Router from 'vue-router'
 import Main from '@/views/Main'
 import RecommendCard from '@/components/ArticleCard/RecommendCard'
 import Login from '@/views/Login'
-import NoFoundComponent from '@/components/NoFoundComponent'
 //动态路由引入
 const FocusCard = ()=> import('@/components/ArticleCard/FocusCard')
 const EditArticle =()=> import ('@/components/edit/EditArticle')
 const SpecialArticle = ()=> import ('@/views/SpecialArticle')
 const HotCard = ()=> import('@/components/ArticleCard/HotCard')
 const VideoBox = () => import('@/components/ArticleCard/VideoBox')
-const setting = () => import('@/components/user/setting')
-
+const Person = () => import('@/views/Person')
+const NoFoundComponent = ()=> import('@/components/NoFoundComponent')
 Vue.use(Router)
 
 //118.31.165.150
@@ -21,9 +20,9 @@ Vue.prototype.baseUrl = 'http://118.31.165.150:9630'
 // 获取原型对象上的push函数
 const originalPush = Router.prototype.push;
 // 修改原型对象上的push方法
-Router.prototype.push = function push(location){
-  return originalPush.call(this,location).catch(err=> err);
-}
+// Router.prototype.push = function push(location){
+//   return originalPush.call(this,location).catch(err=> err);
+// }
 
 
 const router = new Router({
@@ -64,9 +63,9 @@ const router = new Router({
           component: VideoBox
         },
         {
-          path: '/setting',
-          name: 'setting',
-          component: setting
+          path: '/person',
+          name: 'Person',
+          component: Person
         },
         {
           path: '/SpecialArticle/:articleId',
