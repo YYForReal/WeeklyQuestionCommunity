@@ -9,11 +9,11 @@
       </div>
       <div class="navbar-menu">
         <div class="navbar-start">
-          <router-link to="/FocusCard" class="navbar-item">我的</router-link>
-          <router-link to="/RecommendCard" class="navbar-item"
+          <router-link to="/ArticleList/FocusCard" class="navbar-item">我的</router-link>
+          <router-link to="/ArticleList/RecommendCard" class="navbar-item"
             >推荐</router-link
           >
-          <router-link to="/HotCard" class="navbar-item">热榜</router-link>
+          <router-link to="/ArticleList/HotCard" class="navbar-item">热榜</router-link>
           <router-link to="/VideoBox" class="navbar-item">视频</router-link>
 
           <div class="navbar-item">
@@ -71,12 +71,12 @@
 
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
-                <router-link to="/setting" >
+                <router-link to="/person" >
                   <p class="dropdown-item"><i class="iconfont icon-dengluyonghu"></i>主页</p>
                 </router-link>
               </el-dropdown-item>
               <el-dropdown-item>
-                <router-link to="/setting">
+                <router-link to="/person">
                   <p class="dropdown-item"><i class="iconfont icon-shezhi"></i>设置</p>
                 </router-link>
               </el-dropdown-item>
@@ -158,9 +158,7 @@ export default {
   margin-right: 5px;
 }
 </style>
-<style lang="css" src="@/assets/css/bulma.min.css" scoped></style>
 <style lang="css" scoped>
-
 .navbar-height {
   height: 55px;
 }
@@ -206,9 +204,7 @@ export default {
   width: 100%;
 }
 
-.mybtn {
-  padding: 0;
-}
+
 
 .navbar-menu {
   min-width: 600px;
@@ -232,10 +228,8 @@ export default {
 }
 
 .dropdown-item {
-  margin: 10px auto;
-  padding-left: 15px;
-  padding-right:15px;
-  min-width: 50px;
+  padding-left:0;
+  padding-right:0;
   text-align: center;
 }
 </style>

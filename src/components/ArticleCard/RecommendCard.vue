@@ -1,19 +1,19 @@
 <template lang="">
   <div>
     <section v-if="articles.length > 0 ">
-      <div class="article-card" v-for="(article,index) in articles">
-        <h3 class="recommend-content-title canTap" @click="turnToArticle(article.articleId)" >{{article.title}}</h3>
-        <div class="article-card-body">
-          <div class="img-box " v-if="article.img!=null&&article.img!='' ">
+      <div class="article-card" v-for="(article,index) in articles" >
+        <h3 class="recommend-content-title canTap"  @click="turnToArticle(article.articleId)">{{article.title}}</h3>
+        <div class="article-card-body" >
+          <div class="img-box canTap" v-if="article.img!=null&&article.img!='' " @click="turnToArticle(article.articleId)">
             <img loading="lazy" :src="article.img" :alt="article.title">
           </div>
-          <div class="recommend-article-content canTap"
+          <div class="recommend-article-content "
             :class="{'recommend-article-content-without-img':article.img==null}">
-            <div @click="turnToArticle(article.articleId)">
+            <div class="canTap" @click="turnToArticle(article.articleId)"  >
               <span class="black article-content-main" v-html="article.content"></span>
               <a class="read-all float-right" @click="readAll(2)">阅读全文</a>
             </div>
-             <ArticleButtonBox :article="article"></ArticleButtonBox>
+            <ArticleButtonBox :article="article"></ArticleButtonBox>
           </div>
 
         </div>

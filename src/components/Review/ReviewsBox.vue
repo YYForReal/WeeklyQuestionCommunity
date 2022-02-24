@@ -193,7 +193,6 @@
   }
 
 </script>
-<style src="@/assets/css/bulma.min.css" scoped></style>
 <style lang="" scoped>
 
   .answers-maincontainer {

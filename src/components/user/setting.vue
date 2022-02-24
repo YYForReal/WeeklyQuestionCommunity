@@ -1,187 +1,183 @@
 <template>
-  <div class="container" id="page" style="min-height: 580px">
-    <div class="columns is-centered">
-      <div class="column is-6">
-        <div class="box control">
-          <!-- 昵称和个性签名 -->
-          <userInfo></userInfo>
-          <hr />
-          <tabs>
-            <tab title="修改密码">
-              <!-- 验证身份 -->
-              <div class="field">
+  <div class="container" id="page">
+    <div class="box control">
+      <!-- 昵称和个性签名 -->
+      <UserInfo></UserInfo>
+      <hr />
+      <tabs>
+        <tab title="修改密码">
+          <!-- 验证身份 -->
+          <div class="field">
+            <div class="control">
+              <div class="field is-grouped">
+                <p class="control has-icons-left">
+                  <input
+                    type="password"
+                    class="input"
+                    v-model="verifyPwdInput"
+                    placeholder="请输入您的密码"
+                  />
+                  <span class="icon is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
                 <div class="control">
-                  <div class="field is-grouped">
-                    <p class="control has-icons-left">
-                      <input
-                        type="password"
-                        class="input"
-                        v-model="verifyPwdInput"
-                        placeholder="请输入您的密码"
-                      />
-                      <span class="icon is-left">
-                        <i class="fas fa-lock"></i>
-                      </span>
-                    </p>
-                    <div class="control">
-                      <button
-                        class="button"
-                        @click="verifyPwd"
-                        style="background-color: #0066ff; color: white"
-                      >
-                        身份验证
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="control">
-                    <p class="help" id="verifyPwdInfo"></p>
-                  </div>
+                  <button
+                    class="button"
+                    @click="verifyPwd"
+                    style="background-color: #0066ff; color: white"
+                  >
+                    身份验证
+                  </button>
                 </div>
               </div>
-            </tab>
-            <tab title="绑定邮箱">
-              <!-- 验证身份 -->
-              <div class="field">
+            </div>
+            <div class="field">
+              <div class="control">
+                <p class="help" id="verifyPwdInfo"></p>
+              </div>
+            </div>
+          </div>
+        </tab>
+        <tab title="绑定邮箱">
+          <!-- 验证身份 -->
+          <div class="field">
+            <div class="control">
+              <div class="field is-grouped">
+                <p class="control has-icons-left">
+                  <input
+                    type="password"
+                    class="input"
+                    v-model="verifyEmailInput"
+                    placeholder="请输入您的密码"
+                  />
+                  <span class="icon is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </p>
                 <div class="control">
-                  <div class="field is-grouped">
-                    <p class="control has-icons-left">
-                      <input
-                        type="password"
-                        class="input"
-                        v-model="verifyEmailInput"
-                        placeholder="请输入您的密码"
-                      />
-                      <span class="icon is-left">
-                        <i class="fas fa-lock"></i>
-                      </span>
-                    </p>
-                    <div class="control">
-                      <button
-                        class="button"
-                        @click="verifyEmail"
-                        style="background-color: #0066ff; color: white"
-                      >
-                        身份验证
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="control">
-                    <p class="help" id="verifyEmailInfo"></p>
-                  </div>
+                  <button
+                    class="button"
+                    @click="verifyEmail"
+                    style="background-color: #0066ff; color: white"
+                  >
+                    身份验证
+                  </button>
                 </div>
               </div>
-            </tab>
-          </tabs>
-
-          <!-- 修改密码 -->
-          <modal title="修改密码" v-show="pwdModal">
-            <div class="field">
-              <div class="control has-icons-left has-icons-right">
-                <input
-                  type="password"
-                  class="input"
-                  placeholder="新的密码"
-                  id="password"
-                  v-model="password"
-                  @input="pwdInput"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-lock"></i>
-                </span>
-                <span
-                  class="icon is-right is-clickable"
-                  @click="showPassword('#fa-eye')"
-                >
-                  <i class="fas fa-eye" id="fa-eye"></i>
-                </span>
-              </div>
-              <p class="help is-hidden" id="passwordInfo"></p>
-            </div>
-            <div class="field">
-              <div class="control has-icons-left">
-                <input
-                  type="password"
-                  class="input"
-                  placeholder="确认密码"
-                  id="confirmPwd"
-                  v-model="confirmPassword"
-                  @input="confirmPwdInput"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-lock"></i>
-                </span>
-              </div>
-              <p class="help is-hidden" id="confirmInfo"></p>
             </div>
             <div class="field">
               <div class="control">
-                <button
-                  class="button input"
-                  id="modalBtn"
-                  @click="changePwd"
-                  style="background-color: #8fc3ff; color: white"
-                >
-                  确认
-                </button>
+                <p class="help" id="verifyEmailInfo"></p>
               </div>
             </div>
-          </modal>
-          <!-- 绑定邮箱 -->
-          <modal title="绑定邮箱" v-show="emailModal">
-            <div class="field">
-              <div class="control has-icons-left">
-                <input
-                  type="email"
-                  class="input"
-                  placeholder="新的邮箱地址"
-                  id="email"
-                  v-model="email"
-                  @input="emailInput"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-envelope"></i>
-                </span>
-              </div>
-              <p class="help is-hidden" id="emailInfo"></p>
-            </div>
+          </div>
+        </tab>
+      </tabs>
 
-            <div class="field has-addons">
-              <div class="control has-icons-left">
-                <input
-                  type="text"
-                  class="input"
-                  placeholder="请输入4位邮箱验证码"
-                  id="emailCode"
-                  size="40"
-                />
-                <span class="icon is-small is-left">
-                  <i class="fas fa-shield"></i>
-                </span>
-              </div>
-              <div class="control">
-                <button class="button">获取邮箱验证码</button>
-              </div>
-            </div>
-
-            <div class="field">
-              <div class="control">
-                <button
-                  class="input button"
-                  id="modalBtn"
-                  @click="changeEmail"
-                  style="background-color: #8fc3ff; color: white"
-                >
-                  确认
-                </button>
-              </div>
-            </div>
-          </modal>
+      <!-- 修改密码 -->
+      <modal title="修改密码" v-show="pwdModal">
+        <div class="field">
+          <div class="control has-icons-left has-icons-right">
+            <input
+              type="password"
+              class="input"
+              placeholder="新的密码"
+              id="password"
+              v-model="password"
+              @input="pwdInput"
+            />
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+            <span
+              class="icon is-right is-clickable"
+              @click="showPassword('#fa-eye')"
+            >
+              <i class="fas fa-eye" id="fa-eye"></i>
+            </span>
+          </div>
+          <p class="help is-hidden" id="passwordInfo"></p>
         </div>
-      </div>
+        <div class="field">
+          <div class="control has-icons-left">
+            <input
+              type="password"
+              class="input"
+              placeholder="确认密码"
+              id="confirmPwd"
+              v-model="confirmPassword"
+              @input="confirmPwdInput"
+            />
+            <span class="icon is-small is-left">
+              <i class="fas fa-lock"></i>
+            </span>
+          </div>
+          <p class="help is-hidden" id="confirmInfo"></p>
+        </div>
+        <div class="field">
+          <div class="control">
+            <button
+              class="button input"
+              id="modalBtn"
+              @click="changePwd"
+              style="background-color: #8fc3ff; color: white"
+            >
+              确认
+            </button>
+          </div>
+        </div>
+      </modal>
+      <!-- 绑定邮箱 -->
+      <modal title="绑定邮箱" v-show="emailModal">
+        <div class="field">
+          <div class="control has-icons-left">
+            <input
+              type="email"
+              class="input"
+              placeholder="新的邮箱地址"
+              id="email"
+              v-model="email"
+              @input="emailInput"
+            />
+            <span class="icon is-small is-left">
+              <i class="fas fa-envelope"></i>
+            </span>
+          </div>
+          <p class="help is-hidden" id="emailInfo"></p>
+        </div>
+
+        <div class="field has-addons">
+          <div class="control has-icons-left">
+            <input
+              type="text"
+              class="input"
+              placeholder="请输入4位邮箱验证码"
+              id="emailCode"
+              size="40"
+            />
+            <span class="icon is-small is-left">
+              <i class="fas fa-shield"></i>
+            </span>
+          </div>
+          <div class="control">
+            <button class="button">获取邮箱验证码</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button
+              class="input button"
+              id="modalBtn"
+              @click="changeEmail"
+              style="background-color: #8fc3ff; color: white"
+            >
+              确认
+            </button>
+          </div>
+        </div>
+      </modal>
     </div>
   </div>
 </template>
@@ -189,7 +185,7 @@
 <script>
 import Tab from "@/components/login/loginTab.vue";
 import Tabs from "@/components/login/loginTabs.vue";
-import userInfo from "@/components/user/userInfo.vue";
+import UserInfo from "@/components/user/UserInfo.vue";
 import verify from "@/components/user/verify.vue";
 import modal from "@/components/user/modal.vue";
 
@@ -216,7 +212,7 @@ export default {
   components: {
     Tab,
     Tabs,
-    userInfo,
+    UserInfo,
     verify,
     modal,
   },
@@ -440,6 +436,5 @@ export default {
   },
 };
 </script>
-<style lang="css" src="@/assets/css/bulma.min.css" scoped>
-</style>
+
 
