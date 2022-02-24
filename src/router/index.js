@@ -1,8 +1,6 @@
 // import Vue from 'vue'
-import Router from 'vue-router'
+// import Router from 'vue-router'
 import Main from '@/views/Main'
-import RecommendCard from '@/components/ArticleCard/RecommendCard'
-import Login from '@/views/Login'
 //动态路由引入
 const FocusCard = ()=> import('@/components/ArticleCard/FocusCard')
 const EditArticle =()=> import ('@/components/edit/EditArticle')
@@ -11,21 +9,26 @@ const HotCard = ()=> import('@/components/ArticleCard/HotCard')
 const VideoBox = () => import('@/components/ArticleCard/VideoBox')
 const Person = () => import('@/views/Person')
 const NoFoundComponent = ()=> import('@/components/NoFoundComponent')
-Vue.use(Router)
+const ArticleList = ()=> import ('@/views/ArticleList')
+const Login = ()=> import ('@/views/Login')
+const RecommendCard = ()=> import ('@/components/ArticleCard/RecommendCard')
+
+
+Vue.use(VueRouter)
 
 //118.31.165.150
 //localhost
 Vue.prototype.baseUrl = 'http://118.31.165.150:9630'
 
 // 获取原型对象上的push函数
-const originalPush = Router.prototype.push;
+const originalPush = VueRouter.prototype.push;
 // 修改原型对象上的push方法
 // Router.prototype.push = function push(location){
 //   return originalPush.call(this,location).catch(err=> err);
 // }
 
 
-const router = new Router({
+const router = new VueRouter({
   mode: 'history',
   base:'/community',
   routes: [
@@ -33,29 +36,37 @@ const router = new Router({
       path: '/',
       name: 'Main',
       component: Main,
-      redirect:'/RecommendCard',//重定向
+      redirect:'/ArticleList',//重定向
       children: [
+        {
+          path:'/ArticleList',
+          name:'ArticleList',
+          component:ArticleList,
+          redirect:'/ArticleList/RecommendCard',
+          children:[
+            {
+              path: 'FocusCard',
+              name: 'FocusCard',
+              component: FocusCard,
+            },
+            {
+              path: 'RecommendCard',
+              name: 'RecommendCard',
+              component: RecommendCard
+            },
+            {
+              path: 'HotCard',
+              name: 'HotCard',
+              component: HotCard
+            },
+          ]
+        },
         {
           //  开头“/”会被当成根路径
           path: '/EditArticle/:type',
           name: 'EditArticle',
           component: EditArticle,
           props: true,
-        },
-        {
-          path: '/FocusCard',
-          name: 'FocusCard',
-          component: FocusCard,
-        },
-        {
-          path: '/RecommendCard',
-          name: 'RecommendCard',
-          component: RecommendCard
-        },
-        {
-          path: '/HotCard',
-          name: 'HotCard',
-          component: HotCard
         },
         {
           path: '/VideoBox',
@@ -78,7 +89,7 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
     },
     {
       path:'*',

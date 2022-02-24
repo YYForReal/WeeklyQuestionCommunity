@@ -1,73 +1,79 @@
 <template>
   <div class="page">
     <div class="bgmp4">
-      <video  src="https://img-baofun.zhhainiao.com/market/133/2366564fa6b83158208eb3181752a8d6_preview.mp4" autoplay loop muted></video>
+      <video
+        src="https://img-baofun.zhhainiao.com/market/133/2366564fa6b83158208eb3181752a8d6_preview.mp4"
+        autoplay
+        loop
+        muted
+      >
+        <!-- <source type="video/webm" src="https://mazwai.com/videvo_files/video/free/2020-04/small_watermarked/200314 _Work Life_02_ 4k_058_preview.webm">
+        <source type=> -->
+      </video>
     </div>
     <div class="columns is-centered login-title-box">
       <h1 class="login-title">问答天地</h1>
     </div>
-    <div class="columns is-centered login-form-box" style="z-index:20;">
+    <div class="columns is-centered login-form-box" style="z-index: 20">
       <div class="column is-4">
         <div class="box login-form">
           <tabs>
             <!-- 登录 -->
             <tab title="登录">
-              <div>
-                <!-- 账号 -->
-                <div class="field">
-                  <div class="control has-icons-left">
-                    <input
-                      type="text"
-                      class="input"
-                      placeholder="账号或邮箱"
-                      id="userId"
-                      v-model="login_userId"
-                      required
-                    />
-                    <span class="icon is-small is-left">
-                      <i class="iconfont icon-dengluyonghu"></i>
-                    </span>
-                    <p class="help is-hidden" id="userIdInfo"></p>
-                  </div>
+              <!-- 账号 -->
+              <div class="field">
+                <div class="control has-icons-left">
+                  <input
+                    type="text"
+                    class="input"
+                    placeholder="账号或邮箱"
+                    id="userId"
+                    v-model="login_userId"
+                    required
+                  />
+                  <span class="icon is-small is-left">
+                    <i class="iconfont icon-dengluyonghu"></i>
+                  </span>
+                  <p class="help is-hidden" id="userIdInfo"></p>
                 </div>
-                <!-- 密码 -->
-                <div class="field">
-                  <div class="control has-icons-left has-icons-right">
-                    <input
-                      :type="loginPwdType"
-                      class="input"
-                      placeholder="密码"
-                      id="loginPwd"
-                      v-model="loginPassword"
-                      required
-                    />
-                    <span class="icon is-small is-left">
-                      <i class="iconfont icon-tianchongxing-1"></i>
-                    </span>
-                    <span
-                      class="icon is-right is-clickable"
-                      @click="seeLoginPwd()"
-                    >
-                      <i
-                        class="iconfont"
-                        :class="{ 'icon-yanjing': !seen, 'icon-yanjing1': seen }"
-                        id="eye"
-                      ></i>
-                    </span>
-                    <p class="help is-hidden" id="loginPwdInfo"></p>
-                  </div>
+              </div>
+              <!-- 密码 -->
+              <div class="field">
+                <div class="control has-icons-left has-icons-right">
+                  <input
+                    :type="loginPwdType"
+                    class="input"
+                    placeholder="密码"
+                    id="loginPwd"
+                    v-model="loginPassword"
+                    required
+                  />
+                  <span class="icon is-small is-left">
+                    <i class="iconfont icon-tianchongxing-1"></i>
+                  </span>
+                  <span
+                    class="icon is-right is-clickable"
+                    @click="seeLoginPwd()"
+                  >
+                    <i
+                      class="iconfont"
+                      :class="{ 'icon-yanjing': !seen, 'icon-yanjing1': seen }"
+                      id="eye"
+                    ></i>
+                  </span>
+                  <p class="help is-hidden" id="loginPwdInfo"></p>
                 </div>
-                <div class="field">
-                  <div class="control">
-                    <button
-                      class="button input log-btn"
-                      id="login"
-                      @click="Login"
-                    >
-                      登录
-                    </button>
-                    <p class="help is-hidden" id="logInfo"></p>
-                  </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <button
+                    class="button input log-btn"
+                    id="login"
+                    @click="Login"
+                  >
+                    登录
+                  </button>
+                  <p class="help is-hidden" id="logInfo"></p>
                 </div>
               </div>
             </tab>
@@ -144,7 +150,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -240,9 +245,7 @@ export default {
         let that = this;
         $.ajax({
           type: "get",
-          url:
-          that.baseUrl + "/user/getUserInfo?userId=" +
-            that.login_userId,
+          url: that.baseUrl + "/user/getUserInfo?userId=" + that.login_userId,
           success: function (res) {
             let md5Pwd = that.$md5(that.loginPassword);
 
@@ -266,7 +269,7 @@ export default {
               console.log("创建Storage: " + localStorage.getItem("user"));
               that.sendState(true);
 
-              that.$router.push("/HotCard");
+              that.$router.push("/ArticleList/HotCard");
             } else {
               that.setDangerInfo(userPwdInfo);
               that.setDangerInput(loginPwd);
@@ -300,7 +303,6 @@ export default {
       let signIdInput = $("#signIdInput");
       let signIdInfo = $("#signIdInfo");
       let flag = false;
-
       if (this.sign_userId == "") {
         signIdInput.attr("class", "input");
         this.setHiddenInfo(signIdInfo);
@@ -360,7 +362,7 @@ export default {
           localStorage.setItem("user", user);
           console.log("创建Storage: " + localStorage.getItem("user"));
           that.sendState(true);
-          that.$router.push("/HotCard");
+          that.$router.push("/ArticleList/HotCard");
         },
         error: function () {
           console.log("提交信息失败!");
@@ -376,7 +378,8 @@ export default {
       let regEx2 = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.\/?]/;
 
       return (
-        !regEx1.test(value) &&( /[\d]/.test(value) ||  /[a-z]/i.test(value) || regEx2.test(value) )
+        !regEx1.test(value) &&
+        (/[\d]/.test(value) || /[a-z]/i.test(value) || regEx2.test(value))
       );
     },
     listenPwd() {
@@ -458,7 +461,6 @@ export default {
 
 
 <style scoped>
-
 .page {
   position: relative;
   background-repeat: no-repeat;
@@ -466,34 +468,34 @@ export default {
   width: 100%;
 }
 
-.login-title-box,.login-form-box{
+.login-title-box,
+.login-form-box {
   position: relative;
   z-index: 10;
   margin-bottom: 10px;
-
 }
-.login-form{
+.login-form {
   transition: all 0.5s;
 }
 
-.login-title{
-  font-family: '思源黑体', 'Times New Roman', Times, serif;
+.login-title {
+  font-family: "思源黑体", "Times New Roman", Times, serif;
   font-size: 3.2rem;
   z-index: 99;
   color: white;
   margin-top: 10vh;
 }
-.bgmp4{
+.bgmp4 {
   position: absolute;
   width: 100%;
-  height:100%;
+  height: 100%;
   opacity: 0.7;
   z-index: 0;
 }
-.bgmp4  video{
-  width:100%;
-  object-fit:fill;
-  z-index:-1;
+.bgmp4 video {
+  width: 100%;
+  object-fit: fill;
+  z-index: -1;
 }
 .login-image {
   width: 128px;

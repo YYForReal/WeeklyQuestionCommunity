@@ -41,16 +41,15 @@
           @mouseenter="changeName = false"
           @mouseleave="changeName = true"
         >
-          <span class="el-icon-edit"></span>
-          <span v-show="changeName">{{ userName }}</span>
+          <span class="el-icon-edit input-box" v-show="changeName" >{{ userName }}</span>
           <el-input
-            style="width: 80%"
             @blur="updateName"
             v-show="!changeName"
             v-model="userName"
             maxlength="12"
             show-word-limit
             size="mini"
+            class="input-box"
           ></el-input>
         </div>
       </div>
@@ -60,49 +59,18 @@
         <div
           class="sign_container"
           @mouseenter="changeSignature = false"
-          @mouseleave="changeSignature = true"
-        >
-          <span class="el-icon-edit"></span>
-          <span v-show="changeSignature">{{ signature }}</span>
+          @mouseleave="changeSignature = true">
+          <span class="el-icon-edit input-box" v-show="changeSignature">{{ signature }}</span>
           <el-input
-            style="width: 80%"
             @blur="updateSignature"
             v-show="!changeSignature"
             v-model.trim="signature"
             maxlength="30"
             show-word-limit
+            class="input-box"
           ></el-input>
         </div>
       </div>
-
-
-
-      <!-- <div class="level">
-        <div class="level-right">
-          <div class="level-item" v-if="changeSignature">
-            <p class="level-item" id="signature">个性签名：{{ signature }}</p>
-            <a class="level-item" @click="changeSignature = false">编辑</a>
-          </div>
-          <div class="level-item" v-else>
-            <div class="field">
-              <textarea
-                placeholder="编辑个性签名，展现个人风采~"
-                class="textarea has-fixed-size"
-                cols="33"
-                rows="5"
-                v-model.trim="signature"
-              ></textarea>
-              <button
-                class="button"
-                style="margin-top: 10px"
-                @click="updateSignature"
-              >
-                确认
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> -->
       <!-- 设置背景图 -->
       <div class="level">
         <div class="level-left">
@@ -384,6 +352,10 @@ export default {
     box-sizing: border-box;
     span{
       margin-right: 15px;
+    }
+    .input-box{
+      display: inline-block;
+      width: 100%;
     }
   }
 }

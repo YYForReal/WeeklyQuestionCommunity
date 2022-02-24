@@ -23,9 +23,7 @@
     </div>
 
     <div v-else-if="errorType">
-      <h1>您要找的文章离你而去了~</h1>
-      <img src="../assets/image/sad.png" class="error-img">
-      <p class="error-message">可能原因：{{errorMessage}}。</p>
+      <NoFoundComponent :errorType="'你要找的内容离你而去了'" :errorMessage="errorMessage" />
     </div>
 
     <div v-else>
@@ -40,6 +38,7 @@ import ChoiceCard from "@/components/ChoiceCard.vue";
 import Answer from "@/components/answer/Answer.vue";
 import AnswersBox from "@/components/answer/AnswersBox.vue";
 import WaitingBox from "@/components/waitingBox/WaitingBox.vue";
+import NoFoundComponent from "@/components/NoFoundComponent.vue";
 
 export default {
   data() {
@@ -57,6 +56,7 @@ export default {
     AnswersBox,
     WaitingBox,
     ChoiceCard,
+    NoFoundComponent,
   },
   methods: {
     translateDate() {
@@ -185,13 +185,4 @@ export default {
   font-family: "仿宋", "楷体";
 }
 
-.error-img {
-  display: inline-block;
-}
-
-.error-message {
-  display: inline-block;
-  position: relative;
-  top: -150px;
-}
 </style>
