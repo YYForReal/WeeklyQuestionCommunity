@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Main from '@/views/Main'
 import RecommendCard from '@/components/ArticleCard/RecommendCard'
 import Login from '@/views/Login'
+import NoFoundComponent from '@/components/NoFoundComponent'
 //动态路由引入
 const FocusCard = ()=> import('@/components/ArticleCard/FocusCard')
 const EditArticle =()=> import ('@/components/edit/EditArticle')
@@ -80,7 +81,11 @@ const router = new Router({
       name: 'login',
       component: Login
     },
-
+    {
+      path:'*',
+      name:'NoFoundComponent',
+      component: NoFoundComponent,
+    }
   ]
 })
 // 切换路由后将滚动条移至最顶部
