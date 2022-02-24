@@ -13,7 +13,7 @@
             :class="{'recommend-article-content-without-img':article.img==null}"
             @click="TurnToArticle(article.articleId)">
             <div>
-              <div class="img-box float-left" v-if="article.img!=null  ">
+              <div class="img-box float-left " v-if="article.img!=null  ">
                 <img loading="lazy" :src="article.img" :alt="article.title">
               </div>
               <div>
@@ -85,7 +85,7 @@ export default {
       },
       error: function (data) {
         that.articles = [];
-        console.log("获取关注模块数据失败，", typeof data, data);
+        // console.log("获取关注模块数据失败，", typeof data, data);
         that.errorType = true;
       },
     });
@@ -131,9 +131,9 @@ export default {
     },
     translateDate() {
       for (let i = 0; i < this.articles.length; i++) {
-        console.log("release Time : ", this.articles[i].releaseTime);
+        // console.log("release Time : ", this.articles[i].releaseTime);
         let d = new Date(this.articles[i].releaseTime);
-        console.log("new Date : ", d);
+        // console.log("new Date : ", d);
         d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
         d = new Date(d);
         let resDate =

@@ -39,6 +39,7 @@
 
 </script>
 <style lang="less" scoped> 
+
 .answers-maincontainer {
   margin: 0 auto;
   width: 97%;

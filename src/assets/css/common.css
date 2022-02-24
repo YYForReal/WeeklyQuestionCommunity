@@ -39,6 +39,10 @@ hr{
   position: absolute!important;
 }
 
+.can-tap {
+  cursor: pointer;
+}
+
 .wrap-line2 {
   overflow: hidden;
   text-overflow: ellipsis;

@@ -307,10 +307,6 @@ a {
   color: rgb(231, 231, 21);
 }
 
-.can-tap {
-  cursor: pointer;
-}
-
 // 深度作用选择器
 ::v-deep .el-card__body {
   padding: 0;

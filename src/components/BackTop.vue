@@ -17,7 +17,7 @@ export default {
     backToTop() {
       this.isAnimation = true;
       let that = this;
-      console.log(document.documentElement.scrollTop);
+      // console.log(document.documentElement.scrollTop);
       let delt = document.documentElement.scrollTop / 150.0;
       // console.log(delt);
       let timer = setInterval(function () {
@@ -31,8 +31,8 @@ export default {
     reload() {
       let bodyHeight = document.body.scrollHeight;
       let screenHeight = window.screen.height; //屏幕高度
-      console.log("bodyHeight : ", bodyHeight);
-      console.log("screenHeight : ", screenHeight);
+      // console.log("bodyHeight : ", bodyHeight);
+      // console.log("screenHeight : ", screenHeight);
       if (bodyHeight > screenHeight) {
         this.isShow = true;
       } else {
