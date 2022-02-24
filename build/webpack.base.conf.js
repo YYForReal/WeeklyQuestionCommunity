@@ -125,11 +125,13 @@ module.exports = {
     child_process: 'empty'
   },
   // cdn引入第三方库，故排除import内容
+  // 键是npm下载的对象，值是它引入的对象
   externals:{
     'vue': 'Vue',
     'vue-router': 'VueRouter',
     'ElementUI': 'ELEMENT',
     'axios': 'axios',
+    'dompurify':'DomPurify'
   },
   // plugins: [ //这个不添加allChunks参数的话，不会抽离chunk的css
   //   new ExtractTextPlugin("style.css")

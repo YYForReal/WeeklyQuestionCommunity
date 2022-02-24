@@ -88,7 +88,7 @@
 <script>
 //导入 dompurify ， 防止XSS攻击
 //a DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, SVG and MathML.
-import DOMPurify from "dompurify";
+// import DOMPurify from "dompurify";
 import { marked } from "marked";
 import { mavonEditor } from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
@@ -197,8 +197,8 @@ export default {
     // 若通过DOMPurify过滤后的文本与原文本不同，则定时提示。
     // 当然，还是可以渲染出来的
     form: {
-      handler: function (newValue) {
-        console.log("new", newValue.content);
+      handler: function () {
+        // console.log("new", newValue.content);
         if (
           this.form.content != DOMPurify.sanitize(this.form.content) &&
           this.hint == false
