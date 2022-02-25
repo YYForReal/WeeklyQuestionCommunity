@@ -460,7 +460,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style lang="less" scoped>
 .page {
   position: relative;
   background-repeat: no-repeat;
@@ -484,24 +484,28 @@ export default {
   z-index: 99;
   color: white;
   margin-top: 10vh;
+  text-align: center;
 }
 .bgmp4 {
   position: absolute;
   width: 100%;
   height: 100%;
+  min-height:571px;
+  background-color:#eee;
   opacity: 0.7;
   z-index: 0;
+  video{
+    @media screen and (min-width:300px) {
+      width: 100%;
+    }
+    @media screen and (min-width:768px) {
+      width: 100%;
+      object-fit: fill;
+    }
+    z-index: -1;
+  }
 }
-.bgmp4 video {
-  width: 100%;
-  object-fit: fill;
-  z-index: -1;
-}
-.login-image {
-  width: 128px;
-  height: 81px;
-  margin-top: 45px;
-}
+
 .log-btn {
   background-color: #0066ff;
   color: white !important;

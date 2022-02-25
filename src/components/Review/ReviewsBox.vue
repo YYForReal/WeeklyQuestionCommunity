@@ -19,8 +19,8 @@
           <el-input type="text" placeholder="写下你的评论..." v-model="reviewContent"
             @keyup.enter.native="handleReleaseReview()"></el-input>
         </el-col>
-        <el-col :span="2" class="float-right">
-          <el-button :disabled="reviewContent==''" @click="handleReleaseReview()">发布</el-button>
+        <el-col :span="3" class="float-right">
+          <el-button :disabled="reviewContent==''" @click="handleReleaseReview()" >发布</el-button>
         </el-col>
       </el-row>
     </header>
