@@ -43,11 +43,12 @@
 .answers-maincontainer {
   margin: 0 auto;
   width: 97%;
+  
   margin-top: 20px;
-  padding: 5px;
+  padding: 3px;
 
   @media screen and (min-width:768px) {
-    min-width: 600px;    
+    min-width: 660px;    
     min-height: 600px;
   }
 }

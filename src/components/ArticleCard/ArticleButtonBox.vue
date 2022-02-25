@@ -5,9 +5,6 @@
         <span class="iconfont icon-sanjiaoxing small"></span> {{isAgree?'已':''}}赞同
         <span v-if="article.agree!=0">{{article.agree}}</span>
       </a>
-      <a class="disagree-button" @click="handleDisagree()" :class="{'has-agree':isDisagree}">
-        <span class="iconfont icon-sanjiaoxing1 small"></span>
-      </a>
     </div>
     <a class="article-card-link iconfont icon-pinglun" v-if="reviews.length==0" @click="handleReview()">添加评论</a>
     <a class="article-card-link iconfont icon-pinglun" v-else @click="handleReview()">{{reviews.length}}条评论</a>
@@ -32,7 +29,6 @@
     data() {
       return {
         isAgree: false,
-        isDisagree: false,
         seeReviews: false,
         reviews: [],
       };
@@ -83,7 +79,6 @@
       handleAgree() {
         let that = this;
         this.isAgree = !this.isAgree;
-        this.isDisagree = false;
         if (this.isAgree) {
           this.article.agree++;
           $.ajax({
@@ -107,27 +102,6 @@
             async: true,
             data: {
               articleId: that.article.articleId,
-              agreeNumber: -1,
-            },
-            success: function (data) {
-              // console.log(typeof data, data);
-              // that.article = data;
-            },
-          });
-        }
-      },
-      handleDisagree() {
-        let that = this;
-        this.isDisagree = !this.isDisagree;
-        if (this.isAgree) {
-          this.isAgree = false;
-          this.article.agree--;
-          $.ajax({
-            type: "post",
-            url: that.baseUrl + "/answer/agree",
-            async: true,
-            data: {
-              answerId: that.answer.answerId,
               agreeNumber: -1,
             },
             success: function (data) {
@@ -187,10 +161,6 @@
   .has-agree:hover {
     background-color: rgb(42, 120, 236);
     color: white;
-  }
-
-  .disagree-button {
-    cursor: pointer;
   }
 
   .agree-button {
