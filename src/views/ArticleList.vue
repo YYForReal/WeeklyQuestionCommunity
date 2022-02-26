@@ -24,13 +24,23 @@ export default {
   padding-left: 10px;
   padding-right: 10px;
   article {
-    width: 75%;
+    @media screen and (min-width:300px){
+      width:100%;
+    }
+    @media screen and (min-width:768px){
+      width: 75%;
+    }
     min-width: 900px;
     min-height: 900px;
     background-color: white;
   }
   aside {
-    width: 20%;
+    @media screen and (min-width:300px){
+      width:100%;
+    }
+    @media screen and (min-width:768px){
+      width: 20%;      
+    }
   }
 }
 </style>

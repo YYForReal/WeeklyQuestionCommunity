@@ -5,7 +5,7 @@
         <div class="time-release" v-if="article.type==1">{{article.authorName}}发表了文章 {{article.releaseTime}}</div>
         <div class="time-release" v-else-if="article.type==0">{{article.authorName}}发布了问答 {{article.releaseTime}}</div>
         <h1 class="recommend-content-title canTap" @click="TurnToArticle(article.articleId)">
-          <span class="article-type-tag iconfont icon-icon-test">{{article.type==1?'文章':'问题'}}</span>
+          <span class="article-type-tag iconfont icon-icon-test" :class="{'red':(article.type==1)}">{{typeMessage(article.type)}}</span>
           {{article.title}}
         </h1>
         <div>
@@ -117,6 +117,20 @@ export default {
   },
 
   methods: {
+    typeMessage(articleType){
+      console.log(articleType);
+      switch(articleType){
+        case 0:{
+          return '问答';
+        }
+        case 1:{
+          return '文章';
+        }
+        case 2:{
+          return '选择'
+        }
+      }
+    },
     filterImgSource(str) {
       var reTag = /<img(?:.|\s)*?>/g;
       return str.replace(reTag, "");
@@ -261,13 +275,19 @@ export default {
 img {
   height: 120px;
 }
+.red{
+  background-color: rgba(255, 0, 0, 0.801)!important;
+}
 
 /* 文章类型的标签 */
 .article-type-tag {
   font-size: 16px;
   display: inline-block;
   /* width: 60px; */
-  background-color: rgb(170, 166, 166);
+  background-color: rgba(13, 117, 187, 0.712);
   font-weight: 400;
+  padding: 2px;
+  padding-right: 4px;
+  color: black;
 }
 </style>
