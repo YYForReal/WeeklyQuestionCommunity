@@ -1,6 +1,6 @@
 <template lang="">
   <div v-if="isShow" class="back-top-box">
-    <i class="back-top iconfont icon-huojian1 canTap " :class="{'animation-move':isAnimation}" title="回到顶部"
+    <i class="back-top iconfont icon-huojian1 canTap " :class="{'animation-move':isAnimation,'shake':isShow}" title="回到顶部"
       @click="backToTop()"></i>
   </div>
 </template>
@@ -29,15 +29,16 @@ export default {
       }, 2);
     },
     reload() {
-      let bodyHeight = document.body.scrollHeight;
-      let screenHeight = window.screen.height; //屏幕高度
+      this.isShow = false;
+      // let bodyHeight = document.body.scrollHeight;
+      // let screenHeight = window.screen.height; //屏幕高度
       // console.log("bodyHeight : ", bodyHeight);
       // console.log("screenHeight : ", screenHeight);
-      if (bodyHeight > screenHeight) {
-        this.isShow = true;
-      } else {
-        this.isShow = false;
-      }
+      // if (bodyHeight > screenHeight) {
+      //   this.isShow = true;
+      // } else {
+      //   this.isShow = false;
+      // }
     },
   },
   mounted() {
@@ -72,7 +73,10 @@ export default {
   bottom: 6%;
   font-size: 5rem;
   color: red;
+  animation: zoomInUp 2s;
 }
+
+
 
 .animation-move {
   -webkit-animation: moveUp 0.9s ease-in-out;
@@ -89,4 +93,24 @@ export default {
     bottom: 6%;
   }
 }
+
+
+@keyframes zoomInUp {
+  from {
+    opacity: 0;
+    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);
+    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);
+  }
+}
+
+.zoomInUp {
+  animation-name: zoomInUp;
+}
+
 </style>
