@@ -131,7 +131,8 @@ module.exports = {
     'vue-router': 'VueRouter',
     'ElementUI': 'ELEMENT',
     'axios': 'axios',
-    'dompurify':'DomPurify'
+    'dompurify':'DomPurify',
+    'marked':'marked',
   },
   // plugins: [ //这个不添加allChunks参数的话，不会抽离chunk的css
   //   new ExtractTextPlugin("style.css")
