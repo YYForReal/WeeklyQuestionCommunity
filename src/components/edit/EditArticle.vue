@@ -89,17 +89,13 @@
 //导入 dompurify ， 防止XSS攻击
 //a DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, SVG and MathML.
 // import DOMPurify from "dompurify";
-import { marked } from "marked";
-import { mavonEditor } from "mavon-editor";
-import "mavon-editor/dist/css/index.css";
+// import { marked } from "marked";
 import http from "@/utils/http.js";
 //  var clean = DOMPurify.sanitize(dirty);
 // const createDOMPurify = require('dompurify');
 // const {JSDOM} = require('jsdom');
 
-// const window = new JSDOM('').window;
 // const DOMPurify = createDOMPurify(window);
-
 //  const clean = DOMPurify.sanitize(dirty);
 
 export default {
@@ -159,9 +155,6 @@ export default {
         preview: true, // 预览
       },
     };
-  },
-  components: {
-    mavonEditor,
   },
   props: {
     // 类型默认是文章 ， 0 是问题 , 2是选择题
@@ -340,8 +333,8 @@ export default {
         }, 200);
         flag = false;
       }
-      if(this.type==2){
-        if(this.form.dynamicItem.length==0){
+      if (this.type == 2) {
+        if (this.form.dynamicItem.length == 0) {
           setTimeout(() => {
             this.$message({
               type: "error",
@@ -349,10 +342,10 @@ export default {
             });
           }, 200);
           flag = false;
-        }else{
+        } else {
           let rightFlag = false;
-          for(let i=0;i<this.form.dynamicItem.length;i++){
-            if(this.form.dynamicItem[i].content==""){
+          for (let i = 0; i < this.form.dynamicItem.length; i++) {
+            if (this.form.dynamicItem[i].content == "") {
               setTimeout(() => {
                 this.$message({
                   type: "error",
@@ -362,13 +355,13 @@ export default {
               flag = false;
               break;
             }
-            if(this.form.dynamicItem[i].isCorrect==true){
+            if (this.form.dynamicItem[i].isCorrect == true) {
               rightFlag = true;
-            }else{
+            } else {
               this.form.dynamicItem[i].isCorrect = false;
             }
           }
-          if(!rightFlag){
+          if (!rightFlag) {
             setTimeout(() => {
               this.$message({
                 type: "error",
@@ -444,8 +437,8 @@ export default {
         type: "post",
         url: that.baseUrl + "/article/postArticle", //需要获取的页面内容
         async: true, //异步
-        data:  JSON.stringify(submitForm),
-        contentType:"application/json",
+        data: JSON.stringify(submitForm),
+        contentType: "application/json",
         success: function (data) {
           console.log(typeof data, data);
           that.$message({

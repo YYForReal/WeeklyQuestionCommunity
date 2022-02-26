@@ -54,7 +54,7 @@ import ArticleButtonBox from "./ArticleButtonBox.vue";
 import WaitingBox from "@/components/WaitingBox/WaitingBox2.vue";
 
 
-import { marked } from "marked";
+// import { marked } from "marked";
 export default {
   data() {
     return {
@@ -199,10 +199,6 @@ export default {
 .time-release {
   color: grey;
   font-size: small;
-}
-
-.read-all {
-  color: blue;
 }
 
 .article-card {

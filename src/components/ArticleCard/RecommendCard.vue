@@ -35,7 +35,7 @@
 </template>
 <script>
 import ArticleButtonBox from "./ArticleButtonBox.vue";
-import { marked } from "marked";
+// import { marked } from "marked";
 export default {
   data() {
     return {

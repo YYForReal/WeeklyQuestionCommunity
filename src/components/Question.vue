@@ -67,9 +67,9 @@
   import EditAnswer from '@/components/edit/EditAnswer.vue'
   import SmallUserBox from '@/components/user/SmallUserBox.vue'
   import ChoiceCard from '@/components/ChoiceCard.vue'
-  import {
-    marked
-  } from 'marked'
+  // import {
+  //   marked
+  // } from 'marked'
   export default {
     data() {
       return {

@@ -11,6 +11,7 @@ require('./assets/css/video.css')
 require('./assets/css/common.css')
 require('./assets/css/answers.css')
 import '@/assets/css/bulma.min.css';
+import "mavon-editor/dist/css/index.css";
 
 import md5 from 'md5';
 import jwt from 'jsonwebtoken';

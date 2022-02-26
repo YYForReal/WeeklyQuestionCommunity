@@ -45,9 +45,9 @@
 <script>
   import ReviewsBox from '@/components/review/ReviewsBox.vue'
   import SmallUserBox from '@/components/user/SmallUserBox.vue'
-  import {
-    marked
-  } from 'marked'
+  // import {
+  //   marked
+  // } from 'marked'
 
   export default {
     data() {
