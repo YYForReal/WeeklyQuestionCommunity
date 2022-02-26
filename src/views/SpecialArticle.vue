@@ -10,7 +10,7 @@
     <div v-else-if="article.type == 1">
       <Question :article="article"></Question>
     </div>
-
+    
     <!-- 判断是文章 -->
     <div v-else-if="article.type == 2">
       <!-- <Question :article="article"></Question> -->
@@ -91,7 +91,7 @@ export default {
     // 获取文章或者问题的信息
     $.ajax({
       type: "get",
-      url: that.baseUrl + "/article/getArticleFromId",
+      url: this.baseUrl + "/article/getArticleFromId",
       async: true,
       data: {
         articleId: that.articleId,
@@ -121,7 +121,7 @@ export default {
     //获取对应的回答
     $.ajax({
       type: "get",
-      url: that.baseUrl + "/answer/getAnswers",
+      url: this.baseUrl + "/answer/getAnswers",
       async: true,
       data: {
         articleId: that.articleId,
@@ -138,7 +138,7 @@ export default {
       deep: true,
     },
     answers: {
-      handler(newValue) {},
+      handler() {},
       deep: true,
     },
   },

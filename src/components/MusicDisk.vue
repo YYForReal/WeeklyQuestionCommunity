@@ -16,10 +16,9 @@ export default {
   mounted(){
       try{
         this.$refs.audioRef.oncanplay = ()=>{
-          this.$refs.audioRef.volume = 0.8;
+          this.$refs.audioRef.volume = 0.5;
         }
         console.log(this.$refs);
-
       }catch(err){
         console.log("set audio volume error",err);
       }

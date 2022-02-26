@@ -48,171 +48,166 @@
   </div>
 </template>
 <script>
-  import ArticleButtonBox from './ArticleButtonBox.vue'
-  import WaitingBox from '@/components/WaitingBox/WaitingBox3.vue'
+import ArticleButtonBox from "./ArticleButtonBox.vue";
+import WaitingBox from "@/components/WaitingBox/WaitingBox3.vue";
 
-  import {marked} from 'marked'
-  export default {
-    data() {
-      return {
-        articles: [],
-        errorType: false,
-        showArticles:[],
-        showNumber:10,
-      }
-    },
-    components: {
-      ArticleButtonBox,
-      WaitingBox
-    },
-    mounted() {
-      let that = this;
-      $.ajax({
-        type: 'get',
-        url: that.baseUrl + '/article/getHot',
-        async: true,
-        data: {},
-        success: function (data) {
-          that.articles = data;
-          console.log("获取热榜模块数据成功，", typeof data, data);
-          //转换markdown成正常文本
-          for (let i = 0; i < that.articles.length; i++) {
-            that.articles[i].content = that.filterImgSource(marked.parse(that.filterDot(that.articles[i].content)));
-          }
-          if(that.articles.length<10){
-            that.setShowArticles(that.articles.length);
-          }else{
-            that.setShowArticles(10);
-          }
-        },
-        error: function (data) {
-          that.articles = [];
-          console.log("获取热榜模块数据失败，", typeof data, data);
-          that.errorType = true;
+// import { marked } from "marked";
+export default {
+  data() {
+    return {
+      articles: [],
+      errorType: false,
+      showArticles: [],
+      showNumber: 10,
+    };
+  },
+  components: {
+    ArticleButtonBox,
+    WaitingBox,
+  },
+  mounted() {
+    let that = this;
+    $.ajax({
+      type: "get",
+      url: that.baseUrl + "/article/getHot",
+      async: true,
+      data: {},
+      success: function (data) {
+        that.articles = data;
+        console.log("获取热榜模块数据成功，", typeof data, data);
+        //转换markdown成正常文本
+        for (let i = 0; i < that.articles.length; i++) {
+          that.articles[i].content = that.filterImgSource(
+            marked.parse(that.filterDot(that.articles[i].content))
+          );
         }
-      })
-    },
-    methods: {
-      filterImgSource(str) {
-        var reTag = /<img(?:.|\s)*?>/g;
-        return str.replace(reTag, "");
-      },
-      // 卡片里面不能有markdown的标题字符
-      filterDot(str) {
-        var pattern = new RegExp("#")
-        var rs = "";
-        for (var i = 0; i < str.length; i++) {
-          rs = rs + str.substr(i, 1).replace(pattern, '');
+        if (that.articles.length < 10) {
+          that.setShowArticles(that.articles.length);
+        } else {
+          that.setShowArticles(10);
         }
-        return rs;
       },
-      setShowArticles(num){
-        this.showArticles = this.articles.slice(0,num);
-        this.showNumber = num;
+      error: function (data) {
+        that.articles = [];
+        console.log("获取热榜模块数据失败，", typeof data, data);
+        that.errorType = true;
       },
-      showMore(){
-        this.showNumber = this.showNumber + 10 > this.articles.length ? this.articles.length : this.showNumber + 10 ;
-        this.setShowArticles(this.showNumber);
-      }
+    });
+  },
+  methods: {
+    filterImgSource(str) {
+      var reTag = /<img(?:.|\s)*?>/g;
+      return str.replace(reTag, "");
     },
-  }
-
+    // 卡片里面不能有markdown的标题字符
+    filterDot(str) {
+      var pattern = new RegExp("#");
+      var rs = "";
+      for (var i = 0; i < str.length; i++) {
+        rs = rs + str.substr(i, 1).replace(pattern, "");
+      }
+      return rs;
+    },
+    setShowArticles(num) {
+      this.showArticles = this.articles.slice(0, num);
+      this.showNumber = num;
+    },
+    showMore() {
+      this.showNumber =
+        this.showNumber + 10 > this.articles.length
+          ? this.articles.length
+          : this.showNumber + 10;
+      this.setShowArticles(this.showNumber);
+    },
+  },
+};
 </script>
 <style scoped>
+.article-card {
+  width: 98%;
+  padding-left: 2px;
+}
 
-  .read-all {
-    color: blue;
-  }
+.article-card .article-rank-box {
+  float: left;
+  width: 10%;
+  max-width: 50px;
+  height: 50px;
+  font-size: larger;
+  background-color: fff;
+  text-align: center;
+}
 
-  .article-card {
-    width: 98%;
-    padding-left: 2px;
-  }
+.article-rank {
+  margin: 0 auto;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 50px;
+  color: black;
+}
 
-  .article-card .article-rank-box {
-    float: left;
-    width: 10%;
-    max-width: 50px;
-    height: 50px;
-    font-size: larger;
-    background-color: fff;
-    text-align: center;
-  }
+.article-card .article-content {
+  width: 65%;
+  height: 150px;
+  text-align: left;
 
-  .article-rank {
-    margin: 0 auto;
-    font-size: 30px;
-    font-weight: bold;
-    line-height: 50px;
-    color: black;
-  }
+  margin-top: 10px;
+  float: left;
+  /* background-color: red; */
+}
 
+.article-card .article-content-without-img {
+  width: 89%;
+}
 
-  .article-card .article-content {
-    width: 65%;
-    height: 150px;
-    text-align: left;
+.article-card .article-content .article-content-main {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
 
-    margin-top: 10px;
-    float: left;
-    /* background-color: red; */
-  }
+.content-title {
+  font-size: larger;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
 
-  .article-card .article-content-without-img {
-    width: 89%;
-  }
+.img-box {
+  width: 25%;
+  min-width: 100px;
+  height: 130px;
+  margin-top: 20px;
+  margin-right: 20px;
+  /* background-color: yellow; */
+}
 
-  .article-card .article-content .article-content-main {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
+a {
+  text-decoration: none;
+  color: black;
+}
 
-  .content-title {
-    font-size: larger;
-    font-weight: bold;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
+.article-card-link {
+  display: inline-block;
+  color: gray;
+  margin-right: 20px;
+}
 
-  .img-box {
-    width: 25%;
-    min-width: 100px;
-    height: 130px;
-    margin-top: 20px;
-    margin-right: 20px;
-    /* background-color: yellow; */
-  }
+.article-card-link:hover {
+  color: blue;
+}
 
-
-  a {
-    text-decoration: none;
-    color: black;
-  }
-
-  .article-card-link {
-    display: inline-block;
-    color: gray;
-    margin-right: 20px;
-  }
-
-
-  .article-card-link:hover {
-    color: blue;
-  }
-
-  .article-bottom {
-    margin-top: 5px;
-    width: 50%;
-    min-width: 100px;
-    height: 30px;
-    display: block;
-    margin-bottom: 5px;
-  }
-
+.article-bottom {
+  margin-top: 5px;
+  width: 50%;
+  min-width: 100px;
+  height: 30px;
+  display: block;
+  margin-bottom: 5px;
+}
 </style>

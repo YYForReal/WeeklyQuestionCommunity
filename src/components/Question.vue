@@ -1,10 +1,10 @@
 <template lang="">
-  <div class="article-maincontainer article-card card markdown">
-    <div class="article-tag-box" v-if="article.tags">
+  <div class="article-maincontainer article-card card ">
+    <div class="article-tag-box markdown" v-if="article.tags">
       <a v-for="tag in article.tags.split(',')" style="cursor: pointer;" class="article-tag">{{tag}}</a>
     </div>
 
-    <h1 class="main-article-title"> {{article.title}}</h1>
+    <h1 class="main-article-title markdown"> {{article.title}}</h1>
 
     <div v-if="article.type&&authorInfo!=null">
       <SmallUserBox :user="authorInfo"></SmallUserBox>
@@ -14,7 +14,7 @@
     </img>
 
     <!-- 用户的文章内容 -->
-    <div class="markdown-box-content" v-html="article.content"></div>
+    <div class="markdown-box-content markdown-body" v-html="article.content"></div>
 
 
     <p>编辑于 {{article.releaseTime}}</p>
@@ -67,9 +67,9 @@
   import EditAnswer from '@/components/edit/EditAnswer.vue'
   import SmallUserBox from '@/components/user/SmallUserBox.vue'
   import ChoiceCard from '@/components/ChoiceCard.vue'
-  import {
-    marked
-  } from 'marked'
+  // import {
+  //   marked
+  // } from 'marked'
   export default {
     data() {
       return {

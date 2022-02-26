@@ -25,9 +25,9 @@
   //导入 dompurify ， 防止XSS攻击
   //a DOM-only, super-fast, uber-tolerant XSS sanitizer for HTML, SVG and MathML. 
   // import DOMPurify from 'dompurify';
-  import {
-    marked
-  } from 'marked';
+  // import {
+  //   marked
+  // } from 'marked';
 
   export default {
     data() {

@@ -11,7 +11,6 @@
             :class="{'recommend-article-content-without-img':article.img==null}">
             <div class="canTap" @click="turnToArticle(article.articleId)"  >
               <span class="black article-content-main" v-html="article.content"></span>
-              <a class="read-all float-right" @click="readAll(2)">阅读全文</a>
             </div>
             <ArticleButtonBox :article="article"></ArticleButtonBox>
           </div>
@@ -36,7 +35,7 @@
 </template>
 <script>
 import ArticleButtonBox from "./ArticleButtonBox.vue";
-import { marked } from "marked";
+// import { marked } from "marked";
 export default {
   data() {
     return {
@@ -102,10 +101,6 @@ export default {
   font-size: large;
   font-weight: bold;
   margin-bottom: 5px;
-}
-
-.read-all {
-  color: blue;
 }
 
 .article-card {

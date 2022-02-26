@@ -5,7 +5,7 @@
         <div class="time-release" v-if="article.type==1">{{article.authorName}}发表了文章 {{article.releaseTime}}</div>
         <div class="time-release" v-else-if="article.type==0">{{article.authorName}}发布了问答 {{article.releaseTime}}</div>
         <h1 class="recommend-content-title canTap" @click="TurnToArticle(article.articleId)">
-          <span class="article-type-tag iconfont icon-icon-test">{{article.type==1?'文章':'问题'}}</span>
+          <span class="article-type-tag iconfont icon-icon-test" :class="{'red':(article.type==1)}">{{typeMessage(article.type)}}</span>
           {{article.title}}
         </h1>
         <div>
@@ -17,13 +17,8 @@
                 <img loading="lazy" :src="article.img" :alt="article.title">
               </div>
               <div>
-                <span class="black" :class="{'recommend-article-content-main':!readingStatus}"
+                <span class="black recommend-article-content-main"
                   v-html="markContents[index]"></span>
-                <div>
-                  <a class="read-all float-right" @click="readingStatus=!readingStatus" v-if="readingStatus==false">
-                    阅读全文 </a>
-                  <a class="read-all float-right" @click="readingStatus=!readingStatus" v-else> 收起文章 </a>
-                </div>
               </div>
             </div>
           </div>
@@ -33,10 +28,22 @@
       </div>
       <div class="list-end">没有更多内容</div>
     </section>
-    <section v-else-if="errorType">
+    <section v-else-if="requestType==3">
       <h1 style="font-size:36px">请求文章数据失败</h1>
       <p>可能原因：<span class="red"> 服务器异常</span> 或<span class="red"> 网络异常</span>。</p>
     </section>
+    <section v-else-if="requestType==2">
+      <h1 style="font-size:36px">你是不是还没写内容呀？</h1>
+      <p>可能原因：<span class="red"> 没有积累 </span> 或<span class="red"> 没有问题 </span>。</p>
+      <p>解决方案：<span class="red"> 右上角开始发布 </span> 或<span class="red"> 下次一定 </span>。</p>  
+    </section>
+    <section v-else-if="requestType==4">
+      <NoFoundComponent :errorMessage="'需要先注册登录，才能查看自己写的文章噢~'" :errorType="'未登录'" :needLogin="true" />
+      <!-- <h1 style="font-size:36px">你是不是还没写内容呀？</h1>
+      <p>可能原因：<span class="red"> 没有积累 </span> 或<span class="red"> 没有问题 </span>。</p>
+      <p>解决方案：<span class="red"> 右上角开始发布 </span> 或<span class="red"> 下次一定 </span>。</p>   -->
+    </section>
+    
     <section v-else>
       <WaitingBox></WaitingBox>
     </section>
@@ -46,13 +53,14 @@
 import ArticleButtonBox from "./ArticleButtonBox.vue";
 import WaitingBox from "@/components/WaitingBox/WaitingBox2.vue";
 
-import { marked } from "marked";
+
+// import { marked } from "marked";
 export default {
   data() {
     return {
       authorId: 1,
-      errorType: false,
-      readingStatus: false,
+      requestType: 0,//0请求中  1 请求成功 2 没数据 3 请求失败 4 未登录
+      // readingStatus: false,
       articles: [],
       markContents: [],
     };
@@ -61,7 +69,9 @@ export default {
     try{
       this.getUserInfo();
     }catch(err){
-      this.$router.push("/login");
+      this.requestType = 4;
+      return ;
+      // this.$router.push("/login");
     }
     let that = this;
     $.ajax({
@@ -82,11 +92,14 @@ export default {
         }
         //转换时间格式
         that.translateDate();
+        if(that.articles.length==0){
+          that.requestType = 2;
+        }
       },
       error: function (data) {
         that.articles = [];
         // console.log("获取关注模块数据失败，", typeof data, data);
-        that.errorType = true;
+        that.requestType = 3;
       },
     });
   },
@@ -94,6 +107,7 @@ export default {
   components: {
     ArticleButtonBox,
     WaitingBox,
+    'NoFoundComponent':()=> import("@/components/NoFoundComponent.vue")
   },
   watch: {
     articles: {
@@ -103,6 +117,20 @@ export default {
   },
 
   methods: {
+    typeMessage(articleType){
+      console.log(articleType);
+      switch(articleType){
+        case 0:{
+          return '问答';
+        }
+        case 1:{
+          return '文章';
+        }
+        case 2:{
+          return '选择'
+        }
+      }
+    },
     filterImgSource(str) {
       var reTag = /<img(?:.|\s)*?>/g;
       return str.replace(reTag, "");
@@ -187,10 +215,6 @@ export default {
   font-size: small;
 }
 
-.read-all {
-  color: blue;
-}
-
 .article-card {
   width: 95%;
   text-align: left;
@@ -251,13 +275,19 @@ export default {
 img {
   height: 120px;
 }
+.red{
+  background-color: rgba(255, 0, 0, 0.801)!important;
+}
 
 /* 文章类型的标签 */
 .article-type-tag {
   font-size: 16px;
   display: inline-block;
   /* width: 60px; */
-  background-color: rgb(170, 166, 166);
+  background-color: rgba(13, 117, 187, 0.712);
   font-weight: 400;
+  padding: 2px;
+  padding-right: 4px;
+  color: black;
 }
 </style>

@@ -24,10 +24,6 @@
         <a class="agree-button" :class="{'has-agree':isAgree}" @click="handleAgree()"> <span
             class="iconfont icon-sanjiaoxing small"></span> {{isAgree?'已':''}}赞同
           <span v-if="answer.agree!=0">{{answer.agree}}</span></a>
-
-        <a class="disagree-button" :class="{'has-agree':isDisagree}" @click="handleDisagree()">
-          <span class="iconfont icon-sanjiaoxing1 small"></span>
-        </a>
       </div>
       <a class="article-card-link iconfont icon-pinglun" v-if="reviewsNumber>0"
         @click="handleReview()">{{reviewsNumber}}条评论</a>
@@ -49,15 +45,14 @@
 <script>
   import ReviewsBox from '@/components/review/ReviewsBox.vue'
   import SmallUserBox from '@/components/user/SmallUserBox.vue'
-  import {
-    marked
-  } from 'marked'
+  // import {
+  //   marked
+  // } from 'marked'
 
   export default {
     data() {
       return {
         isAgree: false,
-        isDisagree: false,
         seeReviews: false,
         reviewsNumber: 0,
       }
@@ -81,7 +76,6 @@
       handleAgree() {
         let that = this;
         this.isAgree = !this.isAgree;
-        this.isDisagree = false;
         if (this.isAgree) {
           this.answer.agree++;
           $.ajax({
@@ -98,27 +92,6 @@
             }
           })
         } else {
-          this.answer.agree--;
-          $.ajax({
-            type: "post",
-            url: that.baseUrl + "/answer/agree",
-            async: true,
-            data: {
-              answerId: that.answer.answerId,
-              agreeNumber: -1
-            },
-            success: function (data) {
-              console.log(typeof data, data);
-              // that.article = data;
-            }
-          })
-        }
-      },
-      handleDisagree() {
-        this.isDisagree = !this.isDisagree;
-        let that = this;
-        if (this.isAgree) {
-          this.isAgree = false;
           this.answer.agree--;
           $.ajax({
             type: "post",
@@ -327,10 +300,6 @@
   .has-agree:hover {
     background-color: rgb(42, 120, 236);
     color: white;
-  }
-
-  .disagree-button {
-    cursor: pointer;
   }
 
   .agree-button {

@@ -7,22 +7,18 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "analyz": "NODE_ENV=production npm_config_report=true npm run build"
   },
   "dependencies": {
-    "axios": "^0.26.0",
-    "element-ui": "^2.15.6",
     "html-loader": "^0.5.5",
     "jsdom": "^19.0.0",
-    "jsonwebtoken": "^8.5.1",
     "less": "^3.0.0",
     "markdown-loader": "^6.0.0",
-    "marked": "^4.0.8",
     "mavon-editor": "^2.10.4",
     "md5": "^2.3.0",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1",
-    "vuejs-jwt": "^1.1.0"
+    "vue-router": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
@@ -61,7 +57,7 @@
     "vue-style-loader": "^3.1.2",
     "vue-template-compiler": "^2.5.2",
     "webpack": "^3.6.0",
-    "webpack-bundle-analyzer": "^2.9.0",
+    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0"
   },
