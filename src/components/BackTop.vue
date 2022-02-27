@@ -25,6 +25,7 @@ export default {
         if (document.documentElement.scrollTop <= delt) {
           clearInterval(timer);
           that.isAnimation = false;
+          document.documentElement.scrollTop = 0;
         }
       }, 2);
     },

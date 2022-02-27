@@ -6,11 +6,11 @@
         </div>
         <p class="description" v-html="description"></p>
         <div class="choice-area">
-            <p v-for="(choice,index) in choices" :key="index" @click="handleClickAnswer(choice)">{{(baseArr[index])}}.{{choice.content}}</p>
+            <p v-for="(choice,index) in choices" :key="index" :class="{'isSelected':myChoices.isSelected}" @click="handleClickAnswer(choice)">{{(baseArr[index])}}.{{choice.content}}</p>
         </div>
         <div class="submit-button-area">
-            <el-button type="primary" round>提交</el-button>
-            <el-button type="success" round>答案</el-button>
+            <el-button type="primary" round @click="checkAnswers()">检查</el-button>
+            <el-button type="success" round @click="seeAnswers()">答案</el-button>
         </div>
     </div>
 </template>
@@ -21,11 +21,17 @@
 export default {
     data(){
         return {
-            baseArr:['A','B','C','D','E','F','G']
+            baseArr:['A','B','C','D','E','F','G'],
+            myChoices:choices,
             // title:'问题标题',
             // description:'问题描述',
             // choices:["选项A","选项B","选项C"],
         }
+    },
+    mounted(){
+        myChoices.forEach(element => {
+            element.isSelected = false; 
+        });
     },
     props:{
         title:{
@@ -55,6 +61,12 @@ export default {
         }
     },
     methods:{
+        checkAnswers(){
+
+        },
+        seeAnswers(){
+
+        },
         handleClickAnswer(choice){
             console.log(choice);
             if(choice.isCorrect){
@@ -123,6 +135,10 @@ export default {
                 background-color: skyblue;
             }
             cursor: pointer;
+        }
+        .isSelected{
+            color:blue;
+            background-color: skyblue;
         }
     }
     .submit-button-area{

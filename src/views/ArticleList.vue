@@ -1,11 +1,11 @@
 <template>
   <div class="main-container">
-    <article>
+    <div class="article">
         <router-view></router-view>
-    </article>
-    <aside>
+    </div>
+    <div class="aside">
         <SideBar/>
-    </aside>
+    </div>
   </div>
 </template>
 <script>
@@ -21,24 +21,25 @@ export default {
   width: 100%;
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   padding-left: 10px;
   padding-right: 10px;
-  article {
+  .article {
     @media screen and (min-width:300px){
       width:100%;
     }
-    @media screen and (min-width:768px){
-      width: 75%;
+    @media screen and (min-width:1023px){
+      width: 70%;
+
     }
-    min-width: 900px;
     min-height: 900px;
     background-color: white;
   }
-  aside {
+  .aside {
     @media screen and (min-width:300px){
       width:100%;
     }
-    @media screen and (min-width:768px){
+    @media screen and (min-width:1023px){
       width: 20%;      
     }
   }

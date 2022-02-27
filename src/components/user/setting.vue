@@ -1,5 +1,5 @@
 <template>
-  <div class="container" id="page">
+  <div class="container">
     <div class="box control">
       <!-- 昵称和个性签名 -->
       <UserInfo></UserInfo>
@@ -437,4 +437,9 @@ export default {
 };
 </script>
 
+<style>
+.container{
+  margin-bottom: 20px;
+}
+</style>
 

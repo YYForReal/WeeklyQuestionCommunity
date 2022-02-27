@@ -1,24 +1,24 @@
 <template>
   <div class="personal-page">
     <el-row :gutter="5">
-      <el-col :span="10">
+      <el-col :xs="24" :sm="24" :md="10" :lg="10" :xl="10">
         <Setting />
       </el-col>
-      <el-col :span="14">
-        <FocusCard></FocusCard>
+      <el-col  :xs="24" :sm="24" :md="14" :lg="14" :xl="14">
+        <MyCard></MyCard>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
 import Setting from "@/components/user/Setting.vue";
-import FocusCard from "@/components/ArticleCard/FocusCard.vue";
+import MyCard from "@/components/ArticleCard/MyCard.vue";
 export default {
   data() {
     return {};
   },
   components: {
-    FocusCard,
+    MyCard,
     Setting,
   },
 };
