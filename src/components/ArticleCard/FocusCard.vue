@@ -279,15 +279,5 @@ img {
   background-color: rgba(255, 0, 0, 0.801)!important;
 }
 
-/* 文章类型的标签 */
-.article-type-tag {
-  font-size: 16px;
-  display: inline-block;
-  /* width: 60px; */
-  background-color: rgba(13, 117, 187, 0.712);
-  font-weight: 400;
-  padding: 2px;
-  padding-right: 4px;
-  color: black;
-}
+
 </style>
