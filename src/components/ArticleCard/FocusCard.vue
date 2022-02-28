@@ -262,6 +262,7 @@ export default {
 
 .article-card .recommend-article-content-without-img {
   width: 100%;
+  overflow: hidden;
 }
 
 .recommend-article-content-main {
