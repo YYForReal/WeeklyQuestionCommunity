@@ -9,7 +9,7 @@ export default {
   data() {
     return {
       playing: true,
-      imgSrc: "https://source.acexy.cn/view/X8X3FEM",
+      imgSrc: "https://source.acexy.cn/view/X9Fw0XQ",
       source: "http://music.163.com/song/media/outer/url?id=2081057.mp3",
     };
   },
