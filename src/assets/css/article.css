@@ -1,12 +1,22 @@
 /* 文章类型的标签 */
 .article-type-tag {
-    font-size: 16px;
-    display: inline-block;
-    /* width: 60px; */
-    background-color: rgba(0,102,255,0.8);
-    font-weight: 400;
-    padding: 2px;
-    padding-right: 5px;
-    color: white;
-    border-radius: 5px;
-  }
+  font-size: 16px;
+  display: inline-block;
+  /* width: 60px; */
+  background-color: rgba(0, 102, 255, 0.8);
+  font-weight: 400;
+  padding: 2px;
+  padding-right: 5px;
+  color: white;
+  border-radius: 5px;
+}
+/* 文章卡片的标题 */
+.article-card-title {
+  font-size: large;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.article-tag-box{
+  padding-top: 8px;
+}

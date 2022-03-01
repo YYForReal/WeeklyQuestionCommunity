@@ -5,7 +5,7 @@
         <!-- <div class="time-release" v-if="article.type==1">{{article.authorName}}发表了文章 {{article.releaseTime}}</div> -->
         <div class="time-release" >{{authorReleaseMessage(article)}}</div>
 
-        <h1 class="recommend-content-title canTap" @click="TurnToArticle(article.articleId)">
+        <h1 class="article-card-title canTap" @click="TurnToArticle(article.articleId)">
           <span class="article-type-tag iconfont icon-icon-test" :class="{'red':(article.type==1)}">{{typeMessage(article.type)}}</span>
           {{article.title}}
         </h1>
@@ -201,12 +201,6 @@ export default {
 };
 </script>
 <style lang="" scoped>
-.content-title,
-.recommend-content-title {
-  font-size: large;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
 
 .time-release {
   color: grey;
@@ -218,26 +212,6 @@ export default {
   text-align: left;
   padding-left: 20px;
   margin-bottom: 5px;
-}
-
-.article-card .article-content {
-  width: 600px;
-  height: 150px;
-  margin-top: 10px;
-  float: left;
-  /* background-color: red; */
-}
-
-.article-card .article-content-without-img {
-  width: 700px;
-}
-
-.article-card .article-content .article-content-main {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
 }
 
 .img-box {

@@ -1,12 +1,9 @@
 /*! bulma.io v0.9.3 | MIT License | github.com/jgthms/bulma */
+/* 删除所有notification , pagination以及 table 相关内容 */
 .button,
 .file-cta,
 .file-name,
 .input,
-.pagination-ellipsis,
-.pagination-link,
-.pagination-next,
-.pagination-previous,
 .select select,
 .textarea {
   -moz-appearance: none;
@@ -40,28 +37,12 @@
 .is-active.file-cta,
 .is-active.file-name,
 .is-active.input,
-.is-active.pagination-ellipsis,
-.is-active.pagination-link,
-.is-active.pagination-next,
-.is-active.pagination-previous,
 .is-active.textarea,
 .is-focused.button,
 .is-focused.file-cta,
 .is-focused.file-name,
 .is-focused.input,
-.is-focused.pagination-ellipsis,
-.is-focused.pagination-link,
-.is-focused.pagination-next,
-.is-focused.pagination-previous,
 .is-focused.textarea,
-.pagination-ellipsis:active,
-.pagination-ellipsis:focus,
-.pagination-link:active,
-.pagination-link:focus,
-.pagination-next:active,
-.pagination-next:focus,
-.pagination-previous:active,
-.pagination-previous:focus,
 .select select.is-active,
 .select select.is-focused,
 .select select:active,
@@ -75,10 +56,6 @@
 .file-cta[disabled],
 .file-name[disabled],
 .input[disabled],
-.pagination-ellipsis[disabled],
-.pagination-link[disabled],
-.pagination-next[disabled],
-.pagination-previous[disabled],
 .select fieldset[disabled] select,
 .select select[disabled],
 .textarea[disabled],
@@ -86,10 +63,6 @@ fieldset[disabled] .button,
 fieldset[disabled] .file-cta,
 fieldset[disabled] .file-name,
 fieldset[disabled] .input,
-fieldset[disabled] .pagination-ellipsis,
-fieldset[disabled] .pagination-link,
-fieldset[disabled] .pagination-next,
-fieldset[disabled] .pagination-previous,
 fieldset[disabled] .select select,
 fieldset[disabled] .textarea {
   cursor: not-allowed
@@ -99,10 +72,6 @@ fieldset[disabled] .textarea {
 .button,
 .file,
 .is-unselectable,
-.pagination-ellipsis,
-.pagination-link,
-.pagination-next,
-.pagination-previous,
 .tabs {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -135,8 +104,6 @@ fieldset[disabled] .textarea {
 .content:not(:last-child),
 .level:not(:last-child),
 .message:not(:last-child),
-.notification:not(:last-child),
-.pagination:not(:last-child),
 .progress:not(:last-child),
 .subtitle:not(:last-child),
 .tabs:not(:last-child),
@@ -2560,122 +2527,6 @@ div.icon-text {
   width: 128px
 }
 
-.notification {
-  background-color: #f5f5f5;
-  border-radius: 4px;
-  position: relative;
-  padding: 1.25rem 2.5rem 1.25rem 1.5rem
-}
-
-.notification a:not(.button):not(.dropdown-item) {
-  color: currentColor;
-  text-decoration: underline
-}
-
-.notification strong {
-  color: currentColor
-}
-
-.notification code,
-.notification pre {
-  background: #fff
-}
-
-.notification pre code {
-  background: 0 0
-}
-
-.notification>.delete {
-  right: .5rem;
-  position: absolute;
-  top: .5rem
-}
-
-.notification .content,
-.notification .subtitle,
-.notification .title {
-  color: currentColor
-}
-
-.notification.is-white {
-  background-color: #fff;
-  color: #0a0a0a
-}
-
-.notification.is-black {
-  background-color: #0a0a0a;
-  color: #fff
-}
-
-.notification.is-light {
-  background-color: #f5f5f5;
-  color: rgba(0, 0, 0, .7)
-}
-
-.notification.is-dark {
-  background-color: #363636;
-  color: #fff
-}
-
-.notification.is-primary {
-  background-color: #00d1b2;
-  color: #fff
-}
-
-.notification.is-primary.is-light {
-  background-color: #ebfffc;
-  color: #00947e
-}
-
-.notification.is-link {
-  background-color: #485fc7;
-  color: #fff
-}
-
-.notification.is-link.is-light {
-  background-color: #eff1fa;
-  color: #3850b7
-}
-
-.notification.is-info {
-  background-color: #3e8ed0;
-  color: #fff
-}
-
-.notification.is-info.is-light {
-  background-color: #eff5fb;
-  color: #296fa8
-}
-
-.notification.is-success {
-  background-color: #48c78e;
-  color: #fff
-}
-
-.notification.is-success.is-light {
-  background-color: #effaf5;
-  color: #257953
-}
-
-.notification.is-warning {
-  background-color: #ffe08a;
-  color: rgba(0, 0, 0, .7)
-}
-
-.notification.is-warning.is-light {
-  background-color: #fffaeb;
-  color: #946c00
-}
-
-.notification.is-danger {
-  background-color: #f14668;
-  color: #fff
-}
-
-.notification.is-danger.is-light {
-  background-color: #feecf0;
-  color: #cc0f35
-}
 
 .progress {
   -moz-appearance: none;
@@ -6882,192 +6733,6 @@ a.navbar-item:hover {
 
 .hero.is-fullheight-with-navbar {
   min-height: calc(100vh - 3.25rem)
-}
-
-.pagination {
-  font-size: 1rem;
-  margin: -.25rem
-}
-
-.pagination.is-small {
-  font-size: .75rem
-}
-
-.pagination.is-medium {
-  font-size: 1.25rem
-}
-
-.pagination.is-large {
-  font-size: 1.5rem
-}
-
-.pagination.is-rounded .pagination-next,
-.pagination.is-rounded .pagination-previous {
-  padding-left: 1em;
-  padding-right: 1em;
-  border-radius: 9999px
-}
-
-.pagination.is-rounded .pagination-link {
-  border-radius: 9999px
-}
-
-.pagination,
-.pagination-list {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  text-align: center
-}
-
-.pagination-ellipsis,
-.pagination-link,
-.pagination-next,
-.pagination-previous {
-  font-size: 1em;
-  justify-content: center;
-  margin: .25rem;
-  padding-left: .5em;
-  padding-right: .5em;
-  text-align: center
-}
-
-.pagination-link,
-.pagination-next,
-.pagination-previous {
-  border-color: #dbdbdb;
-  color: #363636;
-  min-width: 2.5em
-}
-
-.pagination-link:hover,
-.pagination-next:hover,
-.pagination-previous:hover {
-  border-color: #b5b5b5;
-  color: #363636
-}
-
-.pagination-link:focus,
-.pagination-next:focus,
-.pagination-previous:focus {
-  border-color: #485fc7
-}
-
-.pagination-link:active,
-.pagination-next:active,
-.pagination-previous:active {
-  box-shadow: inset 0 1px 2px rgba(10, 10, 10, .2)
-}
-
-.pagination-link[disabled],
-.pagination-next[disabled],
-.pagination-previous[disabled] {
-  background-color: #dbdbdb;
-  border-color: #dbdbdb;
-  box-shadow: none;
-  color: #7a7a7a;
-  opacity: .5
-}
-
-.pagination-next,
-.pagination-previous {
-  padding-left: .75em;
-  padding-right: .75em;
-  white-space: nowrap
-}
-
-.pagination-link.is-current {
-  background-color: #485fc7;
-  border-color: #485fc7;
-  color: #fff
-}
-
-.pagination-ellipsis {
-  color: #b5b5b5;
-  pointer-events: none
-}
-
-.pagination-list {
-  flex-wrap: wrap
-}
-
-.pagination-list li {
-  list-style: none
-}
-
-@media screen and (max-width:768px) {
-  .pagination {
-    flex-wrap: wrap
-  }
-
-  .pagination-next,
-  .pagination-previous {
-    flex-grow: 1;
-    flex-shrink: 1
-  }
-
-  .pagination-list li {
-    flex-grow: 1;
-    flex-shrink: 1
-  }
-}
-
-@media screen and (min-width:769px),
-print {
-  .pagination-list {
-    flex-grow: 1;
-    flex-shrink: 1;
-    justify-content: flex-start;
-    order: 1
-  }
-
-  .pagination-ellipsis,
-  .pagination-link,
-  .pagination-next,
-  .pagination-previous {
-    margin-bottom: 0;
-    margin-top: 0
-  }
-
-  .pagination-previous {
-    order: 2
-  }
-
-  .pagination-next {
-    order: 3
-  }
-
-  .pagination {
-    justify-content: space-between;
-    margin-bottom: 0;
-    margin-top: 0
-  }
-
-  .pagination.is-centered .pagination-previous {
-    order: 1
-  }
-
-  .pagination.is-centered .pagination-list {
-    justify-content: center;
-    order: 2
-  }
-
-  .pagination.is-centered .pagination-next {
-    order: 3
-  }
-
-  .pagination.is-right .pagination-previous {
-    order: 1
-  }
-
-  .pagination.is-right .pagination-next {
-    order: 2
-  }
-
-  .pagination.is-right .pagination-list {
-    justify-content: flex-end;
-    order: 3
-  }
 }
 
 .panel {
@@ -11761,7 +11426,6 @@ print {
   color: #0a0a0a
 }
 
-.hero.is-white a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-white strong {
   color: inherit
 }
@@ -11846,7 +11510,6 @@ print {
   color: #fff
 }
 
-.hero.is-black a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-black strong {
   color: inherit
 }
@@ -11931,7 +11594,6 @@ print {
   color: rgba(0, 0, 0, .7)
 }
 
-.hero.is-light a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-light strong {
   color: inherit
 }
@@ -12016,7 +11678,6 @@ print {
   color: #fff
 }
 
-.hero.is-dark a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-dark strong {
   color: inherit
 }
@@ -12101,7 +11762,6 @@ print {
   color: #fff
 }
 
-.hero.is-primary a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-primary strong {
   color: inherit
 }
@@ -12186,7 +11846,6 @@ print {
   color: #fff
 }
 
-.hero.is-link a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-link strong {
   color: inherit
 }
@@ -12271,7 +11930,6 @@ print {
   color: #fff
 }
 
-.hero.is-info a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-info strong {
   color: inherit
 }
@@ -12356,7 +12014,6 @@ print {
   color: #fff
 }
 
-.hero.is-success a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-success strong {
   color: inherit
 }
@@ -12441,7 +12098,6 @@ print {
   color: rgba(0, 0, 0, .7)
 }
 
-.hero.is-warning a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-warning strong {
   color: inherit
 }
@@ -12526,7 +12182,6 @@ print {
   color: #fff
 }
 
-.hero.is-danger a:not(.button):not(.dropdown-item):not(.tag):not(.pagination-link.is-current),
 .hero.is-danger strong {
   color: inherit
 }

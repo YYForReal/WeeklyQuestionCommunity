@@ -1,11 +1,6 @@
 <template lang="">
   <div class="one-answer">
     <SmallUserBox :answer="answer"></SmallUserBox>
-    <!-- 没有编辑 标签 “编辑推荐”这种 -->
-    <!-- <div class="tag-box">
-      <i class="tag" :class="{ 'tag-orange':index%2==0 , 'tag-blue':index%2!=0 }" v-for="(honor,index) in honorTags"><a>
-          {{honor}}</a></i>
-    </div> -->
 
 
     <div class="agree-info" v-if="answer.agree>0"> {{answer.agree}}人赞同了该回答</div>
@@ -180,11 +175,6 @@
     color: blue;
   }
 
-  .tag-box {
-    margin-top: 10px;
-    margin-bottom: 10px;
-
-  }
 
   .agree-info {
     margin: 3px;
@@ -277,12 +267,6 @@
     color: #e6b259 !important;
   }
 
-  .answer-img {
-    display: block;
-    margin: 5px auto;
-    width: 100%;
-    max-height: 400px;
-  }
 
 
   .ContentItem-time {

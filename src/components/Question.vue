@@ -651,13 +651,6 @@ code {
     padding-left: 20px;
   }
 
-  .img-box {
-    width: 180px;
-    height: 130px;
-    margin-top: 20px;
-    margin-right: 20px;
-    /* background-color: yellow; */
-  }
 
   .article-card-link {
     display: inline-block;

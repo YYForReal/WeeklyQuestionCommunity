@@ -4,7 +4,7 @@
       <div class="article-card" v-for="(article,index) in articles">
         <div class="time-release" v-if="article.type==1">{{article.authorName}}发表了文章 {{article.releaseTime}}</div>
         <div class="time-release" v-else-if="article.type==0">{{article.authorName}}发布了问答 {{article.releaseTime}}</div>
-        <h1 class="recommend-content-title canTap" @click="TurnToArticle(article.articleId)">
+        <h1 class="article-card-title canTap" @click="TurnToArticle(article.articleId)">
           <span class="article-type-tag iconfont icon-icon-test" :class="{'red':(article.type==1)}">{{typeMessage(article.type)}}</span>
           {{article.title}}
         </h1>
@@ -202,12 +202,6 @@ export default {
 </script>
 <style lang="" scoped>
 
-.content-title,
-.recommend-content-title {
-  font-size: large;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
 
 .time-release {
   color: grey;
@@ -221,17 +215,6 @@ export default {
   margin-bottom: 5px;
 }
 
-.article-card .article-content {
-  width: 600px;
-  height: 150px;
-  margin-top: 10px;
-  float: left;
-  /* background-color: red; */
-}
-
-.article-card .article-content-without-img {
-  width: 700px;
-}
 
 .article-card .article-content .article-content-main {
   overflow: hidden;

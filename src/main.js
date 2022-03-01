@@ -7,9 +7,7 @@ import router from './router'
 // import 'element-ui/lib/theme-chalk/index.css';
 
 require('./assets/css/iconfont.css')//图标
-require('./assets/css/video.css')
 require('./assets/css/common.css')
-require('./assets/css/answers.css')
 require('./assets/css/article.css')//文章卡片公共样式
 import '@/assets/css/bulma.min.css';
 import "mavon-editor/dist/css/index.css";

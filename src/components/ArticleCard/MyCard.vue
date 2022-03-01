@@ -5,7 +5,7 @@
         <el-button class="delete-button" type="danger" icon="el-icon-delete" @click="handleDelete()" circle></el-button>
         <el-button class="edit-button" type="primary" icon="el-icon-edit" @click="handleEdit()" circle></el-button>
         <div class="time-release"> {{article.releaseTime}}</div>
-        <h1 class="recommend-content-title canTap" @click="TurnToArticle(article.articleId)">
+        <h1 class="article-card-title canTap" @click="TurnToArticle(article.articleId)">
           <span class="article-type-tag iconfont icon-icon-test" :class="{'red':(article.type==1)}">{{typeMessage(article.type)}}</span>{{article.title}}
         </h1>
         <div>
@@ -272,12 +272,7 @@ export default {
     font-size: small;
     float: right;
   }
-  // 标题
-  .recommend-content-title {
-    font-size: large;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
+
 
   .article-content {
     @media (min-width: 300px) {
