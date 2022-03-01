@@ -2,8 +2,9 @@
   <div>
     <section v-if="articles.length>0">
       <div class="article-card" v-for="(article,index) in articles">
-        <div class="time-release" v-if="article.type==1">{{article.authorName}}发表了文章 {{article.releaseTime}}</div>
-        <div class="time-release" v-else-if="article.type==0">{{article.authorName}}发布了问答 {{article.releaseTime}}</div>
+        <!-- <div class="time-release" v-if="article.type==1">{{article.authorName}}发表了文章 {{article.releaseTime}}</div> -->
+        <div class="time-release" >{{authorReleaseMessage(article)}}</div>
+
         <h1 class="recommend-content-title canTap" @click="TurnToArticle(article.articleId)">
           <span class="article-type-tag iconfont icon-icon-test" :class="{'red':(article.type==1)}">{{typeMessage(article.type)}}</span>
           {{article.title}}
@@ -37,7 +38,6 @@
       <p>可能原因：<span class="red"> 没有积累 </span> 或<span class="red"> 没有问题 </span>。</p>
       <p>解决方案：<span class="red"> 右上角开始发布 </span> 或<span class="red"> 下次一定 </span>。</p>  
     </section>
-    
     <section v-else>
       <WaitingBox></WaitingBox>
     </section>
@@ -46,7 +46,6 @@
 <script>
 import ArticleButtonBox from "./ArticleButtonBox.vue";
 import WaitingBox from "@/components/WaitingBox/WaitingBox2.vue";
-
 
 // import { marked } from "marked";
 export default {
@@ -61,7 +60,6 @@ export default {
   },
   created() {
     let that = this;
-
     $.ajax({
       type: "get",
       url: that.baseUrl + "/article/getAll",
@@ -115,6 +113,9 @@ export default {
   },
 
   methods: {
+    authorReleaseMessage(article){
+      return article.authorName + "发布了" + this.typeMessage(article.type)  + "  " + article.releaseTime;
+    },
     typeMessage(articleType){
       console.log(articleType);
       switch(articleType){
@@ -200,7 +201,6 @@ export default {
 };
 </script>
 <style lang="" scoped>
-
 .content-title,
 .recommend-content-title {
   font-size: large;
@@ -274,9 +274,5 @@ export default {
 img {
   height: 120px;
 }
-.red{
-  background-color: rgba(255, 0, 0, 0.801)!important;
-}
-
 
 </style>

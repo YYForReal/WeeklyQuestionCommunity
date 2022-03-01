@@ -6,8 +6,7 @@
         <el-button class="edit-button" type="primary" icon="el-icon-edit" @click="handleEdit()" circle></el-button>
         <div class="time-release"> {{article.releaseTime}}</div>
         <h1 class="recommend-content-title canTap" @click="TurnToArticle(article.articleId)">
-          <span class="article-type-tag iconfont icon-icon-test" :class="{'red':(article.type==1)}">{{typeMessage(article.type)}}</span>
-          {{article.title}}
+          <span class="article-type-tag iconfont icon-icon-test" :class="{'red':(article.type==1)}">{{typeMessage(article.type)}}</span>{{article.title}}
         </h1>
         <div>
           <div class="recommend-article-content canTap"
@@ -147,9 +146,7 @@ export default {
       }
       return rs;
     },
-    handleEdit(){
-      
-    },
+    handleEdit() {},
     handleDelete() {
       this.$confirm("此操作将永久删除该文章, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -246,9 +243,9 @@ export default {
       transform: rotate(0deg);
       top: 15px;
     }
-    .edit-button{
-      transform:rotate(0deg);
-      right:1px;
+    .edit-button {
+      transform: rotate(0deg);
+      right: 1px;
     }
   }
   //删除按钮
@@ -263,7 +260,7 @@ export default {
   //编辑按钮
   .edit-button {
     position: absolute;
-    top:60px;
+    top: 60px;
     right: -50px;
     z-index: 999;
     transition: all 0.5s;
@@ -283,11 +280,11 @@ export default {
   }
 
   .article-content {
-    @media (min-width:300px){
-      width:100%;
+    @media (min-width: 300px) {
+      width: 100%;
     }
-    
-    @media (min-width:768px){
+
+    @media (min-width: 768px) {
       width: 600px;
     }
     height: 150px;
@@ -332,9 +329,5 @@ export default {
   .recommend-article-content-without-img {
     width: 100%;
   }
-}
-
-.red {
-  background-color: rgba(255, 0, 0, 0.801) !important;
 }
 </style>

@@ -9,10 +9,10 @@
       </div>
       <div class="navbar-menu">
         <div class="navbar-start">
-          <router-link to="/ArticleList/FocusCard" class="navbar-item">我的</router-link>
-          <router-link to="/ArticleList/recommend" class="navbar-item">最新</router-link>
+          <router-link to="/articleList/FocusCard" class="navbar-item">我的</router-link>
+          <router-link to="/articleList/recommend" class="navbar-item">最新</router-link>
 
-          <router-link to="/ArticleList/HotCard" class="navbar-item">热榜</router-link>
+          <router-link to="/articleList/HotCard" class="navbar-item">热榜</router-link>
           <router-link to="/VideoBox" class="navbar-item">视频</router-link>
 
           <div class="navbar-item">
@@ -34,8 +34,7 @@
               type="button"
               class="mybtn button is-rounded nav-line"
               @click="search"
-            >
-              搜索
+            >搜索
             </button>
           </div>
         </div>
@@ -48,17 +47,17 @@
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
                 <router-link to="/EditArticle/1">
-                  <p class="dropdown-item"><i class="iconfont icon-yongyan"></i>写文章</p>
+                  <p class="dropdown-item"> <i class="iconfont icon-yongyan"></i> 写文章</p>
                 </router-link>
               </el-dropdown-item>
               <el-dropdown-item>
                 <router-link to="/EditArticle/0">
-                  <p class="dropdown-item "><i class="iconfont icon-wenti"></i>发问答</p>
+                  <p class="dropdown-item "> <i class="iconfont icon-wenti"></i> 发问答</p>
                 </router-link>
               </el-dropdown-item>
               <el-dropdown-item>
                 <router-link to="/EditArticle/2">
-                  <p class="dropdown-item "><i class="iconfont icon-xuanzeti"></i>设选择</p>
+                  <p class="dropdown-item "> <i class="iconfont icon-xuanzeti"></i> 设选择</p>
                 </router-link>
               </el-dropdown-item>
             </el-dropdown-menu>

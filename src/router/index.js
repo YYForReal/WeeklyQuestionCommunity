@@ -36,13 +36,13 @@ const router = new VueRouter({
       path: '/',
       name: 'Main',
       component: Main,
-      redirect:'/ArticleList',//重定向
+      redirect:'/articleList',//重定向
       children: [
         {
-          path:'/ArticleList',
+          path:'/articleList',
           name:'ArticleList',
           component:ArticleList,
-          redirect:'/ArticleList/recommend',
+          redirect:'/articleList/recommend',
           children:[
             {
               path: 'FocusCard',

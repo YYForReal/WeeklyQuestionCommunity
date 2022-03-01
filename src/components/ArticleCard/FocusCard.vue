@@ -103,7 +103,6 @@ export default {
       },
     });
   },
-
   components: {
     ArticleButtonBox,
     WaitingBox,
@@ -275,9 +274,6 @@ export default {
 
 img {
   height: 120px;
-}
-.red{
-  background-color: rgba(255, 0, 0, 0.801)!important;
 }
 
 
