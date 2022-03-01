@@ -42,7 +42,7 @@ const router = new VueRouter({
           path:'/ArticleList',
           name:'ArticleList',
           component:ArticleList,
-          redirect:'/ArticleList/RecommendCard',
+          redirect:'/ArticleList/recommend',
           children:[
             {
               path: 'FocusCard',
@@ -50,7 +50,7 @@ const router = new VueRouter({
               component: FocusCard,
             },
             {
-              path: 'RecommendCard',
+              path: 'recommend',
               name: 'RecommendCard',
               component: RecommendCard
             },

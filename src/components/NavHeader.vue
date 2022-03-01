@@ -10,9 +10,8 @@
       <div class="navbar-menu">
         <div class="navbar-start">
           <router-link to="/ArticleList/FocusCard" class="navbar-item">我的</router-link>
-          <router-link to="/ArticleList/RecommendCard" class="navbar-item"
-            >推荐</router-link
-          >
+          <router-link to="/ArticleList/recommend" class="navbar-item">最新</router-link>
+
           <router-link to="/ArticleList/HotCard" class="navbar-item">热榜</router-link>
           <router-link to="/VideoBox" class="navbar-item">视频</router-link>
 
