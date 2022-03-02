@@ -26,93 +26,105 @@
   </div>
 </template>
 <script>
-
-  export default {
-    data() {
-      return {
-        isHover: false,
-        isAgree: false,
-      }
+export default {
+  data() {
+    return {
+      isHover: false,
+      isAgree: false,
+    };
+  },
+  props: {
+    review: {
+      type: Object,
+      required: true,
     },
-    props: {
-      review: {
-        type: Object,
-        required: true
-      }
-    },
-    methods: {
-      handleAgree() {
-        let that = this;
-        this.isAgree = !this.isAgree;
-        let agreeNumber = (this.isAgree + 0) * 2 - 1;
-        this.review.agree += agreeNumber;
-        $.ajax({
-          type: 'post',
-          url: that.baseUrl + '/review/agree',
-          data: {
-            reviewId: that.review.reviewId,
-            agreeNumber
-          },
-          success: function (data) {
-            console.log(typeof data, data);
-
-          },
-        })
-      },
-      translateDate() {
-        let d = new Date(this.review.releaseTime);
-        d = d.getTime() + d.getTimezoneOffset()*60*1000; // - 480分钟
-        d = new Date(d);
-        let resDate = d.getFullYear() + '-' + this.p((d.getMonth() + 1)) + '-' + this.p(d.getDate())
-        console.log(resDate);
-        this.review.releaseTime = resDate;
-      },
-      p(s) {
-        return s < 10 ? '0' + s : s
-      }
-    },
-    mounted() {
-      this.translateDate();
-    },
-    watch: {
-      review: {
-        handler(newValue) {
-          this.translateDate();
+  },
+  methods: {
+    handleAgree() {
+      let that = this;
+      this.isAgree = !this.isAgree;
+      let agreeNumber = (this.isAgree + 0) * 2 - 1;
+      this.review.agree += agreeNumber;
+      $.ajax({
+        type: "post",
+        url: that.baseUrl + "/review/agree",
+        data: {
+          reviewId: that.review.reviewId,
+          agreeNumber,
         },
-        deep: true,
-      }
-    }
-  }
-
+        success: function (data) {
+          console.log(typeof data, data);
+        },
+      });
+    },
+    translateDate() {
+      let d = new Date(this.review.releaseTime);
+      d = d.getTime() + d.getTimezoneOffset() * 60 * 1000; // - 480分钟
+      d = new Date(d);
+      let resDate =
+        d.getFullYear() +
+        "-" +
+        this.p(d.getMonth() + 1) +
+        "-" +
+        this.p(d.getDate());
+      console.log(resDate);
+      this.review.releaseTime = resDate;
+    },
+    p(s) {
+      return s < 10 ? "0" + s : s;
+    },
+  },
+  mounted() {
+    this.translateDate();
+  },
+  watch: {
+    review: {
+      handler(newValue) {
+        this.translateDate();
+      },
+      deep: true,
+    },
+  },
+};
 </script>
 <style lang="" scoped>
-  .user-info .user-img {
-    height: 40px;
-    width: 40px;
-  }
+.user-info {
+  width: 100%;
+}
+.user-info .user-img {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+}
 
-  .user-img img {
-    height: 100%;
-    width: 100%;
-  }
+.user-img img {
+  height: 100%;
+  width: 100%;
+}
 
-  .answers-bottom {
-    margin-top: 5px;
-  }
+.one-answer .user-info .user-name {
+  display: inline-block;
+  top: -3px;
+  padding: 0;
+  margin: 0;
+}
 
-  .article-card-link {
-    margin-left: 15px;
-    margin-right: 15px;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 1s;
-  }
+.answers-bottom {
+  margin-top: 5px;
+}
 
-  .hover-none{
-    opacity: 0;
-  }
-  .hover-dislay{
-    opacity: 1;
-  }
+.article-card-link {
+  margin-left: 15px;
+  margin-right: 15px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 1s;
+}
 
+.hover-none {
+  opacity: 0;
+}
+.hover-dislay {
+  opacity: 1;
+}
 </style>

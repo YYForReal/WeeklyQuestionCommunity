@@ -7,7 +7,7 @@
 
     <div class="one-answer-content" v-html="answer.content"></div>
 
-    <div class="ContentItem-time">
+    <div class="contentItem-time">
       <a>
         <span v-if="answer.updateTime!= answer.releaseTime">发布于 {{answer.releaseTime}}</span>
         <span v-else>更新于 {{answer.updateTime}}</span>
@@ -249,27 +249,8 @@
     margin: 0;
   }
 
-  /* tag */
-  .tag {
-    border-radius: 5px;
-    padding-left: 3px;
-    padding-right: 3px;
-    font-weight: bold;
-  }
 
-  .tag-blue {
-    background-color: #F2F3FB !important;
-    color: #828FDD !important;
-  }
-
-  .tag-orange {
-    background-color: #FAF8F3 !important;
-    color: #e6b259 !important;
-  }
-
-
-
-  .ContentItem-time {
+  .contentItem-time {
     font-size: 14px;
     margin-top: 5px;
     margin-bottom: 5px;
