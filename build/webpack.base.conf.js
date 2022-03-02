@@ -133,6 +133,7 @@ module.exports = {
     'axios': 'axios',
     'dompurify':'DomPurify',
     'marked':'marked',
+    'mavon-editor':'MavonEditor',
   },
   // plugins: [ //这个不添加allChunks参数的话，不会抽离chunk的css
   //   new ExtractTextPlugin("style.css")
