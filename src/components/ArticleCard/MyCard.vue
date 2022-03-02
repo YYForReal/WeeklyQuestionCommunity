@@ -3,7 +3,7 @@
     <section v-if="articles.length>0">
       <div class="article-card" v-for="(article,index) in articles">
         <el-button class="delete-button" type="danger" icon="el-icon-delete" @click="handleDelete()" circle></el-button>
-        <el-button class="edit-button" type="primary" icon="el-icon-edit" @click="handleEdit()" circle></el-button>
+        <el-button class="edit-button" type="primary" icon="el-icon-edit" @click="handleEdit(article)" circle></el-button>
         <div class="time-release"> {{article.releaseTime}}</div>
         <h1 class="article-card-title canTap" @click="TurnToArticle(article.articleId)">
           <span class="article-type-tag iconfont icon-icon-test" :class="{'red':(article.type==1)}">{{typeMessage(article.type)}}</span>{{article.title}}
@@ -146,7 +146,12 @@ export default {
       }
       return rs;
     },
-    handleEdit() {},
+    handleEdit(article) {
+      this.$router.push({
+        name: "EditArticle",
+        params: { type: 1, defaultArticle: article },
+      });
+    },
     handleDelete() {
       this.$confirm("此操作将永久删除该文章, 是否继续?", "提示", {
         confirmButtonText: "确定",
@@ -272,7 +277,6 @@ export default {
     font-size: small;
     float: right;
   }
-
 
   .article-content {
     @media (min-width: 300px) {

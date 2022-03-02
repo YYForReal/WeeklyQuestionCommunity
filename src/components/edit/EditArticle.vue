@@ -108,6 +108,7 @@ export default {
       dialogFormVisible: false,
       dialogVisible: false,
       form: {
+        articleId:"",
         authorId: "",
         title: "",
         content: ``,
@@ -161,6 +162,10 @@ export default {
     type: {
       default: 1,
     },
+    defaultArticle:{
+      type: Object,
+      default:null
+    }
   },
   mounted() {
     if (this.type < 0 && this.type > 2) {
@@ -176,6 +181,8 @@ export default {
     } else {
       this.user = JSON.parse(window.localStorage.getItem("user"));
       this.authorId = this.user.userId;
+      this.form.authorId = this.authorId;
+
     }
     if (this.type == 0) {
       this.typeMessage = "问题";
@@ -183,6 +190,17 @@ export default {
       this.typeMessage = "文章";
     } else if (this.type == 2) {
       this.typeMessage = "选择题";
+    }
+    if(this.defaultArticle){
+      console.log("this.defaultArticle:",this.defaultArticle);
+      this.form.title = this.defaultArticle.title;
+      this.form.content = this.defaultArticle.content;
+      this.form.type = this.defaultArticle.type;
+      this.form.tags = this.defaultArticle.tags;
+      this.form.img = this.defaultArticle.img;
+      if(this.defaultArticle.dynamicItem){
+        this.form.dynamicItem = JSON.parse(JSON.stringify(this.defaultArticle.dynamicItem));
+      }
     }
   },
   watch: {
