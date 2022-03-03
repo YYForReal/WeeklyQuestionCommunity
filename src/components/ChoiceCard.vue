@@ -1,151 +1,202 @@
 <template>
-    <div class="choice-card">
-        <div class="title-box">
-            <span class="time">{{time}}</span>
-            <h1 class="title">{{title}}</h1>
-        </div>
-        <p class="description" v-html="description"></p>
-        <div class="choice-area">
-            <p v-for="(choice,index) in choices" :key="index" :class="{'isSelected':myChoices.isSelected}" @click="handleClickAnswer(choice)">{{(baseArr[index])}}.{{choice.content}}</p>
-        </div>
-        <div class="submit-button-area">
-            <el-button type="primary" round @click="checkAnswers()">检查</el-button>
-            <el-button type="success" round @click="seeAnswers()">答案</el-button>
-        </div>
+  <div class="choice-card">
+    <div class="title-box">
+      <span class="time">{{ time }}</span>
+      <h1 class="title">{{ title }}</h1>
     </div>
+    <p class="description" v-html="description"></p>
+    <div class="choice-area">
+      <p
+        v-for="(choice, index) in choices"
+        :key="index"
+        :class="{
+          isSelected: choice.isSelected,
+          showAnswer: choice.isCorrect && showAnswer,
+        }"
+        @click="handleClickAnswer(choice)"
+      >
+        {{ baseArr[index] }}.{{ choice.content }}
+      </p>
+    </div>
+    <div class="submit-button-area">
+      <el-button type="primary" round @click="checkAnswers()">检查</el-button>
+      <el-button type="success" round @click="seeAnswers()">答案</el-button>
+    </div>
+  </div>
 </template>
 <script>
-
 export default {
-    data(){
-        return {
-            baseArr:['A','B','C','D','E','F','G'],
-            myChoices:choices,
-            // title:'问题标题',
-            // description:'问题描述',
-            // choices:["选项A","选项B","选项C"],
+  data() {
+    return {
+      baseArr: ["A", "B", "C", "D", "E", "F", "G"],
+      showAnswer: false,
+      // title:'问题标题',
+      // description:'问题描述',
+      // choices:["选项A","选项B","选项C"],
+    };
+  },
+  mounted() {},
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    choices: {
+      type: Array,
+      required: true,
+    },
+    time: {
+      type: String,
+      required: true,
+    },
+  },
+
+  computed: {
+    description: function () {
+      //   console.log(this.content);
+      //   console.log(marked.parse(this.content));
+      return marked.parse(this.content);
+    },
+  },
+  methods: {
+    checkAnswers() {
+      console.log(this.choices);
+      //匹配所有Selected 与 答案
+      for (let choice of this.choices) {
+        if (choice.isSelected != choice.isCorrect) {
+          this.$message({
+            type: "error",
+            message: "答错啦",
+          });
+          return false;
         }
+      }
+      this.$message({
+        type: "success",
+        message: "答对啦",
+      });
+      return true;
     },
-    mounted(){
-        myChoices.forEach(element => {
-            element.isSelected = false; 
-        });
+    seeAnswers() {
+      if (this.showAnswer == false) {
+        this.showAnswer = true;
+        setTimeout(() => {
+          this.showAnswer = false;
+        }, 1000);
+      }
     },
-    props:{
-        title:{
-            type:String,
-            required:true,
-        },
-        content:{
-            type:String,
-            required:true,
-        },
-        choices:{
-            type:Array,
-            required:true,
-        },
-        time:{
-            type:String,
-            required:true,
-        },
-
+    handleClickAnswer(choice) {
+      //   console.log(choice);
+      choice.isSelected = !choice.isSelected;
+      //   if (choice.isCorrect) {
+      //   } else {
+      //   }
     },
-
-    computed:{
-        description:function(){
-            console.log(this.content);
-            console.log( marked.parse(this.content));
-            return marked.parse(this.content);
-        }
+  },
+  //  在watch中获取props的值，防止因为延时而无法在mounted中获取的情况。
+  watch: {
+    choices: {
+      handler(newVal) {
+        this.myChoices = newVal;
+      },
+      deep: true,
     },
-    methods:{
-        checkAnswers(){
-
-        },
-        seeAnswers(){
-
-        },
-        handleClickAnswer(choice){
-            console.log(choice);
-            if(choice.isCorrect){
-                this.$message({
-                    type:'success',
-                    message:'答对啦',
-                })
-            }else{
-                this.$message({
-                    type:'error',
-                    message:'答错啦',
-                })
-            }
-        }
-    }
-}
+  },
+};
 </script>
 <style scoped lang="less">
-.choice-card{
-    @media screen and (min-width:300px) {
-        width:80vw;
+.choice-card {
+  @media screen and (min-width: 300px) {
+    width: 80vw;
+  }
+  @media screen and (min-width: 768px) {
+    width: 40vw;
+  }
+  box-sizing: border-box;
+  border: 1px dotted dodgerblue;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px 2px grey;
+  margin: 5px auto;
+  padding: 5px;
+  .title-box {
+    position: relative;
+    .title {
+      font-size: 2rem;
+      text-align: center;
     }
-    @media screen and (min-width:768px) {
-        width: 40vw;    
+    .time {
+      position: absolute;
+      right: 0;
+      opacity: 0.8;
     }
-    box-sizing: border-box;
-    border: 1px dotted dodgerblue;
-    border-radius: 10px;
-    box-shadow: 5px 5px 10px 2px grey;
-    margin:5px auto;
-    padding: 5px;
-    .title-box{
-        position: relative;
-        .title{
-            font-size: 2rem;
-            text-align: center;
-        }   
-        .time{
-            position: absolute;
-            right:0;
-            opacity: 0.8;
-        }
+  }
+  .description {
+    color: brown;
+    letter-spacing: 0.3ch;
+    text-indent: 2rem;
+    text-align: justify;
+  }
+  .choice-area {
+    width: 100%;
+    opacity: 0.9;
+    margin-top: 10px;
+    p {
+      line-height: 2rem;
+      margin: 15px auto;
+      padding-left: 8px;
+      padding-right: 8px;
+      background-color: #e5ff4f;
+      border: 1px solid blue;
+      border-radius: 5px;
 
+      &:hover {
+        color: blue;
+        background-color: skyblue;
+      }
+      cursor: pointer;
     }
-    .description{
-        color: brown;
-        letter-spacing: .3ch;
-        text-indent: 2rem;
-        text-align: justify;
+    p.isSelected {
+      color: blue;
+      background-color: rgb(135, 235, 135);
     }
-    .choice-area{
-        width:100%;
-        opacity: 0.9;
-        margin-top: 10px; 
-        p{
-            line-height:2rem;
-            margin: 15px auto;
-            padding-left:8px;
-            padding-right: 8px;
-            background-color: #d9ff02;
-            border:1px solid blue;
-            border-radius: 5px;
+    p.showAnswer {
+      transform-origin: top center;
+      animation:swing 1s;
+    }
+  }
+  .submit-button-area {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    .submit-button {
+      display: block;
+    }
+  }
+}
 
-            &:hover{
-                color:blue;
-                background-color: skyblue;
-            }
-            cursor: pointer;
-        }
-        .isSelected{
-            color:blue;
-            background-color: skyblue;
-        }
-    }
-    .submit-button-area{
-        display: flex;
-        width: 100%;
-        justify-content: center;
-        .submit-button{
-            display: block;
-        }
-    }
+@keyframes swing {
+  20% {
+    transform: rotate(10deg);
+  }
+
+  40% {
+    transform: rotate(-8deg);
+  }
+
+  60% {
+    transform: rotate(5deg);
+  }
+
+  80% {
+    transform: rotate(-4deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
 }
 </style>

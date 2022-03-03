@@ -97,11 +97,16 @@ export default {
         articleId: that.articleId,
       },
       success: function (data) {
-        console.log(typeof data, data);
+        console.log("getArticle: ",typeof data, data);
         if (data == "" || data == null) {
           that.errorMessage = "文章不存在";
           that.errorType = true;
         } else {
+          if(data.type==2){
+            data.choices.forEach(element => {
+               element.isSelected = false;
+            });   
+          }
           that.article = data;
           that.translateDate();
           // 记录一下最近的浏览记录
