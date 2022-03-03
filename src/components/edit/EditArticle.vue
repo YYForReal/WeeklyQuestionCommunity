@@ -99,6 +99,7 @@ import http from "@/utils/http.js";
 //  const clean = DOMPurify.sanitize(dirty);
 
 export default {
+  name:'EditArticle',
   data() {
     return {
       img_file: [],
@@ -475,7 +476,7 @@ export default {
       });
     },
     turnToArticle(id) {
-      this.$router.push("/SpecialArticle/" + id);
+      this.$router.push("/article/" + id);
     },
   },
 };

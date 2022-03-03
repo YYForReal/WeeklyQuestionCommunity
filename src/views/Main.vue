@@ -2,7 +2,9 @@
   <div class="app-body">
     <NavHeader></NavHeader>
     <main>
-      <router-view></router-view>
+      <keep-alive include="EditArticle">
+        <router-view></router-view>
+      </keep-alive>
     </main>
     <div class="clearfix"></div>
   </div>

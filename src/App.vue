@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     jumpToArticle(id) {
-      this.$router.push("/SpecialArticle/" + id);
+      this.$router.push("/article/" + id);
     },
     bindKeyboard() {
       var lastScrollY = 0;

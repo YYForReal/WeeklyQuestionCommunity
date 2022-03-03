@@ -6,7 +6,7 @@
           <h1 class="article-rank" :class="{'orange':index<3}">{{index+1}}</h1>
         </div>
         <div class="article-content" :class="{'article-content-without-img':article.img==null}">
-          <router-link :to="('/SpecialArticle/'+article.articleId)">
+          <router-link :to="('/article/'+article.articleId)">
 
             <h2 class="content-title">{{article.title}}</h2>
             <p class="black article-content-main" v-html="article.content"></p>
@@ -20,7 +20,7 @@
 
         </div>
         <div class="img-box float-right" v-if="article.img">
-          <router-link :to="('/SpecialArticle/'+article.articleId)">
+          <router-link :to="('/article/'+article.articleId)">
             <img loading="lazy" :src="article.img" :alt="article.title" :title="article.title">
           </router-link>
         </div>

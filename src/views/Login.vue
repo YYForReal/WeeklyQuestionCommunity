@@ -269,7 +269,7 @@ export default {
               console.log("创建Storage: " + localStorage.getItem("user"));
               that.sendState(true);
 
-              that.$router.push("/articleList/HotCard");
+              that.$router.push("/articleList/hotlist");
             } else {
               that.setDangerInfo(userPwdInfo);
               that.setDangerInput(loginPwd);
@@ -362,7 +362,7 @@ export default {
           localStorage.setItem("user", user);
           console.log("创建Storage: " + localStorage.getItem("user"));
           that.sendState(true);
-          that.$router.push("/articleList/HotCard");
+          that.$router.push("/articleList/hotlist");
         },
         error: function () {
           console.log("提交信息失败!");

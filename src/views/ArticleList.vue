@@ -30,7 +30,6 @@ export default {
     }
     @media screen and (min-width:1023px){
       width: 70%;
-
     }
     min-height: 900px;
     background-color: white;

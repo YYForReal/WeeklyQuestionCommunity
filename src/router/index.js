@@ -55,7 +55,7 @@ const router = new VueRouter({
               component: RecommendCard
             },
             {
-              path: 'HotCard',
+              path: 'hotlist',
               name: 'HotCard',
               component: HotCard
             },
@@ -69,7 +69,7 @@ const router = new VueRouter({
           props: true,
         },
         {
-          path: '/VideoBox',
+          path: '/video',
           name: 'VideoBox',
           component: VideoBox
         },
@@ -79,7 +79,7 @@ const router = new VueRouter({
           component: Person
         },
         {
-          path: '/SpecialArticle/:articleId',
+          path: '/article/:articleId',
           name: 'SpecialArticle',
           component: SpecialArticle,
         },

@@ -9,11 +9,10 @@
       </div>
       <div class="navbar-menu">
         <div class="navbar-start">
-          <router-link to="/articleList/FocusCard" class="navbar-item">我的</router-link>
-          <router-link to="/articleList/recommend" class="navbar-item">最新</router-link>
-
-          <router-link to="/articleList/HotCard" class="navbar-item">热榜</router-link>
-          <router-link to="/VideoBox" class="navbar-item">视频</router-link>
+          <router-link to="/articleList/FocusCard" class="navbar-item" active-class="is-active">我的</router-link>
+          <router-link to="/articleList/recommend" class="navbar-item" active-class="is-active">最新</router-link>
+          <router-link to="/articleList/hotlist" class="navbar-item" active-class="is-active">热榜</router-link>
+          <router-link to="/video" class="navbar-item" active-class="is-active">视频</router-link>
 
           <div class="navbar-item">
             <p class="control has-icons-right">
