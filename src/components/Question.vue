@@ -41,10 +41,6 @@
         <a class="agree-button" :class="{'has-agree':isAgree}" @click="handleAgree()"> <span
             class="iconfont icon-sanjiaoxing small"></span> {{isAgree?'已':''}}赞同
           <span v-if="article.agree!=0">{{article.agree}}</span></a>
-
-        <a class="disagree-button" :class="{'has-agree':isDisagree}" @click="handleDisagree()">
-          <span class="iconfont icon-sanjiaoxing1 small"></span>
-        </a>
       </div>
       <a class="article-card-link iconfont icon-pinglun" v-if="reviewsNumber>0"
         @click="handleReview()">{{reviewsNumber}}条评论</a>
@@ -74,7 +70,6 @@
     data() {
       return {
         isAgree: false,
-        isDisagree: false,
         isWrite: false,
         seeReviews: false,
         reviewsNumber: 0,
@@ -102,7 +97,7 @@
       if (this.article.type == 1) {
         $.ajax({
           type: 'get',
-          url: that.baseUrl + '/user/getUserInfo',
+          url: that.baseUrl + '/user/getchoiceUserInfo',
           data: {
             userId: that.article.authorId,
           },
@@ -127,7 +122,6 @@
         let that = this;
         let agreeNumber = 0 - ((this.isAgree + 0) * 2 - 1);
         that.isAgree = !that.isAgree;
-        that.isDisagree = false;
         that.article.agree += agreeNumber;
         $.ajax({
           type: "post",
@@ -143,26 +137,6 @@
           }
         })
 
-      },
-      handleDisagree() {
-        let that = this;
-        this.isDisagree = !this.isDisagree;
-        if (this.isAgree) {
-          this.isAgree = false;
-          this.article.agree--;
-          $.ajax({
-            type: "post",
-            url: that.baseUrl + "/article/agree",
-            async: true,
-            data: {
-              articleId: that.article.articleId,
-              agreeNumber: -1
-            },
-            success: function (data) {
-              console.log(typeof data, data);
-            }
-          })
-        }
       },
     },
     watch: {
@@ -736,9 +710,6 @@ code {
     color: white;
   }
 
-  .disagree-button {
-    cursor: pointer;
-  }
 
   .agree-button {
     padding-left: 4px;
