@@ -30,6 +30,7 @@ export default {
     return {
       baseArr: ["A", "B", "C", "D", "E", "F", "G"],
       showAnswer: false,
+      checkTimer:null,
       // title:'问题标题',
       // description:'问题描述',
       // choices:["选项A","选项B","选项C"],
@@ -64,6 +65,10 @@ export default {
   },
   methods: {
     checkAnswers() {
+      // 增加定时器 防抖
+      if(this.checkTimer){
+        return ;
+      }
       console.log(this.choices);
       //匹配所有Selected 与 答案
       for (let choice of this.choices) {
@@ -71,14 +76,25 @@ export default {
           this.$message({
             type: "error",
             message: "答错啦",
+            duration:1000,
           });
+          this.checkTimer = setTimeout(()=>{
+            clearTimeout(this.checkTimer);
+            this.checkTimer = null;
+          },1000);
           return false;
         }
       }
       this.$message({
         type: "success",
         message: "答对啦",
+        duration:1000,
       });
+      this.checkTimer = setTimeout(()=>{
+        clearTimeout(this.checkTimer);
+        this.checkTimer = null;
+      },1000);
+
       return true;
     },
     seeAnswers() {
