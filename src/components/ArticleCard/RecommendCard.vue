@@ -238,11 +238,14 @@ export default {
 }
 
 .recommend-article-content-main {
+  display: block;
+  display: -webkit-box;
+  height: 72px;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  
 }
 
 img {

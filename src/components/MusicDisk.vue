@@ -1,6 +1,6 @@
 <template>
   <div class="music-box" :class="{ rotating: playing }" @click="handleClick()">
-    <img :src="imgSrc" />
+    <img src="https://source.acexy.cn/view/X9Fw0XQ" />
     <audio ref="audioRef" :src="source" autoplay></audio>
   </div>
 </template>
@@ -9,7 +9,7 @@ export default {
   data() {
     return {
       playing: true,
-      imgSrc: "https://source.acexy.cn/view/X9Fw0XQ",
+      // imgSrc: "https://source.acexy.cn/view/X9Fw0XQ",
       source: "http://music.163.com/song/media/outer/url?id=2081057.mp3",
     };
   },
