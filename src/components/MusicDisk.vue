@@ -1,6 +1,6 @@
 <template>
   <div class="music-box" :class="{ rotating: playing }" @click="handleClick()">
-    <img src="https://source.acexy.cn/view/X9Fw0XQ" />
+    <img src="https://source.acexy.cn/view/X9Fw0XQ" onerror="this.src='https://source.acexy.cn/view/X9Fw0XQ'" />
     <audio ref="audioRef" :src="source" autoplay></audio>
   </div>
 </template>
@@ -10,6 +10,7 @@ export default {
     return {
       playing: true,
       // imgSrc: "https://source.acexy.cn/view/X9Fw0XQ",
+      // errorImage: 'this.src="' + require('https://source.acexy.cn/view/X9Fw0XQ') + '"'  ,
       source: "http://music.163.com/song/media/outer/url?id=2081057.mp3",
     };
   },

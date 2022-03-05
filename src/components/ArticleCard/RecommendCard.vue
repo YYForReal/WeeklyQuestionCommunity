@@ -1,7 +1,7 @@
 <template lang="">
   <div>
     <section v-if="articles.length>0">
-      <div class="article-card" v-for="(article,index) in articles">
+      <div class="article-card" v-for="(article,index) in articles.slice(0,endIndex)">
         <!-- <div class="time-release" v-if="article.type==1">{{article.authorName}}发表了文章 {{article.releaseTime}}</div> -->
         <div class="time-release" >{{authorReleaseMessage(article)}}</div>
 
@@ -27,7 +27,12 @@
         <ArticleButtonBox :article="article"></ArticleButtonBox>
         <hr>
       </div>
-      <div class="list-end">没有更多内容</div>
+      <div v-if="endIndex<articles.length" class="list-end">
+        <el-button @click="showMore()">
+          展示更多
+        </el-button>
+      </div>
+      <div v-else class="list-end">没有更多内容</div>
     </section>
     <section v-else-if="requestType==3">
       <h1 style="font-size:36px">请求文章数据失败</h1>
@@ -56,6 +61,7 @@ export default {
       // readingStatus: false,
       articles: [],
       markContents: [],
+      endIndex:5,
     };
   },
   created() {
@@ -113,6 +119,12 @@ export default {
   },
 
   methods: {
+    showMore() {
+      this.endIndex =
+        this.endIndex + 5 > this.articles.length
+          ? this.articles.length
+          : this.endIndex + 5;
+    },
     authorReleaseMessage(article){
       return article.authorName + "发布了" + this.typeMessage(article.type)  + "  " + article.releaseTime;
     },

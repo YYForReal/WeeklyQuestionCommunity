@@ -1,18 +1,18 @@
 <template lang="">
   <div class="special-box">
-    <!-- 判断是否问题，若是则展示回答列表 -->
+    <!-- 问题+回答列表 -->
     <div v-if="article.type == 0">
       <Question :article="article"></Question>
       <AnswersBox :answers="answers"></AnswersBox>
     </div>
 
-    <!-- 判断是文章 -->
+    <!-- 文章 -->
     <div v-else-if="article.type == 1">
       <Question :article="article"></Question>
     </div>
     
-    <!-- 判断是文章 -->
-    <div v-else-if="article.type == 2">
+    <!-- 选择题 -->
+    <div class="" v-else-if="article.type == 2">
       <!-- <Question :article="article"></Question> -->
       <ChoiceCard 
         :title="article.title" 
@@ -20,6 +20,7 @@
         :choices="article.choices"
         :time="article.releaseTime"
       ></ChoiceCard> 
+
     </div>
 
     <div v-else-if="errorType">

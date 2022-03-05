@@ -71,9 +71,18 @@ module.exports = {
       //         })
       //     }}
       // },
+
+
+
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        // loader: 'babel-loader',
+        use:{
+          loader: 'babel-loader',
+          options: {
+              presets: ['es2015']
+          }
+        },
         include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
       },
       {

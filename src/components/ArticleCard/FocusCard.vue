@@ -1,7 +1,7 @@
 <template lang="">
   <div>
     <section v-if="articles.length>0">
-      <div class="article-card" v-for="(article,index) in articles">
+      <div class="article-card" v-for="(article,index) in articles.slice(0,endIndex)">
         <div class="time-release" v-if="article.type==1">{{article.authorName}}发表了文章 {{article.releaseTime}}</div>
         <div class="time-release" v-else-if="article.type==0">{{article.authorName}}发布了问答 {{article.releaseTime}}</div>
         <h1 class="article-card-title canTap" @click="TurnToArticle(article.articleId)">
@@ -26,7 +26,12 @@
         <ArticleButtonBox :article="article"></ArticleButtonBox>
         <hr>
       </div>
-      <div class="list-end">没有更多内容</div>
+      <div v-if="endIndex<articles.length" class="list-end">
+        <el-button @click="showMore()">
+          展示更多
+        </el-button>
+      </div>
+      <div v-else class="list-end">没有更多内容</div>
     </section>
     <section v-else-if="requestType==3">
       <h1 style="font-size:36px">请求文章数据失败</h1>
@@ -63,14 +68,15 @@ export default {
       // readingStatus: false,
       articles: [],
       markContents: [],
+      endIndex: 5,
     };
   },
   mounted() {
-    try{
+    try {
       this.getUserInfo();
-    }catch(err){
+    } catch (err) {
       this.requestType = 4;
-      return ;
+      return;
       // this.$router.push("/login");
     }
     let that = this;
@@ -92,7 +98,7 @@ export default {
         }
         //转换时间格式
         that.translateDate();
-        if(that.articles.length==0){
+        if (that.articles.length == 0) {
           that.requestType = 2;
         }
       },
@@ -106,26 +112,32 @@ export default {
   components: {
     ArticleButtonBox,
     WaitingBox,
-    'NoFoundComponent':()=> import("@/components/NoFoundComponent.vue")
+    'NoFoundComponent': () => import("@/components/NoFoundComponent.vue")
   },
   watch: {
     articles: {
-      handler(newValue) {},
+      handler(newValue) { },
       deep: true,
     },
   },
 
   methods: {
-    typeMessage(articleType){
+    showMore() {
+      this.endIndex =
+        this.endIndex + 5 > this.articles.length
+          ? this.articles.length
+          : this.endIndex + 5;
+    },
+    typeMessage(articleType) {
       console.log(articleType);
-      switch(articleType){
-        case 0:{
+      switch (articleType) {
+        case 0: {
           return '问答';
         }
-        case 1:{
+        case 1: {
           return '文章';
         }
-        case 2:{
+        case 2: {
           return '选择'
         }
       }
