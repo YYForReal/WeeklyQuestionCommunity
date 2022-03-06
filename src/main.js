@@ -26,7 +26,6 @@ Vue.use(MavonEditor)
 
 var Event = new Vue();//定义一个空的Vue实例
 Vue.prototype.$E = Event;
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

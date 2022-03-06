@@ -66,6 +66,7 @@ const router = new VueRouter({
           path: '/EditArticle/:type',
           name: 'EditArticle',
           component: EditArticle,
+          meta:{'title':'问答天地--编辑页面'},
           props: true,
         },
         {
@@ -76,7 +77,8 @@ const router = new VueRouter({
         {
           path: '/person',
           name: 'Person',
-          component: Person
+          component: Person,
+          meta:{'title':'问答天地--个人主页'},
         },
         {
           path: '/article/:articleId',
@@ -98,9 +100,18 @@ const router = new VueRouter({
     }
   ]
 })
+
+
+
+
+
 // 切换路由后将滚动条移至最顶部
-router.afterEach(() => {
+router.afterEach((to) => {
   document.body.scrollTop = 0;
   document.documentElement.scrollTop = 0;
+  document.title = to.meta.title || '问答天地';
 })
+
+
+
 export default router;

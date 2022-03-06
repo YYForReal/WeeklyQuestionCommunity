@@ -99,7 +99,7 @@ import http from "@/utils/http.js";
 //  const clean = DOMPurify.sanitize(dirty);
 
 export default {
-  name:'EditArticle',
+  name: 'EditArticle',
   data() {
     return {
       img_file: [],
@@ -109,7 +109,7 @@ export default {
       dialogFormVisible: false,
       dialogVisible: false,
       form: {
-        articleId:"",
+        articleId: "",
         authorId: "",
         title: "",
         content: ``,
@@ -163,9 +163,9 @@ export default {
     type: {
       default: 1,
     },
-    defaultArticle:{
+    defaultArticle: {
       type: Object,
-      default:null
+      default: null
     }
   },
   mounted() {
@@ -173,18 +173,9 @@ export default {
       //参数错误则回退
       this.$router.back(-1);
     }
-    if (window.localStorage.getItem("user") == null) {
-      this.$message({
-        type: "warning",
-        message: "发布文章或问题需要先登录噢",
-      });
-      this.$router.push("/login");
-    } else {
-      this.user = JSON.parse(window.localStorage.getItem("user"));
-      this.authorId = this.user.userId;
-      this.form.authorId = this.authorId;
-
-    }
+    this.user = JSON.parse(window.localStorage.getItem("user"));
+    this.authorId = this.user.userId;
+    this.form.authorId = this.authorId;
     if (this.type == 0) {
       this.typeMessage = "问题";
     } else if (this.type == 1) {
@@ -192,14 +183,14 @@ export default {
     } else if (this.type == 2) {
       this.typeMessage = "选择题";
     }
-    if(this.defaultArticle){
-      console.log("this.defaultArticle:",this.defaultArticle);
+    if (this.defaultArticle) {
+      console.log("this.defaultArticle:", this.defaultArticle);
       this.form.title = this.defaultArticle.title;
       this.form.content = this.defaultArticle.content;
       this.form.type = this.defaultArticle.type;
       this.form.tags = this.defaultArticle.tags;
       this.form.img = this.defaultArticle.img;
-      if(this.defaultArticle.dynamicItem){
+      if (this.defaultArticle.dynamicItem) {
         this.form.dynamicItem = JSON.parse(JSON.stringify(this.defaultArticle.dynamicItem));
       }
     }
@@ -479,6 +470,20 @@ export default {
       this.$router.push("/article/" + id);
     },
   },
+  beforeRouteEnter(to, from, next) {//组件路由守卫
+    console.log(this);
+    if (window.localStorage.getItem("user") == null) {
+      // Vue.$message({
+      //   type: "warning",
+      //   message: "发布文章或问题需要先登录噢",
+      // });
+      next('/login');
+    }else{
+      next();
+    }
+
+  }
+
 };
 </script>
 
