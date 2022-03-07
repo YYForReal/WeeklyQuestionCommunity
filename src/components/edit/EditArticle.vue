@@ -488,6 +488,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 .post-box {
   width: 80%;
   min-width: 600px;

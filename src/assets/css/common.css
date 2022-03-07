@@ -288,3 +288,7 @@ nav ul li {
 .article-card{
   letter-spacing: 1px;
 }
+
+.markdown ul{
+  list-style: initial;
+}
