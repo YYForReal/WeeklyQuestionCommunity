@@ -8,7 +8,13 @@
   <link rel="icon" href="favicon.ico" />
   <title>问答天地</title>
 
-  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.5.3/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+  <script>
+    if (typeof Vue == 'undefined') {
+      document.write(unescape("%3Cscript src='https://unpkg.com/vue@2.6.14/dist/vue.min.js'%3E%3C/script%3E"));
+    }
+
+  </script>
   <!-- 引入样式 -->
   <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
   <!-- 引入组件库 -->
@@ -23,10 +29,30 @@
 
 <body>
   <div id="app"></div>
-  <script refer src="https://cdn.bootcdn.net/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
-  <script refer src="https://cdn.bootcdn.net/ajax/libs/axios/0.26.0/axios.min.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
-  <script refer src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.min.js"></script>
+  <script>
+    if (typeof VueRouter == 'undefined') {
+      document.write(unescape(
+        "%3Cscript src='https://cdn.bootcdn.net/ajax/libs/vue-router/3.0.1/vue-router.min.js'%3E%3C/script%3E"));
+    }
+
+  </script>
+
+  <script refer src="https://cdn.jsdelivr.net/npm/axios@0.26.0/dist/axios.min.js"></script>
+  <script refer src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script>
+    if (typeof jQuery == 'undefined') {
+      document.write(unescape(
+        "%3Cscript src='https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js'%3E%3C/script%3E"));
+    }
+    if (typeof axios == 'undefined') {
+      document.write(unescape(
+        "%3Cscript src='https://cdn.bootcdn.net/ajax/libs/axios/0.26.0/axios.min.js'%3E%3C/script%3E"));
+    }
+  </script>
+
+
+
   <script refer src="https://cdn.bootcdn.net/ajax/libs/marked/4.0.2/marked.min.js"></script>
   <script refer src="https://cdn.bootcdn.net/ajax/libs/dompurify/2.3.6/purify.min.js"></script>
   <script refer src="http://cdn.yywebsite.cn/vendor/mavon-editor/mavon-editor.js"></script>
