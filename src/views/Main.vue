@@ -27,7 +27,6 @@ export default {
     min-width: 900px;
     min-height: 900px;
     margin: 0 auto;
-    background-color: white;
   }
 }
 </style>

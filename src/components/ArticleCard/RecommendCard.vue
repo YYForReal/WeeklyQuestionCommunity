@@ -239,7 +239,7 @@ export default {
 
 .article-card .recommend-article-content {
   width: 100%;
-  height: 115px;
+  height: 100px;
   margin-top: 10px;
   /* background-color: red; */
 }
@@ -257,7 +257,6 @@ export default {
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-  
 }
 
 img {

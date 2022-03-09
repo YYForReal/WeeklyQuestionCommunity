@@ -94,7 +94,7 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: white;
   width: 100%;
+  opacity: 0.99;
 }
 </style>
