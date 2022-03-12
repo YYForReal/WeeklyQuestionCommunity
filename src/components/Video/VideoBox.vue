@@ -55,10 +55,8 @@ export default {
       // src: "https://rrcache.hs-mould.cn/qiyi/cache/ku/8e46ee3ed63391eb1bc41b68599f5c40.mp4",
       // src: "http://www.yywebsite.cn/video/jump.mp4",
       videoList: [
-        "http://www.yywebsite.cn/video/jump.mp4",
-        "./static/video/YourName.mp4",
-        "./static/video/song1.mp4",
-        "./static/video/song2.mp4",
+        "https://v1.kwaicdn.com/upic/2022/01/07/10/BMjAyMjAxMDcxMDQyMTdfMjU5NTkyMjMxNl82NDM3MTQ3NDUwNV8wXzM=_b_B241a3e7da7a12322ecbeb0425db9bfb7.mp4?pkey=AAXacIGeNXpYjMuz9i5-EvdVvQ0zlxDemVjKodmWGFRKkkV4_G0i0tiavuUwPWP8Swwhe-3vImstxTkAPM7FQvC756L-KI1ecTrCk0aay1H0u8Tky7RYim136CnTQOVx6uo&tag=1-1647084880-xpcwebdetail-0-f4oyjcqkwu-c82679f9acacbfb0&clientCacheKey=3x2aam963vvss9e_b.mp4",
+        "https://v2.kwaicdn.com/upic/2022/02/06/15/BMjAyMjAyMDYxNTE1MzlfMjE2NzgyNTMxM182Njg0MzY5MDEyN18yXzM=_b_B02fb9abc9f81fc3e8fb257d281a45f6a.mp4?pkey=AAVSxaShaD1_e3tPgLCjpwe0gd1OyqzVzY_y9ubZQ-EKPjqj_mgNeuNDew3r55krcZnp-UtAkcAF3gEy9k4ObV8CnTMZ4vyi560a5jK8h4paRIjvUrUy20AYQi8-OV-rCXU&tag=1-1647081830-xpcwebsearch-0-d8hn4yw4jf-24b279dc51fc4f46&clientCacheKey=3xeuyzhu3ci9i8k_b.mp4",
       ],
       myVideo: null,
     };
@@ -70,7 +68,6 @@ export default {
     this.myVideo.registerChangeButton(this.$refs.prevButton, this.$refs.nextButton);
     this.myVideo.registerVolumeProgress(this.$refs.volumeRange);
     this.myVideo.registerKeyBoardEvent();
-
   },
   beforeDestroy() {
     this.myVideo.clearAllListener();
