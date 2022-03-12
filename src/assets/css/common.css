@@ -97,14 +97,6 @@ code {
   background-color: #005CE6 !important;
 }
 
-.middle-video {
-  width: 800px;
-  height: 490px;
-  margin: 0 auto;
-  border-radius: 10px;
-  padding: 0;
-}
-
 /* 颜色 */
 
 .red {
@@ -129,17 +121,6 @@ h3 {
   font-size: large;
   font-weight: bold;
 }
-
-
-
-.main-body {
-  width: 1300px;
-  min-height: 1500px;
-  margin: 0 auto;
-  background-color: #fff;
-  border-radius: 3px;
-}
-
 
 .text-align{
   text-align: center;
