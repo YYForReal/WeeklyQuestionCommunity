@@ -106,6 +106,19 @@ class MyVideo {
         // 如果播放完毕，自动进入一下个视频
         this.video.onended = ()=>{this.changeNext()};
     }
+    // 注册进度条
+    registerProgress(progress){
+        this.progress = progress;
+        this.progressListener = ()=>{
+            this.progress.value = this.video.currentTime/this.video.duration*100;
+        }
+        this.progressEvent = (e)=>{
+            this.video.currentTime = this.video.duration * (e.target.value/100.0);
+        }
+        this.video.addEventListener('timeupdate',this.progressListener);
+        this.progress.addEventListener('input',this.progressEvent);
+        
+    }
     clearAllListener(){
         if(this.playButton){
             this.playButton.clearEventListener(this.playButtonListener);
@@ -121,6 +134,12 @@ class MyVideo {
         }
         if(this.volumeEventListener){
             this.volumeProgress.clearEventListener(this.volumeEventListener);
+        }
+        if(this.progressListener){
+            this.video.clearEventListener('timeupdate',this.progressListener);
+        }
+        if(this.progressEvent){
+            this.progress.clearEventListener('input',this.progressEvent);
         }
     }
 }

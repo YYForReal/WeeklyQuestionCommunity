@@ -2,6 +2,7 @@
     <div class="video-player__container">
         <video id="myVideo" class="video-player__content" preload="metadata" ref="myVideo"></video>
         <div class="video-player__footer">
+            <input ref="progress" class="video-progress_box" type="range" min="0" max="100" value="0"></input>
             <div class="video-player__volume iconfont icon-24gf-volumeHigh">
               <input type="range" id="myVolume" value="20" min="0" max="100" ref="volumeRange">
             </div>
@@ -55,8 +56,13 @@ export default {
       // src: "https://rrcache.hs-mould.cn/qiyi/cache/ku/8e46ee3ed63391eb1bc41b68599f5c40.mp4",
       // src: "http://www.yywebsite.cn/video/jump.mp4",
       videoList: [
-        "https://v1.kwaicdn.com/upic/2022/01/07/10/BMjAyMjAxMDcxMDQyMTdfMjU5NTkyMjMxNl82NDM3MTQ3NDUwNV8wXzM=_b_B241a3e7da7a12322ecbeb0425db9bfb7.mp4?pkey=AAXacIGeNXpYjMuz9i5-EvdVvQ0zlxDemVjKodmWGFRKkkV4_G0i0tiavuUwPWP8Swwhe-3vImstxTkAPM7FQvC756L-KI1ecTrCk0aay1H0u8Tky7RYim136CnTQOVx6uo&tag=1-1647084880-xpcwebdetail-0-f4oyjcqkwu-c82679f9acacbfb0&clientCacheKey=3x2aam963vvss9e_b.mp4",
-        "https://v2.kwaicdn.com/upic/2022/02/06/15/BMjAyMjAyMDYxNTE1MzlfMjE2NzgyNTMxM182Njg0MzY5MDEyN18yXzM=_b_B02fb9abc9f81fc3e8fb257d281a45f6a.mp4?pkey=AAVSxaShaD1_e3tPgLCjpwe0gd1OyqzVzY_y9ubZQ-EKPjqj_mgNeuNDew3r55krcZnp-UtAkcAF3gEy9k4ObV8CnTMZ4vyi560a5jK8h4paRIjvUrUy20AYQi8-OV-rCXU&tag=1-1647081830-xpcwebsearch-0-d8hn4yw4jf-24b279dc51fc4f46&clientCacheKey=3xeuyzhu3ci9i8k_b.mp4",
+        "https://apd-vlive.apdcdn.tc.qq.com/vipzj.video.tc.qq.com/gzc_1000102_0b53uqaaeaaaayadpsnsq5q4bjgdakuqabsa.f2.mp4?vkey=402253305177613779C104C730AE075D559BF8338F7072C4A76599A1D899C1B8CDF10D11B58239FCD6C2BE7FFB3812FEE537D6EE6315C441178008BE862999AAF0951CC05470179E9D39EFC15FFBCBAF22C3A3F09BBA19191C29F39198A989EA721B35C9B27AC140C0FDA9834957A8B75B1483A5C0BDB3D4B76A803E447EE0C903E64C71C64586D7",
+        "http://www.yywebsite.cn/video/jump.mp4",
+
+        // "https://v1.kwaicdn.com/upic/2021/12/31/22/BMjAyMTEyMzEyMjU1MjZfMjQ1ODE0MTM1Ml82MzkyNzE1MTI1NV8xXzM=_b_B69a1e6bdc6b43aa861015c0d3d3de53f.mp4?pkey=AAUxINB4Rkx6ejBhXC99x6WXadxg2PIKHQBWMusXboEihBrqoHlDZ2BFPXUcRI4cGlOh2CjG-qYuSidD1jFv5z_ij2A95I4zX3K3sD2uQomuaEvNgBnvAXEiwKJOVpiXPFM&tag=1-1647099725-xpcwebdetail-0-aqleuofjib-0c09706f78b5cef9&clientCacheKey=3x3ir7igg63wxuq_b.mp4",
+        // "https://v1.kwaicdn.com/upic/2021/12/28/20/BMjAyMTEyMjgyMDAyMjVfMjI2Nzc3NjgxNV82MzY5NzAzMDExM18xXzM=_b_B875af224751a05209ab7793889663b01.mp4?pkey=AAWwUNG9y2Os1DZxQZ9VZLvEAr4xCn6EYwauMQ9EMhp7etPGdxCOw-S9MplgWL0-lz8sN0pvDVmIw520iPccrhRIsqn3QWjvppxsXCbLySnSlgg0bM4K0RuRiyUcOCABh4o&tag=1-1647099382-xpcwebdetail-0-xldsl4ri4y-a895536f90405acc&clientCacheKey=3xdniye2me4bkze_b.mp4",
+        // "https://v2.kwaicdn.com/upic/2022/02/06/15/BMjAyMjAyMDYxNTE1MzlfMjE2NzgyNTMxM182Njg0MzY5MDEyN18yXzM=_b_B02fb9abc9f81fc3e8fb257d281a45f6a.mp4?pkey=AAVSxaShaD1_e3tPgLCjpwe0gd1OyqzVzY_y9ubZQ-EKPjqj_mgNeuNDew3r55krcZnp-UtAkcAF3gEy9k4ObV8CnTMZ4vyi560a5jK8h4paRIjvUrUy20AYQi8-OV-rCXU&tag=1-1647081830-xpcwebsearch-0-d8hn4yw4jf-24b279dc51fc4f46&clientCacheKey=3xeuyzhu3ci9i8k_b.mp4",
+
       ],
       myVideo: null,
     };
@@ -68,6 +74,8 @@ export default {
     this.myVideo.registerChangeButton(this.$refs.prevButton, this.$refs.nextButton);
     this.myVideo.registerVolumeProgress(this.$refs.volumeRange);
     this.myVideo.registerKeyBoardEvent();
+    this.myVideo.registerProgress(this.$refs.progress);
+
   },
   beforeDestroy() {
     this.myVideo.clearAllListener();
@@ -117,12 +125,25 @@ export default {
       height: 100%;
     }
   }
+
   /* 播放器底部 */
   .video-player__footer {
     position: relative;
     width: 100%;
     font-size: 25px;
-
+    .video-progress_box {
+      position: absolute;
+      display: block;
+      top: 1px;
+      width: 100%;
+      height: 2px;
+      z-index: 99;
+      cursor: pointer;
+      background-color: #fff;
+      color: blueviolet;
+      opacity: 0.8;
+      border: none;
+    }
     /* 按钮 */
     .video-player__btngroup {
       display: flex;

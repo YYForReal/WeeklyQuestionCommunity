@@ -6,12 +6,11 @@
 
     <h1 class="main-article-title markdown"> {{article.title}}</h1>
 
-    <div v-if="article.type&&authorInfo!=null">
+    <div v-if="authorInfo!=null">
       <SmallUserBox :user="authorInfo"></SmallUserBox>
     </div>
     <!-- 如果问题有封面就放，没有就不显示了 -->
-    <img class="media-box" v-if="article.img!=null&&article.img!=''" :src="article.img">
-    </img>
+    <img class="media-box" v-if="article.img!=null&&article.img!=''" :src="article.img"></img>
 
     <!-- 用户的文章内容 -->
     <div class="markdown-box-content markdown-body" v-html="article.content"></div>
@@ -103,7 +102,7 @@ export default {
         },
         success: function (data) {
           that.authorInfo = data;
-          console.log("getUserInfo", data);
+          console.log("Special getUserInfo", data);
         }
       })
     }
@@ -168,7 +167,6 @@ export default {
 
 <style lang="less">
 .markdown {
-
   a {
     color: #4183c4;
   }
