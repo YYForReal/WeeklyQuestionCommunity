@@ -96,15 +96,4 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
 }
-.theme-dark {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  filter: invert(1) hue-rotate(180deg);
-  img,
-  video,
-  .darkmode-ignore {
-    filter: invert(1) hue-rotate(180deg);
-  }
-}
 </style>

@@ -1,20 +1,15 @@
 <template>
   <div class="modal is-active" v-show="show">
     <div class="modal-background" @click="closeModal"></div>
-    <div class="modal-content" :style="{ overflow: flow }">
+    <div class="modal-content">
       <div class="columns is-centered">
-        <div class="column is-8">
-          <div class="message">
-            <div
-              class="message-header"
-              style="background-color: #ffffff; color: black"
-            >
-              <p class="">{{ title }}</p>
-              <button class="delete" @click="closeModal"></button>
-            </div>
-            <div class="message-body">
-              <slot></slot>
-            </div>
+        <div class="message">
+          <div class="message-header">
+            <p class>{{ title }}</p>
+            <button class="delete" @click="closeModal"></button>
+          </div>
+          <div class="message-body">
+            <slot></slot>
           </div>
         </div>
       </div>
@@ -48,5 +43,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.modal-content {
+  overflow: flow;
+}
+.message-header {
+  background-color: #ffffff;
+  color: black;
+}
+</style>
 
     

@@ -23,7 +23,7 @@ export default {
   },
 };
 </script>
-<style scoped lang="less">
+<style scoped>
 .personal-page {
   width: 100%;
 }

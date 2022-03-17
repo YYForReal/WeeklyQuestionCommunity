@@ -31,9 +31,6 @@ export default {
       baseArr: ["A", "B", "C", "D", "E", "F", "G"],
       showAnswer: false,
       checkTimer:null,
-      // title:'问题标题',
-      // description:'问题描述',
-      // choices:["选项A","选项B","选项C"],
     };
   },
   mounted() {},

@@ -11,11 +11,8 @@
 export default {
   data() {
     return {
-      playing: true,
-      // imgSrc: "https://source.acexy.cn/view/X9Fw0XQ",
-      // errorImage: 'this.src="' + require('https://source.acexy.cn/view/X9Fw0XQ') + '"'  ,
-      // source: "http://music.163.com/song/media/outer/url?id=2081057.mp3",
-      nowIndex:0,
+      playing: true,//播放状态
+      nowIndex:0,//当前播放序号
       sources: [
         "http://music.163.com/song/media/outer/url?id=1841231031.mp3",//君子行
         "http://music.163.com/song/media/outer/url?id=1911689798.mp3",//还是笨小孩
@@ -45,7 +42,6 @@ export default {
   methods: {
     handleClick() {
       this.playing = !this.playing;
-      // if(this.playing)
       if (this.playing) {
         this.$refs.audioRef.play();
       } else {

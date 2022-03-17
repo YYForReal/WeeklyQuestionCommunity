@@ -51,7 +51,6 @@
 import ArticleButtonBox from "./ArticleButtonBox.vue";
 import WaitingBox from "@/components/WaitingBox/WaitingBox3.vue";
 
-// import { marked } from "marked";
 export default {
   data() {
     return {

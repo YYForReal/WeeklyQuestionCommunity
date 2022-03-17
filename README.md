@@ -2,7 +2,7 @@
 
 > 基于“仿知乎”项目改造的 问答社区。
 > 在线查看：http://yywebsite.cn/community/
-
+> 对应的后端Springboot仓库：https://github.com/YYForReal/WeeklyQuestionCommunityBackend/tree/master
 
 ## 一. 更新内容
 - 内容方面：
@@ -11,7 +11,7 @@
   3. 修改个人主页设置样式，优化用户体验。
   4. 编辑组件引入maven-editor，增加可实时修改的工具栏。
   5. 引入音乐唱片。
-  6. 去除无用的视频卡片，修改为展示视频。
+  6. 去除无用的视频卡片，修改为展示视频，自定义视频播放器。
 
 - 性能方面：
   1. 登录，导航组件减少外部样式资源引入。减少打包后的app.css样式资源大小。
@@ -45,10 +45,8 @@
 
 ## 三. 特色
 
-1. jwt加密
-2. 自定义markdown编辑
-3. 自定义个人背景
-
+1. 支持markdown编辑 （引入mavon-editor）
+2. 支持文章封面修改（需七牛云 对象存储 后端支持）
 
 
 ## 三. 项目运行流程

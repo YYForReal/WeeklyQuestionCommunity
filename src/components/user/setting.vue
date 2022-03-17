@@ -26,9 +26,7 @@
                     class="button"
                     @click="verifyPwd"
                     style="background-color: #0066ff; color: white"
-                  >
-                    身份验证
-                  </button>
+                  >身份验证</button>
                 </div>
               </div>
             </div>
@@ -60,9 +58,7 @@
                     class="button"
                     @click="verifyEmail"
                     style="background-color: #0066ff; color: white"
-                  >
-                    身份验证
-                  </button>
+                  >身份验证</button>
                 </div>
               </div>
             </div>
@@ -90,10 +86,7 @@
             <span class="icon is-small is-left">
               <i class="fas fa-lock"></i>
             </span>
-            <span
-              class="icon is-right is-clickable"
-              @click="showPassword('#fa-eye')"
-            >
+            <span class="icon is-right is-clickable" @click="showPassword('#fa-eye')">
               <i class="fas fa-eye" id="fa-eye"></i>
             </span>
           </div>
@@ -122,9 +115,7 @@
               id="modalBtn"
               @click="changePwd"
               style="background-color: #8fc3ff; color: white"
-            >
-              确认
-            </button>
+            >确认</button>
           </div>
         </div>
       </modal>
@@ -149,13 +140,7 @@
 
         <div class="field has-addons">
           <div class="control has-icons-left">
-            <input
-              type="text"
-              class="input"
-              placeholder="请输入4位邮箱验证码"
-              id="emailCode"
-              size="40"
-            />
+            <input type="text" class="input" placeholder="请输入4位邮箱验证码" id="emailCode" size="40" />
             <span class="icon is-small is-left">
               <i class="fas fa-shield"></i>
             </span>
@@ -172,9 +157,7 @@
               id="modalBtn"
               @click="changeEmail"
               style="background-color: #8fc3ff; color: white"
-            >
-              确认
-            </button>
+            >确认</button>
           </div>
         </div>
       </modal>
@@ -438,7 +421,7 @@ export default {
 </script>
 
 <style>
-.container{
+.container {
   margin-bottom: 20px;
 }
 </style>
