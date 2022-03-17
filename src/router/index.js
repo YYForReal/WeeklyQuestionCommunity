@@ -11,7 +11,7 @@ const Person = () => import('@/views/Person')
 const NoFoundComponent = ()=> import('@/components/NoFoundComponent')
 const ArticleList = ()=> import ('@/views/ArticleList')
 const Login = ()=> import ('@/views/Login')
-const RecommendCard = ()=> import ('@/components/ArticleCard/RecommendCard')
+const RecommendList = ()=> import ('@/components/ArticleCard/RecommendList')
 
 
 Vue.use(VueRouter)
@@ -51,8 +51,8 @@ const router = new VueRouter({
             },
             {
               path: 'recommend',
-              name: 'RecommendCard',
-              component: RecommendCard
+              name: 'RecommendList',
+              component: RecommendList
             },
             {
               path: 'hotlist',
