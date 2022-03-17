@@ -13,7 +13,7 @@
     <img class="media-box" v-if="article.img!=null&&article.img!=''" :src="article.img"></img>
 
     <!-- 用户的文章内容 -->
-    <div class="markdown-box-content markdown-body" v-html="article.content"></div>
+    <div class="markdown-box-content markdown-body" v-html="article.content" ref="articleContent"></div>
 
 
     <p>编辑于 {{article.releaseTime}}</p>
@@ -30,8 +30,7 @@
         <a class="article-card-link iconfont icon-icon_comment" @click="handleReview()">
           评论
         </a>
-        <a class="article-card-link iconfont icon-fenxiang1">分享</a>
-        <a class="article-card-link iconfont icon-24gf-ellipsis"></a>
+        <a class="article-card-link iconfont icon-fenxiang1" @click="shareUrl()">分享</a>
       </div>
     </div>
 
@@ -44,9 +43,8 @@
       <a class="article-card-link iconfont icon-pinglun" v-if="reviewsNumber>0"
         @click="handleReview()">{{reviewsNumber}}条评论</a>
       <a class="article-card-link iconfont icon-pinglun" v-else @click="handleReview()">添加评论</a>
-      <a class="article-card-link iconfont icon-fenxiang">分享</a>
+      <a class="article-card-link iconfont icon-fenxiang" @click="shareUrl()">分享</a>
       <a class="article-card-link iconfont icon-shoucang1">收藏</a>
-      <a class="article-card-link iconfont icon-jubao">举报</a>
       <div class="agree-box">
         <a class="article-card-link iconfont icon-31guanzhu1xuanzhong">喜欢</a>
         <a class="article-card-link iconfont icon-wenzhangzhuanzai" v-if="article.type">文章转载</a>
@@ -109,6 +107,20 @@ export default {
 
   },
   methods: {
+    shareUrl() {
+      console.log(this.article);
+      this.$util.copyUrl(
+        this.article.authorName || '问答社区',
+        this.$refs.articleContent.innerText,
+        this.article.type == 1 ? '文章' : '问答',
+        this.$message,
+        this,
+        {
+          type: 'success',
+          message: '链接复制成功，快去转发给自己的好友吧~'
+        }
+      );
+    },
     handleWriteAnswer() {
       this.isWrite = !this.isWrite;
       this.seeReviews = false;

@@ -20,7 +20,7 @@
         :choices="article.choices"
         :time="article.releaseTime"
       ></ChoiceCard> 
-
+      
     </div>
 
     <div v-else-if="errorType">

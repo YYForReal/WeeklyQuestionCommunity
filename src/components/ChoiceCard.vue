@@ -5,6 +5,7 @@
       <h1 class="title">{{ title }}</h1>
     </div>
     <p class="description" v-html="description"></p>
+
     <div class="choice-area">
       <p
         v-for="(choice, index) in choices"
@@ -14,13 +15,12 @@
           showAnswer: choice.isCorrect && showAnswer,
         }"
         @click="handleClickAnswer(choice)"
-      >
-        {{ baseArr[index] }}.{{ choice.content }}
-      </p>
+      >{{ baseArr[index] }}.{{ choice.content }}</p>
     </div>
     <div class="submit-button-area">
       <el-button type="primary" round @click="checkAnswers()">检查</el-button>
       <el-button type="success" round @click="seeAnswers()">答案</el-button>
+      <el-button type="info iconfont icon-fenxiang" round @click="shareUrl()"></el-button>
     </div>
   </div>
 </template>
@@ -30,10 +30,10 @@ export default {
     return {
       baseArr: ["A", "B", "C", "D", "E", "F", "G"],
       showAnswer: false,
-      checkTimer:null,
+      checkTimer: null,
     };
   },
-  mounted() {},
+  mounted() { },
   props: {
     title: {
       type: String,
@@ -61,10 +61,23 @@ export default {
     },
   },
   methods: {
+    shareUrl() {
+      this.$util.copyUrl(
+        '问答社区',
+        this.title,
+        '选择题',
+        this.$message,
+        this,
+        {
+          type: 'success',
+          message: '链接复制成功，快去转发给自己的好友吧~'
+        }
+      );
+    },
     checkAnswers() {
       // 增加定时器 防抖
-      if(this.checkTimer){
-        return ;
+      if (this.checkTimer) {
+        return;
       }
       console.log(this.choices);
       //匹配所有Selected 与 答案
@@ -73,24 +86,24 @@ export default {
           this.$message({
             type: "error",
             message: "答错啦",
-            duration:1000,
+            duration: 1000,
           });
-          this.checkTimer = setTimeout(()=>{
+          this.checkTimer = setTimeout(() => {
             clearTimeout(this.checkTimer);
             this.checkTimer = null;
-          },1000);
+          }, 1000);
           return false;
         }
       }
       this.$message({
         type: "success",
         message: "答对啦",
-        duration:1000,
+        duration: 1000,
       });
-      this.checkTimer = setTimeout(()=>{
+      this.checkTimer = setTimeout(() => {
         clearTimeout(this.checkTimer);
         this.checkTimer = null;
-      },1000);
+      }, 1000);
 
       return true;
     },
@@ -178,7 +191,7 @@ export default {
     }
     p.showAnswer {
       transform-origin: top center;
-      animation:swing 1s;
+      animation: swing 1s;
     }
   }
   .submit-button-area {
