@@ -20,7 +20,7 @@
     <div class="submit-button-area">
       <el-button type="primary" round @click="checkAnswers()">检查</el-button>
       <el-button type="success" round @click="seeAnswers()">答案</el-button>
-      <el-button type="info iconfont icon-fenxiang" round @click="shareUrl()"></el-button>
+      <el-button class="fade-in" :class="{active:hasShow}" type="info iconfont icon-fenxiang" round @click="shareUrl()"></el-button>
     </div>
   </div>
 </template>
@@ -31,6 +31,7 @@ export default {
       baseArr: ["A", "B", "C", "D", "E", "F", "G"],
       showAnswer: false,
       checkTimer: null,
+      hasShow:false,
     };
   },
   mounted() { },
@@ -108,6 +109,7 @@ export default {
       return true;
     },
     seeAnswers() {
+      this.hasShow = true;
       if (this.showAnswer == false) {
         this.showAnswer = true;
         setTimeout(() => {
@@ -201,6 +203,13 @@ export default {
     .submit-button {
       display: block;
     }
+  }
+  .fade-in{
+    opacity: 0;
+    transition: all 1s;
+  }
+  .fade-in.active{
+    opacity: 1;
   }
 }
 
