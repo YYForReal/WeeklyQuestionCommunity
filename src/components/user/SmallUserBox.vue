@@ -20,15 +20,15 @@
         <div class="person-details">
           <div>
             <p>文章</p>
-            <h3>{{author.number}}</h3>
+            <h3>{{author.articles || author.number}}</h3>
           </div>
           <div>
             <p>问答</p>
-            <h3>{{author.number}}</h3>
+            <h3>{{author.questions || author.number}}</h3>
           </div>
           <div>
             <p>选择</p>
-            <h3>{{author.number}}</h3>
+            <h3>{{author.choices || author.number}}</h3>
           </div>
         </div>
       </div>
@@ -53,6 +53,7 @@
   </div>
 </template>
 <script>
+import http from '@/utils/http.js';
 export default {
   data() {
     return {
@@ -72,8 +73,14 @@ export default {
   },
   mounted() {
     if (this.answer) {
+      console.log("this answer is :",this.answer);
       this.answerFlag = true;
       this.userFlag = false;
+      //authorId
+      http.get(this.baseUrl + "/user/publish/number?userId="+this.answer.authorId).then((data)=>{
+        console.log("http:",data.data);
+        this.author = data.data;
+      })
     }
     if (this.user) {
       console.log("this user is :", this.user);
