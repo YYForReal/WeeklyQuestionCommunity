@@ -52,7 +52,7 @@ export default {
         }
     },
     mounted() {
-        console.log(this.article, this.markContent);
+        // console.log(this.article, this.markContent);
     },
     methods: {
         authorReleaseMessage(article) {

@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-
+import http from "@/utils/http.js"
 export default {
   data() {
     return {
@@ -39,6 +39,9 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  mounted(){
+    console.log(this.review.userId);
   },
   methods: {
     shareUrl() {
