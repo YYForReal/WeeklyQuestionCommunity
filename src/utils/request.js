@@ -7,7 +7,9 @@
 
 // 创建axios实例
 const request = axios.create({
-  baseURL: "http://118.31.165.150:9000",
+  baseURL: "http://118.31.165.150:9630",
+  // baseURL: "http://localhost:9630",
+  
   timeout: 100000,
 });
 

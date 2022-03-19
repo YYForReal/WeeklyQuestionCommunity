@@ -2,7 +2,7 @@
   <div>
     <section v-if="articles.length>0">
       <div class="article-card" v-for="(article,index) in articles">
-        <el-button class="delete-button" type="danger" icon="el-icon-delete" @click="handleDelete()" circle></el-button>
+        <el-button class="delete-button" type="danger" icon="el-icon-delete" @click="handleDelete(article.articleId)" circle></el-button>
         <el-button class="edit-button" type="primary" icon="el-icon-edit" @click="handleEdit(article)" circle></el-button>
         <div class="time-release"> {{article.releaseTime}}</div>
         <h1 class="article-card-title canTap" @click="TurnToArticle(article.articleId)">
@@ -46,7 +46,8 @@
 </template>
 <script>
 import WaitingBox from "@/components/WaitingBox/WaitingBox2.vue";
-// import http from "@/utils/http";
+import http from "@/utils/http.js";
+
 export default {
   data() {
     return {
@@ -101,7 +102,7 @@ export default {
   },
   watch: {
     articles: {
-      handler(newValue) {},
+      handler(newValue) { },
       deep: true,
     },
   },
@@ -152,38 +153,40 @@ export default {
         params: { type: 1, defaultArticle: article },
       });
     },
-    handleDelete() {
+    handleDelete(articleId) {
       this.$confirm("此操作将永久删除该文章, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
       })
         .then(() => {
-          // http
-          //   .post("/userwork/delete", {
-          //     videoId: this.video._id,
-          //   })
-          //   .then((res) => {
-          //     if (res.data.code == 400) {
-          //       this.$message({
-          //         type: "error",
-          //         message: res.data.data.msg,
-          //       });
-          //     } else {
-          //       this.$message({
-          //         type: "success",
-          //         message: "删除成功",
-          //       });
-          //     }
-          //   })
-          //   .catch((err) => {
-          //     this.$message({
-          //       type: "error",
-          //       message: err,
-          //     });
-          //   });
+          http
+            .post("/article/delete", {
+              articleId
+            })
+            .then((res) => {
+              console.log(res);
+              // if (res.data.code == 400) {
+              //   this.$message({
+              //     type: "error",
+              //     message: res.data.data.msg,
+              //   });
+              // } else {
+                this.$message({
+                  type: "success",
+                  message: "删除成功",
+                });
+              // }
+            })
+            .catch((err) => {
+              this.$message({
+                type: "error",
+                message: err,
+              });
+            });
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log("delte",err);
           this.$message({
             type: "info",
             message: "已取消删除",

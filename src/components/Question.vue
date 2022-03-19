@@ -94,7 +94,7 @@ export default {
     if (this.article.type == 1) {
       $.ajax({
         type: 'get',
-        url: that.baseUrl + '/user/getchoiceUserInfo',
+        url: that.baseUrl + '/user/getUserInfo',
         data: {
           userId: that.article.authorId,
         },
