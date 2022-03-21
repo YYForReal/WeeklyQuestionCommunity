@@ -2,37 +2,10 @@
   <div class="user-info">
     <div class="user-img" v-if="answerFlag" >
       <!-- 默认头像 -->
-      <img :src="answer.authorAvatar?answer.authorAvatar:'https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg'"
-      @mouseenter="isDetails = true;" @mouseleave="isDetails = false;">
+      <img :src="avatar"
+      @mouseenter="isDetails = true;" >
     </div>
-    <transition name="el-zoom-in-top">
-      <div class="person-box" v-show="isDetails" @mouseover = "isDetails = true;" @mouseleave = "isDetails = false;">
-        <div class="user-img inner-user-img" v-if="answerFlag" >
-          <!-- 默认头像 -->
-          <img :src="answer.authorAvatar?answer.authorAvatar:'https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg'"
-          @mouseenter="isDetails = true;" @mouseleave="isDetails = false;">
-        </div>
-        <div class="user-name inner-user-name" v-if="answerFlag">
-          <el-button class="focus-button" @click="handleFocus">关注</el-button>
-          <h2>{{answer.authorName==null?'匿名用户':answer.authorName}} <i class="iconfont icon-huiyuan orange"></i></h2>
-          <p class="user-description">{{answer.authorDescription==null?'':answer.authorDescription}}</p>
-        </div>
-        <div class="person-details">
-          <div>
-            <p>文章</p>
-            <h3>{{author.articleNum || author.number}}</h3>
-          </div>
-          <div>
-            <p>问答</p>
-            <h3>{{author.questionNum || author.number}}</h3>
-          </div>
-          <div>
-            <p>选择</p>
-            <h3>{{author.choiceNum || author.number}}</h3>
-          </div>
-        </div>
-      </div>
-    </transition>
+
 
     <div class="user-name" v-if="answerFlag">
       <strong>{{answer.authorName==null?'匿名用户':answer.authorName}} <i class="iconfont icon-huiyuan orange"></i>
@@ -42,26 +15,54 @@
 <!-- 此处后端传值不统一，故条件判断来设置用户头信息 -->
     <div class="user-img" v-if="userFlag">
       <!-- 默认头像 -->
-      <img :src="user.avatar?user.avatar:'https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg'">
+      <img :src="avatar">
     </div>
     <div class="user-name" v-if="userFlag">
       <strong>{{user.userName==null?'匿名用户':user.userName}} <i class="iconfont icon-huiyuan orange"></i>
       </strong>
       <p class="user-description">{{user.description==null?'':user.description}}</p>
     </div>
+    <el-collapse-transition>
+      <UserBox v-show="isDetails"
+        :avatar = "avatar"
+        :userId = "userId"
+        :username = "username"
+        :description = "description"
+        :canShow = "canShow"
+        ></UserBox>
+    </el-collapse-transition>
 
   </div>
 </template>
 <script>
-import http from "@/utils/http.js";
-
+import UserBox from "./UserBox.vue"
 export default {
   data() {
     return {
       answerFlag: false,
       userFlag: false,
       isDetails: false,
-      author: { number: 5 }
+    }
+  },
+  components: {
+    UserBox
+  },
+  computed: {
+    avatar() {
+      if (this.answer) return this.answer.authorAvatar ? this.answer.authorAvatar : 'https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg'
+      else if (this.user) return this.user.avatar ? this.user.avatar : 'https://p3.itc.cn/images01/20211016/27d2478466b44b168a20a8255cf8334c.jpeg'
+    },
+    description() {
+      if (this.userFlag) return this.user.description;
+      else if (this.answerFlag) return this.answer.authorDescription;
+    },
+    username() {
+      if (this.userFlag) return this.user.userName;
+      else if (this.answerFlag) return this.answer.authorName;
+    },
+    userId() {
+      if (this.userFlag) return this.user.userId;
+      else if (this.answerFlag) return this.answer.authorId;
     }
   },
   props: {
@@ -87,11 +88,13 @@ export default {
       this.answerFlag = false;
       userId = this.user.userId;
     }
-    http.get(this.baseUrl + "/user/getUserCardInfo?userId=" + userId).then((data) => {
-      console.log("http:", data.data);
-      this.author = data.data;
-    })
 
+
+  },
+  methods: {
+    canShow() {
+      this.isDetails = false;
+    },
   },
 }
 
@@ -122,41 +125,6 @@ export default {
     margin: 0;
     .user-description {
       font-size: 14px;
-    }
-  }
-  .person-box {
-    position: absolute;
-    top: -10px;
-    width: 400px;
-    height: 200px;
-    background-color: rgb(159, 216, 238);
-    opacity: 0.98;
-    z-index: 999;
-    animation: showIn 1s;
-    .inner-user-img {
-      width: 80px;
-      height: 80px;
-    }
-    .inner-user-name {
-      max-width: 300px;
-      text-overflow: ellipsis;
-      .focus-button {
-        position: absolute;
-        right: 0;
-        top: 10px;
-        z-index: 9999;
-      }
-      h2 {
-        display: block;
-        color: rgb(162, 0, 255);
-        width: 300px;
-      }
-    }
-    .person-details {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 10px;
-      text-align: center;
     }
   }
 }
