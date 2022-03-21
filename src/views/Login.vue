@@ -156,7 +156,7 @@
 <script>
 import Tab from "@/components/login/loginTab.vue";
 import Tabs from "@/components/login/loginTabs.vue";
-
+import {mapMutations} from 'vuex';
 export default {
   data() {
     return {
@@ -210,9 +210,10 @@ export default {
     seeLoginPwd() {
       this.seen = !this.seen;
     },
-    sendState(state) {
-      this.$E.$emit("State", state);
-    },
+    ...mapMutations(["setUserInfo","setLogin"]),
+    // sendState(state) {
+    //   this.$E.$emit("State", state);
+    // },
     // 点击登录按钮后的事件
     Login() {
       // 密码输入框
@@ -261,14 +262,15 @@ export default {
                 userId: that.login_userId,
                 password: md5Pwd,
               };
+              that.setUserInfo(user);
               user = JSON.stringify(user);
               console.log(typeof user);
               // TODO
               // 保存用户id和密码
               localStorage.setItem("user", user);
               console.log("创建Storage: " + localStorage.getItem("user"));
-              that.sendState(true);
-
+              // that.sendState(true);
+              that.setLogin(true);
               that.$router.push("/articleList/hotlist");
             } else {
               that.setDangerInfo(userPwdInfo);
@@ -360,8 +362,9 @@ export default {
           // TODO
           // 保存用户id和密码
           localStorage.setItem("user", user);
+          that.setUserInfo(user);
           console.log("创建Storage: " + localStorage.getItem("user"));
-          that.sendState(true);
+          that.setLogin(true);
           that.$router.push("/articleList/hotlist");
         },
         error: function () {

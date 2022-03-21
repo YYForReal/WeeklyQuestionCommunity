@@ -136,6 +136,7 @@ module.exports = {
   externals:{
     'vue': 'Vue',
     'vue-router': 'VueRouter',
+    'vuex':'Vuex',
     'ElementUI': 'ELEMENT',
     'axios': 'axios',
     'dompurify':'DomPurify',

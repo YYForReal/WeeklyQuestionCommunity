@@ -20,6 +20,12 @@ export default {
   components: {
     NavHeader,
   },
+  created() {
+    if (localStorage.getItem("user") == null) {
+      this.$store.commit
+    }
+
+  },
   mounted() {
     console.log(navigator.userAgent);
     this.isPC = !this.isMobile();

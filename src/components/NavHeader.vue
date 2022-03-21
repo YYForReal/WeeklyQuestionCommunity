@@ -114,38 +114,38 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
 export default {
   data() {
     return {
-      loginState: this.isLogin(),
     };
   },
-  computed: {},
+  computed: {
+    loginState(){
+      return this.$store.state.isLogin;
+    }
+  },
   watch: {},
   mounted() {
-    this.$E.$on("State", (state) => {
-      this.loginState = state;
-    });
+    // this.$E.$on("State", (state) => {
+    //   this.loginState = state;
+    // });
   },
   methods: {
-    isLogin() {
-      if (localStorage.getItem("user") == null) {
-        return false;
-      } else {
-        return true;
-      }
-    },
+    ...mapMutations(["setLogin","setUserInfo"]),
     logout() {
+      console.log("navHeader get userInfo from vuex :",this.$store.state.userInfo);
       localStorage.removeItem("user");
       console.log("removeItem");
-      this.state = false;
-
+      // this.state = false;
+      this.setLogin(false);
+      this.setUserInfo(null);
       // 如果不在首页，跳转回首页
       if (this.$route.path != "/") {
         this.$router.push("/");
       }
       // 刷新页面
-      this.$router.go(0);
+      // this.$router.go(0);
 
       this.$message({
         type: "success",

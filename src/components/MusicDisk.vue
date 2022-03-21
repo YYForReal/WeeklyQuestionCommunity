@@ -4,14 +4,14 @@
       src="https://source.acexy.cn/view/X9Fw0XQ"
       onerror="this.src='https://source.acexy.cn/view/X9Fw0XQ'"
     />
-    <audio ref="audioRef" :src="sources[nowIndex]" autoplay></audio>
+    <audio ref="audioRef" :src="sources[nowIndex]" preload muted></audio>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      playing: true,//播放状态
+      playing: false,//播放状态
       nowIndex:0,//当前播放序号
       sources: [
         "http://music.163.com/song/media/outer/url?id=1841231031.mp3",//君子行
@@ -33,7 +33,7 @@ export default {
         this.nowIndex = (this.nowIndex+1)%this.sources.length;
         this.$refs.audioRef.load();
       }
-      console.log(this.$refs);
+      // console.log(this.$refs);
 
     } catch (err) {
       console.log("set audio volume error", err);

@@ -10,9 +10,20 @@ import BackTop from "@/components/BackTop.vue";
 import MusicDisk from "@/components/MusicDisk.vue";
 export default {
   name: "App",
-  components: {
+  components:  {
     BackTop,
     MusicDisk,
+  },
+  created(){
+    let str = window.localStorage.getItem("user");
+    if(str == null){
+      this.$store.commit("setLogin",false);
+    }else{
+      this.$store.commit("setLogin",true);
+      this.$store.state.userInfo = JSON.parse(str);
+      console.log(this.$store.state);
+
+    }
   },
   mounted() {
     // 展示上次浏览的历史文章

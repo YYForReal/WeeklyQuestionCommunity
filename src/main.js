@@ -3,6 +3,7 @@
 // import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 // import ElementUI from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';
 
@@ -14,6 +15,9 @@ import '@/assets/css/bulma.min.css';
 
 import md5 from 'md5';
 import util from '@/assets/js/utils.js'
+import Vuex from 'vuex'
+ 
+Vue.use(Vuex)
 
 // import jwt from 'jsonwebtoken';
 // import mavonEditor from 'mavon-editor'
@@ -27,12 +31,13 @@ Vue.config.productionTip = false
 // Vue.use(ElementUI);
 Vue.use(MavonEditor)
 
-var Event = new Vue();//定义一个空的Vue实例
-Vue.prototype.$E = Event;
+// var Event = new Vue();//定义一个空的Vue实例
+// Vue.prototype.$E = Event;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
