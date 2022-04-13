@@ -185,20 +185,16 @@ export default {
     console.log("userString:", userString);
     this.user = JSON.parse(userString);
 
-    let that = this;
-    $.ajax({
-      type: "get",
-      url: that.baseUrl + "/review/getReviews",
-      async: true,
-      data: {
-        articleId: that.articleId,
-        type: that.type,
-      },
-      success: function (data) {
-        console.log(typeof data, data);
-        that.reviews = data;
-      },
-    });
+    let form = {
+      url: this.baseUrl + "/review/getReviews",
+      articleId: this.articleId,
+      type: this.type,
+    };
+
+    let p = this.$store.dispatch("getReviews", form);
+    p.then((data) => {
+      this.reviews = data;
+    })
   },
   watch: {
     articleId: {
@@ -230,7 +226,7 @@ export default {
       },
     },
     reviews: {
-      handler() {},
+      handler() { },
       deep: true,
     },
   },

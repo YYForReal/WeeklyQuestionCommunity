@@ -38,20 +38,17 @@ export default {
   },
   mounted() {
     //获取评论个数
-    let that = this;
-    $.ajax({
-      type: "get",
-      url: that.baseUrl + "/review/getReviews",
-      async: true,
-      data: {
-        articleId: that.article.articleId,
-        type: Number(that.article.type),
-      },
-      success: function (data) {
-        // console.log(typeof data, data);
-        that.reviews = data;
-      },
-    });
+    let form = {
+      url: this.baseUrl + "/review/getReviews",
+        articleId: this.article.articleId,
+        type: Number(this.article.type),
+    };
+
+    let p = this.$store.dispatch("getReviews", form);
+    p.then((data) => {
+      this.reviewsNumber = data.length;
+      this.reviews = data;
+    })
   },
   props: {
     article: {

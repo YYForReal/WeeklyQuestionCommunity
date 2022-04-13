@@ -156,18 +156,17 @@ export default {
         let that = this;
 
         let form = {
+          url:that.baseUrl + "/review/getReviews",
           articleId: this.article.articleId,
           type: Number(this.article.type), //回答是0
         };
-        $.ajax({
-          type: "get",
-          url: that.baseUrl + "/review/getReviews",
-          async: true,
-          data: form,
-          success: function (data) {
-            that.reviewsNumber = data.length;
-            console.log("reviewsLength: ", that.reviewsNumber);
-          }
+        
+        let p = this.$store.dispatch("getReviews",form);
+        p.then((data)=>{
+          this.reviewsNumber = data.length;
+          console.log("reviewsLength: ", this.reviewsNumber);
+        },(reason)=>{
+          console.log("error:",reason);
         })
       },
       deep: true

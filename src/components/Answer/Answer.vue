@@ -74,41 +74,31 @@ export default {
     handleReview() {
       this.seeReviews = !this.seeReviews;
       console.log("chek");
-
+    },
+    // 发送赞同请求
+    addAgree(agreeNumber) {
+      $.ajax({
+        type: "post",
+        url: that.baseUrl + "/answer/agree",
+        async: true,
+        data: {
+          answerId: that.answer.answerId,
+          agreeNumber
+        },
+        success: function (data) {
+          console.log(typeof data, data);
+        }
+      })
     },
     handleAgree() {
       let that = this;
       this.isAgree = !this.isAgree;
       if (this.isAgree) {
         this.answer.agree++;
-        $.ajax({
-          type: "post",
-          url: that.baseUrl + "/answer/agree",
-          async: true,
-          data: {
-            answerId: that.answer.answerId,
-            agreeNumber: 1
-          },
-          success: function (data) {
-            console.log(typeof data, data);
-            // that.article = data;
-          }
-        })
+        this.addAgree(1);
       } else {
         this.answer.agree--;
-        $.ajax({
-          type: "post",
-          url: that.baseUrl + "/answer/agree",
-          async: true,
-          data: {
-            answerId: that.answer.answerId,
-            agreeNumber: -1
-          },
-          success: function (data) {
-            console.log(typeof data, data);
-            // that.article = data;
-          }
-        })
+        this.addAgree(-1);
       }
     },
     translateContent() {
@@ -147,21 +137,15 @@ export default {
   watch: {
     answer: {
       handler(newValue) {
-        let that = this;
-
         let form = {
+          url:this.baseUrl + "/review/getReviews",
           articleId: this.answer.answerId,
           type: 0, //回答是0
         };
-        $.ajax({
-          type: "get",
-          url: that.baseUrl + "/review/getReviews",
-          async: true,
-          data: form,
-          success: function (data) {
-            that.reviewsNumber = data.length;
-            console.log("reviewsLength: ", that.reviewsNumber);
-          }
+
+        let p = this.$store.dispatch("getReviews",form);
+        p.then((data)=>{
+          this.reviewsNumber = data.length;
         })
       },
       deep: true
@@ -207,20 +191,21 @@ export default {
   word-break: keep-all;
 }
 
-.one-answer-content >>> p {
+.one-answer-content>>>p {
   margin: 15px;
   line-height: 1.5rem;
   letter-spacing: 0.1rem;
   text-indent: 2rem;
 }
 
-.one-answer-content >>> img {
+.one-answer-content>>>img {
   min-width: 300px !important;
   max-width: 600px !important;
   margin: 0 auto;
   display: block;
 }
-.one-answer-content >>> code {
+
+.one-answer-content>>>code {
   min-width: 300px !important;
   max-width: 900px !important;
   margin: 0 auto;
