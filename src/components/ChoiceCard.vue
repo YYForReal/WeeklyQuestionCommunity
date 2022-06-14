@@ -5,6 +5,7 @@
       <h1 class="title">{{ title }}</h1>
     </div>
     <p class="description" v-html="description"></p>
+
     <div class="choice-area">
       <p
         v-for="(choice, index) in choices"
@@ -14,29 +15,27 @@
           showAnswer: choice.isCorrect && showAnswer,
         }"
         @click="handleClickAnswer(choice)"
-      >
-        {{ baseArr[index] }}.{{ choice.content }}
-      </p>
+      >{{ baseArr[index] }}.{{ choice.content }}</p>
     </div>
     <div class="submit-button-area">
       <el-button type="primary" round @click="checkAnswers()">检查</el-button>
       <el-button type="success" round @click="seeAnswers()">答案</el-button>
+      <el-button class="fade-in" :class="{active:hasShow}" type="info iconfont icon-fenxiang" round @click="shareUrl()"></el-button>
     </div>
   </div>
 </template>
 <script>
+// import {marked} from 'marked'
 export default {
   data() {
     return {
       baseArr: ["A", "B", "C", "D", "E", "F", "G"],
       showAnswer: false,
-      checkTimer:null,
-      // title:'问题标题',
-      // description:'问题描述',
-      // choices:["选项A","选项B","选项C"],
+      checkTimer: null,
+      hasShow:false,
     };
   },
-  mounted() {},
+  mounted() { },
   props: {
     title: {
       type: String,
@@ -64,10 +63,23 @@ export default {
     },
   },
   methods: {
+    shareUrl() {
+      this.$util.copyUrl(
+        '问答社区',
+        this.title,
+        '选择题',
+        this.$message,
+        this,
+        {
+          type: 'success',
+          message: '链接复制成功，快去转发给自己的好友吧~'
+        }
+      );
+    },
     checkAnswers() {
       // 增加定时器 防抖
-      if(this.checkTimer){
-        return ;
+      if (this.checkTimer) {
+        return;
       }
       console.log(this.choices);
       //匹配所有Selected 与 答案
@@ -76,28 +88,29 @@ export default {
           this.$message({
             type: "error",
             message: "答错啦",
-            duration:1000,
+            duration: 1000,
           });
-          this.checkTimer = setTimeout(()=>{
+          this.checkTimer = setTimeout(() => {
             clearTimeout(this.checkTimer);
             this.checkTimer = null;
-          },1000);
+          }, 1000);
           return false;
         }
       }
       this.$message({
         type: "success",
         message: "答对啦",
-        duration:1000,
+        duration: 1000,
       });
-      this.checkTimer = setTimeout(()=>{
+      this.checkTimer = setTimeout(() => {
         clearTimeout(this.checkTimer);
         this.checkTimer = null;
-      },1000);
+      }, 1000);
 
       return true;
     },
     seeAnswers() {
+      this.hasShow = true;
       if (this.showAnswer == false) {
         this.showAnswer = true;
         setTimeout(() => {
@@ -181,7 +194,7 @@ export default {
     }
     p.showAnswer {
       transform-origin: top center;
-      animation:swing 1s;
+      animation: swing 1s;
     }
   }
   .submit-button-area {
@@ -191,6 +204,13 @@ export default {
     .submit-button {
       display: block;
     }
+  }
+  .fade-in{
+    opacity: 0;
+    transition: all 1s;
+  }
+  .fade-in.active{
+    opacity: 1;
   }
 }
 

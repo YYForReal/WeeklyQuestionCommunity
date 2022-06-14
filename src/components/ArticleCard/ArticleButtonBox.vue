@@ -8,7 +8,7 @@
     </div>
     <a class="article-card-link iconfont icon-pinglun" v-if="reviews.length==0" @click="handleReview()">添加评论</a>
     <a class="article-card-link iconfont icon-pinglun" v-else @click="handleReview()">{{reviews.length}}条评论</a>
-    <a class="article-card-link iconfont icon-fenxiang">分享</a>
+    <a class="article-card-link iconfont icon-fenxiang" @click="shareUrl()">分享</a>
     <a class="article-card-link iconfont icon-shoucang1">收藏</a>
     <a class="article-card-link iconfont icon-jubao" v-if="article.agree==0">举报</a>
     <div class="agree-box" v-else>
@@ -23,96 +23,85 @@
   </div>
 </template>
 <script>
-  import ReviewsBox from "@/components/review/ReviewsBox.vue";
+import ReviewsBox from "@/components/review/ReviewsBox.vue";
 
-  export default {
-    data() {
-      return {
-        isAgree: false,
-        seeReviews: false,
-        reviews: [],
-      };
+export default {
+  data() {
+    return {
+      isAgree: false,
+      seeReviews: false,
+      reviews: [],
+    };
+  },
+  components: {
+    ReviewsBox,
+  },
+  mounted() {
+    //获取评论个数
+    let form = {
+      url: this.baseUrl + "/review/getReviews",
+      articleId: this.article.articleId,
+      type: Number(this.article.type),
+    };
+
+    let p = this.$store.dispatch("getReviews", form);
+    p.then((data) => {
+      this.reviewsNumber = data.length;
+      this.reviews = data;
+    })
+  },
+  props: {
+    article: {
+      type: Object,
+      required: true,
     },
-    components: {
-      ReviewsBox,
-    },
-    mounted() {
-      //获取评论个数
-      let that = this;
-      $.ajax({
-        type: "get",
-        url: that.baseUrl + "/review/getReviews",
-        async: true,
-        data: {
-          articleId: that.article.articleId,
-          type: Number(that.article.type),
-        },
-        success: function (data) {
-          // console.log(typeof data, data);
-          that.reviews = data;
-        },
-      });
-    },
-    props: {
-      article: {
-        type: Object,
-        required: true,
+  },
+  watch: {
+    article: {
+      handler(newValue) {
+        //console.log(newValue);
       },
+      deep: true,
     },
-    watch: {
-      article: {
-        handler(newValue) {
-          //console.log(newValue);
-        },
-        deep: true,
-      },
-      reviews: {
-        handler(newValue) {},
-        deep: true,
-      },
+    reviews: {
+      handler(newValue) { },
+      deep: true,
     },
-    methods: {
-      handleReview() {
-        this.seeReviews = !this.seeReviews;
-        console.log("chek");
-      },
-      handleAgree() {
-        let that = this;
-        this.isAgree = !this.isAgree;
-        if (this.isAgree) {
-          this.article.agree++;
-          $.ajax({
-            type: "post",
-            url: that.baseUrl + "/article/agree",
-            async: true,
-            data: {
-              articleId: that.article.articleId,
-              agreeNumber: 1,
-            },
-            success: function (data) {
-              // console.log(typeof data, data);
-              // that.article = data;
-            },
-          });
-        } else {
-          this.article.agree--;
-          $.ajax({
-            type: "post",
-            url: that.baseUrl + "/article/agree",
-            async: true,
-            data: {
-              articleId: that.article.articleId,
-              agreeNumber: -1,
-            },
-            success: function (data) {
-              // console.log(typeof data, data);
-              // that.article = data;
-            },
-          });
+  },
+  methods: {
+    shareUrl() {
+      this.$util.copyUrl(
+        this.article.authorName,
+        this.article.title,
+        '文章',
+        this.$message,
+        this,
+        {
+          type: 'success',
+          message: '链接复制成功，快去转发给自己的好友吧~'
         }
-      },
+      );
     },
-  };
+    handleReview() {
+      this.seeReviews = !this.seeReviews;
+      // console.log("chek");
+    },
+    handleAgree() {
+      let that = this;
+      let agreeNumber = 0 - ((this.isAgree + 0) * 2 - 1);
+      this.isAgree = !this.isAgree;
+      this.article.agree += agreeNumber;
+      let p = this.$store.dispatch("postArticleAgree", {
+        url: this.baseUrl + "/article/agree",
+        articleId: this.article.articleId,
+        agreeNumber,
+      })
+      p.then((data) => {
+        console.log("点赞成功：", typeof data, data);
+      })
+    },
+  },
+};
 
 </script>
 <style lang="" scoped>

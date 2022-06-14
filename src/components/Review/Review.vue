@@ -12,13 +12,13 @@
       </div>
     </div>
 
-    <div class="one-answer-content" v-html="review.content">
+    <div class="one-answer-content" v-html="review.content" ref="reviewContent">
       <!-- 填充 用户输入的内容 -->
     </div>
     <div class="answers-bottom">
       <a class="article-card-link iconfont icon-dianzan" :class="{blue:isAgree}"
         @click="handleAgree()">{{review.agree==0?'':review.agree}}</a>
-      <a class="article-card-link iconfont icon-fenxiang " :class="{'hover-none': !isHover,'hover-display':isHover}">分享</a>
+      <a class="article-card-link iconfont icon-fenxiang " :class="{'hover-none': !isHover,'hover-display':isHover}" @click="shareUrl()">分享</a>
       <a class="article-card-link iconfont icon-shoucang1 " :class="{'hover-none': !isHover,'hover-display':isHover}">收藏</a>
       <a class="article-card-link iconfont icon-jubao " :class="{'hover-none': !isHover,'hover-display':isHover}">举报</a>
     </div>
@@ -26,6 +26,7 @@
   </div>
 </template>
 <script>
+// import http from "@/utils/http.js"
 export default {
   data() {
     return {
@@ -39,7 +40,22 @@ export default {
       required: true,
     },
   },
+  mounted(){
+    console.log(this.review.userId);
+  },
   methods: {
+    shareUrl() {
+      this.$util.copyUrl(this.answer.authorName,
+        this.$refs.answerContent.innerText,
+        '回答',
+        this.$message,
+        this,
+        {
+          type: 'success',
+          message: '链接复制成功，快去转发给自己的好友吧~'
+        }
+      );
+    },
     handleAgree() {
       let that = this;
       this.isAgree = !this.isAgree;
