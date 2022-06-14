@@ -1,6 +1,6 @@
 # 学生问答社区
 
-> 基于“仿知乎”项目改造的 问答社区。
+> 基于“仿知乎”项目（Web课程大作业）迭代改造的 问答社区。
 > 在线查看：http://yywebsite.cn/community/
 
 
@@ -12,6 +12,7 @@
   4. 编辑组件引入maven-editor，增加可实时修改的工具栏。
   5. 引入音乐唱片。
   6. 去除无用的视频卡片，修改为展示视频。
+  7. 实现分享链接,点击按钮后自动拷贝链接内容到剪贴板
 
 - 性能方面：
   1. 登录，导航组件减少外部样式资源引入。减少打包后的app.css样式资源大小。
@@ -20,7 +21,6 @@
   4. 去掉编译文件中的map文件。 config/index.js --->productionSourceMap
   5. cdn方式引入第三方库：element-ui，vuex，vue-router。配置webpack.config.js中externals:减少import，打包后vendor.js体积减少0.7MB。
   
- 
 - 代码结构：
   1. 增加views，以及components目录下的内容划分。
   2. 逐步修改各个组件的CSS样式，尽可能达到响应式的布局。（DOING）
@@ -67,15 +67,10 @@ npm run build
 npm run build --report
 ```
 
-## 四. 相关依赖介绍
-
-1. maven-editor
-2. axios
-3. ElementUI
-
-## 五. 即将实现
+## 四. 即将实现
 1. 全文检索
 2. 用户关注、收藏、动态
 3. 用户之间私聊
 4. 动态推送已关注的问题（是否有新回答）
 5. 回答的点赞、评论通知
+
